@@ -4,24 +4,11 @@ function showModule(moduleId) {
         section.classList.remove('active');
     });
 
-    document.querySelectorAll('.tabs button').forEach(button => {
-        button.classList.remove('active-tab');
-    });
-
     const activeModule = document.getElementById(moduleId);
-    activeModule.classList.remove('hidden');
-    activeModule.classList.add('active');
-
-    let buttonText = '';
-    if (moduleId === 'mtk') buttonText = 'Matematika & Fisika';
-    else if (moduleId === 'kesehatan') buttonText = 'Kesehatan & Kebugaran';
-    else if (moduleId === 'game') buttonText = 'Minigame Bahasa';
-
-    document.querySelectorAll('.tabs button').forEach(button => {
-        if (button.textContent.trim() === buttonText) {
-            button.classList.add('active-tab');
-        }
-    });
+    if (activeModule) {
+        activeModule.classList.remove('hidden');
+        activeModule.classList.add('active');
+    }
 }
 
 function showSubMtk(subMtkId) {
@@ -30,17 +17,11 @@ function showSubMtk(subMtkId) {
         content.classList.remove('active');
     });
 
-    document.querySelectorAll('.mtk-submenu button').forEach(button => {
-        button.classList.remove('active-submtk');
-    });
-
     const activeSubMtk = document.getElementById(subMtkId);
     if (activeSubMtk) {
         activeSubMtk.classList.remove('hidden');
         activeSubMtk.classList.add('active');
     }
-
-    document.querySelector(`.mtk-submenu button[onclick="showSubMtk('${subMtkId}')"]`).classList.add('active-submtk');
 }
 
 function hitungLuasLingkaran() {
@@ -53,7 +34,6 @@ function hitungLuasLingkaran() {
     }
 
     const Luas = Math.PI * Math.pow(r, 2);
-
     hasilElement.textContent = Luas.toFixed(2);
 }
 
@@ -177,9 +157,39 @@ function cekJawaban() {
     }
 }
 
-document.addEventListener('DOMContentLoaded', inisialisasiGame);
-
 document.addEventListener('DOMContentLoaded', () => {
     showModule('mtk');
+    document.querySelector('.tabs button[data-module="mtk"]').classList.add('active-tab');
+    
     showSubMtk('mtk-default');
+    
+    inisialisasiGame();
+
+    const tabButtons = document.querySelectorAll('.tabs button');
+    tabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            tabButtons.forEach(btn => btn.classList.remove('active-tab'));
+            button.classList.add('active-tab');
+            const moduleId = button.dataset.module;
+            showModule(moduleId);
+        });
+    });
+
+    const subMtkButtons = document.querySelectorAll('.mtk-submenu button');
+    subMtkButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            subMtkButtons.forEach(btn => btn.classList.remove('active-submtk'));
+            button.classList.add('active-submtk');
+            const subMtkId = button.dataset.submtk;
+            showSubMtk(subMtkId);
+        });
+    });
+
+    document.getElementById('btn-luas-lingkaran').addEventListener('click', hitungLuasLingkaran);
+    document.getElementById('btn-kecepatan').addEventListener('click', hitungKecepatan);
+    document.getElementById('btn-debit').addEventListener('click', hitungDebit);
+    document.getElementById('btn-skala').addEventListener('click', hitungSkala);
+    document.getElementById('btn-persegi-panjang').addEventListener('click', hitungPersegiPanjang);
+    document.getElementById('btn-bmi').addEventListener('click', hitungBMI);
+    document.getElementById('btn-cek-jawaban').addEventListener('click', cekJawaban);
 });
