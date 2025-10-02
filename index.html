@@ -57,7 +57,7 @@
                         <input type="number" id="waktu-kec">
                         <button id="btn-kecepatan">Hitung Kecepatan</button>
                         <p>Kecepatan: <span id="hasil-kecepatan"></span> km/jam</p>
-                        <p class="rumus-info">Rumus: v = s / t (Kecepatan = Jarak / Waktu)</p>
+                        <p class="rumus-info">Rumus: v = s / t</p>
                     </div>
 
                     <div id="debit" class="mtk-subcontent hidden">
@@ -68,7 +68,7 @@
                         <input type="number" id="waktu-deb">
                         <button id="btn-debit">Hitung Debit</button>
                         <p>Debit: <span id="hasil-debit"></span> liter/menit</p>
-                        <p class="rumus-info">Rumus: Q = V / t (Debit = Volume / Waktu)</p>
+                        <p class="rumus-info">Rumus: Q = V / t</p>
                     </div>
 
                     <div id="skala" class="mtk-subcontent hidden">
@@ -84,29 +84,60 @@
 
                     <div id="luas-datar" class="mtk-subcontent hidden">
                         <h3>Luas & Keliling Bangun Datar</h3>
-                        <p>Contoh: **Persegi Panjang**</p>
-                        <label for="p-pp">Panjang:</label><input type="number" id="p-pp">
-                        <label for="l-pp">Lebar:</label><input type="number" id="l-pp">
-                        <button id="btn-persegi-panjang">Hitung</button>
-                        <p>Luas: <span id="luas-pp"></span> | Keliling: <span id="keliling-pp"></span></p>
-                        <p class="rumus-info">Rumus Luas: L = p × l | Rumus Keliling: K = 2(p+l)</p>
+                        <select id="select-luas-datar">
+                            <option value="">--Pilih Bangun Datar--</option>
+                            <option value="persegi">Persegi</option>
+                            <option value="persegi-panjang">Persegi Panjang</option>
+                            <option value="segitiga">Segitiga</option>
+                            <option value="lingkaran">Lingkaran</option>
+                            <option value="jajar-genjang">Jajar Genjang</option>
+                        </select>
+                        <div id="calc-luas-datar" class="calculator-space"></div>
                     </div>
-
+                    
                     <div id="luas-ruang" class="mtk-subcontent hidden">
                         <h3>Luas Permukaan & Volume Bangun Ruang</h3>
-                        <p>... Tempatkan input dan logika Volume/Luas Permukaan di sini ...</p>
+                        <select id="select-luas-ruang">
+                            <option value="">--Pilih Bangun Ruang--</option>
+                            <option value="kubus">Kubus</option>
+                            <option value="balok">Balok</option>
+                            <option value="tabung">Tabung</option>
+                            <option value="kerucut">Kerucut</option>
+                        </select>
+                        <div id="calc-luas-ruang" class="calculator-space"></div>
                     </div>
+
                     <div id="aritmatika" class="mtk-subcontent hidden">
                         <h3>Barisan dan Deret Aritmatika</h3>
-                        <p>... Tempatkan input dan logika Aritmatika di sini ...</p>
+                        <select id="select-aritmatika">
+                            <option value="">--Pilih Perhitungan--</option>
+                            <option value="un">Mencari Suku ke-n (Un)</option>
+                            <option value="sn">Mencari Jumlah n Suku (Sn)</option>
+                        </select>
+                        <div id="calc-aritmatika" class="calculator-space"></div>
                     </div>
+
                     <div id="geometri" class="mtk-subcontent hidden">
                         <h3>Barisan dan Deret Geometri</h3>
-                        <p>... Tempatkan input dan logika Geometri di sini ...</p>
+                         <select id="select-geometri">
+                            <option value="">--Pilih Perhitungan--</option>
+                            <option value="un">Mencari Suku ke-n (Un)</option>
+                            <option value="sn">Mencari Jumlah n Suku (Sn)</option>
+                        </select>
+                        <div id="calc-geometri" class="calculator-space"></div>
                     </div>
+
                     <div id="peluang" class="mtk-subcontent hidden">
-                        <h3>Peluang</h3>
-                        <p>... Tempatkan input dan logika Peluang di sini ...</p>
+                        <h3>Peluang Suatu Kejadian</h3>
+                        <div id="calc-peluang" class="calculator-space">
+                            <p class="rumus-info">Rumus: P(A) = n(A) / n(S)</p>
+                            <label for="peluang-na">Jumlah kasus yang diharapkan (n(A)):</label>
+                            <input type="number" id="peluang-na">
+                            <label for="peluang-ns">Jumlah total semua kemungkinan (n(S)):</label>
+                            <input type="number" id="peluang-ns">
+                            <button id="btn-peluang">Hitung Peluang</button>
+                            <p>Hasil Peluang: <span id="hasil-peluang"></span></p>
+                        </div>
                     </div>
                 </div>
             </div>
