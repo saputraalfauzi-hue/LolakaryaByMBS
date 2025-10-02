@@ -3,175 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lolakarya By MBS - Kalkulator Multitask</title>
-    <meta name="description" content="Aplikasi web untuk perhitungan matematika, fisika, kesehatan, dan minigame edukatif">
+    <title>Lolakarya By MBS</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header role="banner">
-        <h1>Welcome to Multitask</h1>
-        <p class="tagline">Kalkulator Serbaguna untuk Kebutuhan Harian Anda</p>
+    <header>
+        <h1>Welcome</h1>
+        <h1>To Multitask</h1>
     </header>
 
-    <nav class="tabs" role="tablist" aria-label="Modul Aplikasi">
-        <button role="tab" aria-selected="true" aria-controls="mtk" data-module="mtk" id="tab-mtk">
-            Matematika & Fisika
-        </button>
-        <button role="tab" aria-selected="false" aria-controls="kesehatan" data-module="kesehatan" id="tab-kesehatan">
-            Kesehatan & Kebugaran
-        </button>
-        <button role="tab" aria-selected="false" aria-controls="game" data-module="game" id="tab-game">
-            Minigame Bahasa
-        </button>
+    <nav class="tabs">
+        <button data-module="mtk">Matematika & Fisika</button>
+        <button data-module="kesehatan">Kesehatan & Kebugaran</button>
+        <button data-module="game">Minigame Bahasa</button>
     </nav>
 
-    <main id="content-container" role="main">
-        <!-- Notifikasi untuk aksesibilitas -->
-        <div id="live-region" aria-live="polite" aria-atomic="true" class="sr-only"></div>
-
-        <section id="mtk" class="module active" role="tabpanel" aria-labelledby="tab-mtk">
+    <main id="content-container">
+        <section id="mtk" class="module active">
             <h2>Kalkulator Matematika & Fisika</h2>
-            <p class="module-description">Pilih jenis perhitungan dari menu di samping untuk memulai</p>
-            
             <div class="mtk-container">
-                <nav class="mtk-submenu" aria-label="Submenu Matematika dan Fisika">
+                <nav class="mtk-submenu">
                     <h4>Fisika Dasar</h4>
-                    <button data-submtk="kecepatan" aria-describedby="kecepatan-desc">
-                        Kecepatan
-                        <span id="kecepatan-desc" class="sr-only">Menghitung kecepatan berdasarkan jarak dan waktu</span>
-                    </button>
-                    <button data-submtk="debit" aria-describedby="debit-desc">
-                        Debit
-                        <span id="debit-desc" class="sr-only">Menghitung debit berdasarkan volume dan waktu</span>
-                    </button>
-                    <button data-submtk="skala" aria-describedby="skala-desc">
-                        Skala
-                        <span id="skala-desc" class="sr-only">Menghitung skala peta berdasarkan jarak sebenarnya dan jarak peta</span>
-                    </button>
+                    <button data-submtk="kecepatan">Kecepatan</button>
+                    <button data-submtk="debit">Debit</button>
+                    <button data-submtk="skala">Skala</button>
 
                     <h4>Geometri (2D)</h4>
-                    <button data-submtk="luas-datar" aria-describedby="luas-datar-desc">
-                        Luas & Keliling Bangun Datar
-                        <span id="luas-datar-desc" class="sr-only">Menghitung luas dan keliling berbagai bangun datar</span>
-                    </button>
+                    <button data-submtk="luas-datar">Luas & Keliling Bangun Datar</button>
 
                     <h4>Geometri (3D)</h4>
-                    <button data-submtk="luas-ruang" aria-describedby="luas-ruang-desc">
-                        Luas Permukaan & Volume
-                        <span id="luas-ruang-desc" class="sr-only">Menghitung luas permukaan dan volume berbagai bangun ruang</span>
-                    </button>
+                    <button data-submtk="luas-ruang">Luas Permukaan & Volume</button>
 
                     <h4>Aljabar & Statistik</h4>
-                    <button data-submtk="aritmatika" aria-describedby="aritmatika-desc">
-                        Barisan & Deret Aritmatika
-                        <span id="aritmatika-desc" class="sr-only">Menghitung suku ke-n dan jumlah n suku deret aritmatika</span>
-                    </button>
-                    <button data-submtk="geometri" aria-describedby="geometri-desc">
-                        Barisan & Deret Geometri
-                        <span id="geometri-desc" class="sr-only">Menghitung suku ke-n dan jumlah n suku deret geometri</span>
-                    </button>
-                    <button data-submtk="peluang" aria-describedby="peluang-desc">
-                        Peluang
-                        <span id="peluang-desc" class="sr-only">Menghitung peluang suatu kejadian</span>
-                    </button>
+                    <button data-submtk="aritmatika">Barisan & Deret Aritmatika</button>
+                    <button data-submtk="geometri">Barisan & Deret Geometri</button>
+                    <button data-submtk="peluang">Peluang</button>
                 </nav>
 
                 <div class="mtk-content">
-                    <!-- Default Content -->
-                    <div id="mtk-default" class="mtk-subcontent active" role="region" aria-label="Kalkulator Default">
-                        <h3>Selamat Datang di Kalkulator Matematika & Fisika</h3>
+                    <div id="mtk-default" class="mtk-subcontent active">
                         <p>Silakan pilih jenis perhitungan dari menu di samping kiri.</p>
-                        
-                        <div class="example-calc">
-                            <h4>Contoh: Menghitung Luas Lingkaran</h4>
-                            <label for="jari-jari">Masukkan Jari-jari (cm):</label>
-                            <input type="number" id="jari-jari" min="0" step="0.1" aria-describedby="jari-jari-help">
-                            <small id="jari-jari-help" class="input-help">Masukkan angka positif untuk jari-jari lingkaran</small>
-                            
-                            <button id="btn-luas-lingkaran" class="calculate-btn">
-                                <span class="button-text">Hitung Luas</span>
-                                <span class="loading-spinner hidden" aria-hidden="true"></span>
-                            </button>
-                            
-                            <div class="result-container">
-                                <p>Hasil: <span id="hasil-mtk" aria-live="polite">-</span> cm²</p>
-                            </div>
-                        </div>
+                        <p>Contoh Awal: Menghitung Luas Lingkaran.</p>
+                        <label for="jari-jari">Masukkan Jari-jari (cm):</label>
+                        <input type="number" id="jari-jari">
+                        <button id="btn-luas-lingkaran">Hitung Luas</button>
+                        <p>Hasil: <span id="hasil-mtk"></span> cm²</p>
                     </div>
 
-                    <!-- Kecepatan -->
-                    <div id="kecepatan" class="mtk-subcontent hidden" role="region" aria-label="Kalkulator Kecepatan">
+                    <div id="kecepatan" class="mtk-subcontent hidden">
                         <h3>Kecepatan</h3>
-                        <p class="calc-description">Menghitung kecepatan berdasarkan jarak dan waktu tempuh</p>
-                        
                         <label for="jarak-kec">Jarak (km):</label>
-                        <input type="number" id="jarak-kec" min="0" step="0.1" aria-required="true">
-                        
+                        <input type="number" id="jarak-kec">
                         <label for="waktu-kec">Waktu (jam):</label>
-                        <input type="number" id="waktu-kec" min="0" step="0.1" aria-required="true">
-                        
-                        <button id="btn-kecepatan" class="calculate-btn">
-                            <span class="button-text">Hitung Kecepatan</span>
-                            <span class="loading-spinner hidden" aria-hidden="true"></span>
-                        </button>
-                        
-                        <div class="result-container">
-                            <p>Kecepatan: <span id="hasil-kecepatan" aria-live="polite">-</span> km/jam</p>
-                        </div>
-                        <p class="rumus-info">Rumus: v = s / t (kecepatan = jarak / waktu)</p>
+                        <input type="number" id="waktu-kec">
+                        <button id="btn-kecepatan">Hitung Kecepatan</button>
+                        <p>Kecepatan: <span id="hasil-kecepatan"></span> km/jam</p>
+                        <p class="rumus-info">Rumus: v = s / t</p>
                     </div>
 
-                    <!-- Debit -->
-                    <div id="debit" class="mtk-subcontent hidden" role="region" aria-label="Kalkulator Debit">
+                    <div id="debit" class="mtk-subcontent hidden">
                         <h3>Debit</h3>
-                        <p class="calc-description">Menghitung debit aliran fluida berdasarkan volume dan waktu</p>
-                        
                         <label for="volume-deb">Volume (liter):</label>
-                        <input type="number" id="volume-deb" min="0" step="0.1" aria-required="true">
-                        
+                        <input type="number" id="volume-deb">
                         <label for="waktu-deb">Waktu (menit):</label>
-                        <input type="number" id="waktu-deb" min="0" step="0.1" aria-required="true">
-                        
-                        <button id="btn-debit" class="calculate-btn">
-                            <span class="button-text">Hitung Debit</span>
-                            <span class="loading-spinner hidden" aria-hidden="true"></span>
-                        </button>
-                        
-                        <div class="result-container">
-                            <p>Debit: <span id="hasil-debit" aria-live="polite">-</span> liter/menit</p>
-                        </div>
-                        <p class="rumus-info">Rumus: Q = V / t (debit = volume / waktu)</p>
+                        <input type="number" id="waktu-deb">
+                        <button id="btn-debit">Hitung Debit</button>
+                        <p>Debit: <span id="hasil-debit"></span> liter/menit</p>
+                        <p class="rumus-info">Rumus: Q = V / t</p>
                     </div>
 
-                    <!-- Skala -->
-                    <div id="skala" class="mtk-subcontent hidden" role="region" aria-label="Kalkulator Skala">
-                        <h3>Skala Peta</h3>
-                        <p class="calc-description">Menghitung skala peta berdasarkan perbandingan jarak peta dan jarak sebenarnya</p>
-                        
+                    <div id="skala" class="mtk-subcontent hidden">
+                        <h3>Skala</h3>
                         <label for="jarak-peta">Jarak Peta (cm):</label>
-                        <input type="number" id="jarak-peta" min="0" step="0.1" aria-required="true">
-                        
+                        <input type="number" id="jarak-peta">
                         <label for="jarak-sebenarnya">Jarak Sebenarnya (km):</label>
-                        <input type="number" id="jarak-sebenarnya" min="0" step="0.1" aria-required="true">
-                        
-                        <button id="btn-skala" class="calculate-btn">
-                            <span class="button-text">Hitung Skala</span>
-                            <span class="loading-spinner hidden" aria-hidden="true"></span>
-                        </button>
-                        
-                        <div class="result-container">
-                            <p>Skala: 1 : <span id="hasil-skala" aria-live="polite">-</span></p>
-                        </div>
+                        <input type="number" id="jarak-sebenarnya">
+                        <button id="btn-skala">Hitung Skala</button>
+                        <p>Skala: 1 : <span id="hasil-skala"></span></p>
                         <p class="rumus-info">Rumus: Skala = Jarak Peta / Jarak Sebenarnya</p>
                     </div>
 
-                    <!-- Luas Datar -->
-                    <div id="luas-datar" class="mtk-subcontent hidden" role="region" aria-label="Kalkulator Bangun Datar">
+                    <div id="luas-datar" class="mtk-subcontent hidden">
                         <h3>Luas & Keliling Bangun Datar</h3>
-                        <p class="calc-description">Pilih jenis bangun datar untuk menghitung luas dan keliling</p>
-                        
-                        <label for="select-luas-datar" class="sr-only">Pilih Bangun Datar</label>
-                        <select id="select-luas-datar" aria-describedby="select-luas-datar-help">
+                        <select id="select-luas-datar">
                             <option value="">--Pilih Bangun Datar--</option>
                             <option value="persegi">Persegi</option>
                             <option value="persegi-panjang">Persegi Panjang</option>
@@ -179,162 +93,82 @@
                             <option value="lingkaran">Lingkaran</option>
                             <option value="jajar-genjang">Jajar Genjang</option>
                         </select>
-                        <small id="select-luas-datar-help" class="input-help">Pilih jenis bangun datar yang ingin dihitung</small>
-                        
-                        <div id="calc-luas-datar" class="calculator-space" aria-live="polite"></div>
+                        <div id="calc-luas-datar" class="calculator-space"></div>
                     </div>
                     
-                    <!-- Luas Ruang -->
-                    <div id="luas-ruang" class="mtk-subcontent hidden" role="region" aria-label="Kalkulator Bangun Ruang">
+                    <div id="luas-ruang" class="mtk-subcontent hidden">
                         <h3>Luas Permukaan & Volume Bangun Ruang</h3>
-                        <p class="calc-description">Pilih jenis bangun ruang untuk menghitung luas permukaan dan volume</p>
-                        
-                        <label for="select-luas-ruang" class="sr-only">Pilih Bangun Ruang</label>
-                        <select id="select-luas-ruang" aria-describedby="select-luas-ruang-help">
+                        <select id="select-luas-ruang">
                             <option value="">--Pilih Bangun Ruang--</option>
                             <option value="kubus">Kubus</option>
                             <option value="balok">Balok</option>
                             <option value="tabung">Tabung</option>
                             <option value="kerucut">Kerucut</option>
                         </select>
-                        <small id="select-luas-ruang-help" class="input-help">Pilih jenis bangun ruang yang ingin dihitung</small>
-                        
-                        <div id="calc-luas-ruang" class="calculator-space" aria-live="polite"></div>
+                        <div id="calc-luas-ruang" class="calculator-space"></div>
                     </div>
 
-                    <!-- Aritmatika -->
-                    <div id="aritmatika" class="mtk-subcontent hidden" role="region" aria-label="Kalkulator Deret Aritmatika">
+                    <div id="aritmatika" class="mtk-subcontent hidden">
                         <h3>Barisan dan Deret Aritmatika</h3>
-                        <p class="calc-description">Hitung suku ke-n atau jumlah n suku pertama deret aritmatika</p>
-                        
-                        <label for="select-aritmatika" class="sr-only">Pilih Perhitungan Aritmatika</label>
-                        <select id="select-aritmatika" aria-describedby="select-aritmatika-help">
+                        <select id="select-aritmatika">
                             <option value="">--Pilih Perhitungan--</option>
                             <option value="un">Mencari Suku ke-n (Un)</option>
                             <option value="sn">Mencari Jumlah n Suku (Sn)</option>
                         </select>
-                        <small id="select-aritmatika-help" class="input-help">Pilih jenis perhitungan deret aritmatika</small>
-                        
-                        <div id="calc-aritmatika" class="calculator-space" aria-live="polite"></div>
+                        <div id="calc-aritmatika" class="calculator-space"></div>
                     </div>
 
-                    <!-- Geometri -->
-                    <div id="geometri" class="mtk-subcontent hidden" role="region" aria-label="Kalkulator Deret Geometri">
+                    <div id="geometri" class="mtk-subcontent hidden">
                         <h3>Barisan dan Deret Geometri</h3>
-                        <p class="calc-description">Hitung suku ke-n atau jumlah n suku pertama deret geometri</p>
-                        
-                        <label for="select-geometri" class="sr-only">Pilih Perhitungan Geometri</label>
-                        <select id="select-geometri" aria-describedby="select-geometri-help">
+                         <select id="select-geometri">
                             <option value="">--Pilih Perhitungan--</option>
                             <option value="un">Mencari Suku ke-n (Un)</option>
                             <option value="sn">Mencari Jumlah n Suku (Sn)</option>
                         </select>
-                        <small id="select-geometri-help" class="input-help">Pilih jenis perhitungan deret geometri</small>
-                        
-                        <div id="calc-geometri" class="calculator-space" aria-live="polite"></div>
+                        <div id="calc-geometri" class="calculator-space"></div>
                     </div>
 
-                    <!-- Peluang -->
-                    <div id="peluang" class="mtk-subcontent hidden" role="region" aria-label="Kalkulator Peluang">
+                    <div id="peluang" class="mtk-subcontent hidden">
                         <h3>Peluang Suatu Kejadian</h3>
-                        <p class="calc-description">Menghitung probabilitas suatu kejadian berdasarkan kemungkinan yang diharapkan dan total kemungkinan</p>
-                        
-                        <div id="calc-peluang" class="calculator-space" aria-live="polite">
+                        <div id="calc-peluang" class="calculator-space">
                             <p class="rumus-info">Rumus: P(A) = n(A) / n(S)</p>
-                            
                             <label for="peluang-na">Jumlah kasus yang diharapkan (n(A)):</label>
-                            <input type="number" id="peluang-na" min="0" step="1" aria-required="true">
-                            
+                            <input type="number" id="peluang-na">
                             <label for="peluang-ns">Jumlah total semua kemungkinan (n(S)):</label>
-                            <input type="number" id="peluang-ns" min="1" step="1" aria-required="true">
-                            
-                            <button id="btn-peluang" class="calculate-btn">
-                                <span class="button-text">Hitung Peluang</span>
-                                <span class="loading-spinner hidden" aria-hidden="true"></span>
-                            </button>
-                            
-                            <div class="result-container">
-                                <p>Hasil Peluang: <span id="hasil-peluang">-</span></p>
-                            </div>
+                            <input type="number" id="peluang-ns">
+                            <button id="btn-peluang">Hitung Peluang</button>
+                            <p>Hasil Peluang: <span id="hasil-peluang"></span></p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="kesehatan" class="module hidden" role="tabpanel" aria-labelledby="tab-kesehatan">
+        <section id="kesehatan" class="module hidden">
             <h2>Kalkulator BMI (Body Mass Index)</h2>
-            <p class="module-description">Hitung Indeks Massa Tubuh Anda untuk mengetahui status berat badan</p>
-            
-            <div class="bmi-calculator">
-                <label for="berat">Berat Badan (kg):</label>
-                <input type="number" id="berat" min="1" max="300" step="0.1" placeholder="Contoh: 70" aria-required="true">
-                
-                <label for="tinggi">Tinggi Badan (m):</label>
-                <input type="number" id="tinggi" min="0.5" max="3" step="0.01" placeholder="Contoh: 1.75" aria-required="true">
-                
-                <button id="btn-bmi" class="calculate-btn">
-                    <span class="button-text">Hitung BMI</span>
-                    <span class="loading-spinner hidden" aria-hidden="true"></span>
-                </button>
-                
-                <div class="result-container">
-                    <p>BMI Anda: <span id="hasil-bmi" aria-live="polite">-</span></p>
-                    <p>Kategori: <span id="kategori-bmi" aria-live="polite">-</span></p>
-                </div>
-                
-                <div class="bmi-info">
-                    <h4>Kategori BMI:</h4>
-                    <ul>
-                        <li>< 18.5: Kurus (Underweight)</li>
-                        <li>18.5 - 24.9: Normal (Healthy Weight)</li>
-                        <li>25 - 29.9: Gemuk (Overweight)</li>
-                        <li>≥ 30: Obesitas (Obese)</li>
-                    </ul>
-                </div>
-            </div>
+            <label for="berat">Berat (kg):</label>
+            <input type="number" id="berat" placeholder="Contoh: 70">
+            <label for="tinggi">Tinggi (m):</label>
+            <input type="number" id="tinggi" placeholder="Contoh: 1.75">
+            <button id="btn-bmi">Hitung BMI</button>
+            <p>BMI Anda: <span id="hasil-bmi"></span></p>
+            <p>Kategori: <span id="kategori-bmi"></span></p>
         </section>
 
-        <section id="game" class="module hidden" role="tabpanel" aria-labelledby="tab-game">
+        <section id="game" class="module hidden">
             <h2>Minigame: Tebak Kata Acak ❓</h2>
-            <p class="module-description">Susun huruf-huruf acak menjadi kata yang benar!</p>
-            
-            <div class="game-container">
-                <div class="game-stats">
-                    <p>Skor: <span id="score">0</span></p>
-                    <p>Waktu: <span id="timer">60</span> detik</p>
-                </div>
-                
-                <div class="game-content">
-                    <p>Kata Acak: <span id="kata-acak" class="scrambled-word" aria-live="polite"></span></p>
-                    
-                    <label for="jawaban">Tebakan Anda:</label>
-                    <input type="text" id="jawaban" aria-describedby="jawaban-help">
-                    <small id="jawaban-help" class="input-help">Ketik kata yang menurut Anda benar</small>
-                    
-                    <button id="btn-cek-jawaban" class="game-btn">
-                        Cek Jawaban
-                    </button>
-                    
-                    <p id="hasil-game" aria-live="polite"></p>
-                </div>
-                
-                <div class="game-controls">
-                    <button id="btn-restart-game" class="secondary-btn">
-                        Mulai Game Baru
-                    </button>
-                    <button id="btn-hint" class="secondary-btn">
-                        Minta Petunjuk
-                    </button>
-                </div>
+            <div class="game-stats">
+                <div class="game-stat-item">Skor: <span id="skor-game">0</span></div>
+                <div class="game-stat-item">Kesempatan: <span id="kesempatan-game">3</span></div>
             </div>
+            <p>Kata Acak: <span id="kata-acak"></span></p>
+            <label for="jawaban">Jawaban Anda:</label>
+            <input type="text" id="jawaban">
+            <button id="btn-cek-jawaban">Cek</button>
+            <p id="hasil-game"></p>
         </section>
     </main>
 
-    <footer role="contentinfo">
-        <p>&copy; 2024 Lolakarya By MBS. All rights reserved.</p>
-    </footer>
-
     <script src="script.js"></script>
 </body>
-                            </html>
+    </html>
