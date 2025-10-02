@@ -8,18 +8,76 @@
 </head>
 <body>
     <header>
-        <h1>Welcome</h1>
-        <h1>To Multitask</h1>
+        <div class="profile-header">
+            <div class="profile-picture">
+                <img src="f-t.jpg" alt="Foto Profil" id="profile-img">
+            </div>
+            <div class="header-text">
+                <h1>Welcome</h1>
+                <h1>To Multitask</h1>
+            </div>
+        </div>
     </header>
 
     <nav class="tabs">
+        <button data-module="profile">Profile Development</button>
         <button data-module="mtk">Matematika & Fisika</button>
         <button data-module="kesehatan">Kesehatan & Kebugaran</button>
         <button data-module="game">Minigame</button>
     </nav>
 
     <main id="content-container">
-        <section id="mtk" class="module active">
+        <section id="profile" class="module active">
+            <div class="profile-container">
+                <div class="profile-section">
+                    <div class="profile-image">
+                        <img src="f-t.jpg" alt="Foto Profil">
+                    </div>
+                    <div class="profile-info">
+                        <h2>Profile Development</h2>
+                        <div class="profile-details">
+                            <div class="detail-item">
+                                <span class="label">Nama Lengkap:</span>
+                                <span class="value">MUHAMMAD BAGUS SAJIWO</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="label">Gelar/Jabatan Saat Ini:</span>
+                                <span class="value">Pelajar</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="label">Email:</span>
+                                <span class="value">saputraalfauzi@gmail.com</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="label">Nomor Kontak:</span>
+                                <span class="value">+62 858 8102 3889</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="label">GitHub:</span>
+                                <span class="value"><a href="https://github.com/saputraalfauzi-hue" target="_blank">https://github.com/saputraalfauzi-hue</a></span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="label">Tujuan/Nilai Ditawarkan:</span>
+                                <span class="value">Mengembangkan teknik pengkodean</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="label">Keterampilan Teknis Utama:</span>
+                                <span class="value">Python & HTML (Dasar)</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="label">Dampak yang Diinginkan:</span>
+                                <span class="value">Meningkatkan produktivitas sehari-hari</span>
+                            </div>
+                        </div>
+                        <div class="profile-description">
+                            <p>Saya adalah seorang pelajar yang memiliki pengalaman/minat kuat di bidang AI/Pengkodean. Fokus utama saya adalah mengembangkan teknik pengkodean. Saya antusias menggunakan Python & HTML (Dasar) untuk mencapai meningkatkan produktivitas sehari-hari.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="mtk" class="module hidden">
             <h2>Kalkulator Matematika & Fisika</h2>
             <div class="mtk-container">
                 <nav class="mtk-submenu">
@@ -280,4 +338,4 @@
 
     <script src="script.js"></script>
 </body>
-                            </html>
+    </html>
