@@ -15,7 +15,7 @@
     <nav class="tabs">
         <button data-module="mtk">Matematika & Fisika</button>
         <button data-module="kesehatan">Kesehatan & Kebugaran</button>
-        <button data-module="game">Minigame Bahasa</button>
+        <button data-module="game">Minigame</button>
     </nav>
 
     <main id="content-container">
@@ -145,30 +145,139 @@
         </section>
 
         <section id="kesehatan" class="module hidden">
-            <h2>Kalkulator BMI (Body Mass Index)</h2>
-            <label for="berat">Berat (kg):</label>
-            <input type="number" id="berat" placeholder="Contoh: 70">
-            <label for="tinggi">Tinggi (m):</label>
-            <input type="number" id="tinggi" placeholder="Contoh: 1.75">
-            <button id="btn-bmi">Hitung BMI</button>
-            <p>BMI Anda: <span id="hasil-bmi"></span></p>
-            <p>Kategori: <span id="kategori-bmi"></span></p>
+            <h2>Kesehatan & Kebugaran</h2>
+            
+            <div class="health-container">
+                <div class="health-section">
+                    <h3>Kalkulator BMI (Body Mass Index)</h3>
+                    <label for="berat">Berat (kg):</label>
+                    <input type="number" id="berat" placeholder="Contoh: 70">
+                    <label for="tinggi">Tinggi (m):</label>
+                    <input type="number" id="tinggi" placeholder="Contoh: 1.75">
+                    <button id="btn-bmi">Hitung BMI</button>
+                    <p>BMI Anda: <span id="hasil-bmi"></span></p>
+                    <p>Kategori: <span id="kategori-bmi"></span></p>
+                </div>
+
+                <div class="health-section">
+                    <h3>Rumus Broca (Berat Badan Ideal)</h3>
+                    <label for="tinggi-broca">Tinggi Badan (cm):</label>
+                    <input type="number" id="tinggi-broca" placeholder="Contoh: 170">
+                    <label for="jenis-kelamin">Jenis Kelamin:</label>
+                    <select id="jenis-kelamin">
+                        <option value="pria">Pria</option>
+                        <option value="wanita">Wanita</option>
+                    </select>
+                    <button id="btn-broca">Hitung Berat Ideal</button>
+                    <p>Berat Badan Ideal: <span id="hasil-broca"></span> kg</p>
+                    <p class="rumus-info">Pria: (Tinggi - 100) kg | Wanita: (Tinggi - 105) kg</p>
+                </div>
+
+                <div class="health-section">
+                    <h3>Basal Metabolic Rate (BMR)</h3>
+                    <label for="berat-bmr">Berat Badan (kg):</label>
+                    <input type="number" id="berat-bmr" placeholder="Contoh: 70">
+                    <label for="tinggi-bmr">Tinggi Badan (cm):</label>
+                    <input type="number" id="tinggi-bmr" placeholder="Contoh: 170">
+                    <label for="usia-bmr">Usia (tahun):</label>
+                    <input type="number" id="usia-bmr" placeholder="Contoh: 25">
+                    <label for="jenis-kelamin-bmr">Jenis Kelamin:</label>
+                    <select id="jenis-kelamin-bmr">
+                        <option value="pria">Pria</option>
+                        <option value="wanita">Wanita</option>
+                    </select>
+                    <button id="btn-bmr">Hitung BMR</button>
+                    <p>BMR Anda: <span id="hasil-bmr"></span> kkal/hari</p>
+                    <p class="rumus-info">Pria: 66,5 + (13,7×berat) + (5×tinggi) - (6,8×usia)</p>
+                    <p class="rumus-info">Wanita: 655 + (9,6×berat) + (1,8×tinggi) - (4,7×usia)</p>
+                </div>
+            </div>
         </section>
 
         <section id="game" class="module hidden">
-            <h2>Minigame: Tebak Kata Acak ❓</h2>
-            <div class="game-stats">
-                <div class="game-stat-item">Skor: <span id="skor-game">0</span></div>
-                <div class="game-stat-item">Kesempatan: <span id="kesempatan-game">3</span></div>
+            <h2>Minigame</h2>
+            <div class="game-container">
+                <nav class="game-submenu">
+                    <h4>Jenis Game</h4>
+                    <button data-subgame="bahasa">Game Bahasa</button>
+                    <button data-subgame="pahlawan-kode">Pahlawan Kode</button>
+                </nav>
+
+                <div class="game-content">
+                    <div id="game-default" class="game-subcontent active">
+                        <p>Silakan pilih jenis game dari menu di samping kiri.</p>
+                    </div>
+
+                    <div id="bahasa" class="game-subcontent hidden">
+                        <div class="game-stats">
+                            <div class="game-stat-item">Skor: <span id="skor-game">0</span></div>
+                            <div class="game-stat-item">Kesempatan: <span id="kesempatan-game">3</span></div>
+                        </div>
+                        <h3>Tebak Kata Acak</h3>
+                        <p>Kata Acak: <span id="kata-acak"></span></p>
+                        <label for="jawaban">Jawaban Anda:</label>
+                        <input type="text" id="jawaban">
+                        <button id="btn-cek-jawaban">Cek</button>
+                        <p id="hasil-game"></p>
+                    </div>
+
+                    <div id="pahlawan-kode" class="game-subcontent hidden">
+                        <div class="hero-levels">
+                            <h3>Pilih Level Pahlawan Kode</h3>
+                            <div class="level-buttons">
+                                <button data-level="pemula" class="level-btn">Pemula</button>
+                                <button data-level="menengah" class="level-btn">Menengah</button>
+                                <button data-level="mahir" class="level-btn">Mahir</button>
+                            </div>
+                            
+                            <div id="level-pemula" class="level-content hidden">
+                                <h4>Level Pemula - Konsep Dasar Pemrograman</h4>
+                                <div class="code-quiz">
+                                    <p class="question">Apa output dari kode berikut: <code>console.log(2 + 3);</code></p>
+                                    <div class="options">
+                                        <button class="option-btn">5</button>
+                                        <button class="option-btn">23</button>
+                                        <button class="option-btn">6</button>
+                                        <button class="option-btn">Error</button>
+                                    </div>
+                                    <p id="result-pemula" class="result"></p>
+                                </div>
+                            </div>
+                            
+                            <div id="level-menengah" class="level-content hidden">
+                                <h4>Level Menengah - Konsep Menengah Pemrograman</h4>
+                                <div class="code-quiz">
+                                    <p class="question">Apa output dari kode berikut: <code>let x = 5; console.log(x++ + ++x);</code></p>
+                                    <div class="options">
+                                        <button class="option-btn">10</button>
+                                        <button class="option-btn">11</button>
+                                        <button class="option-btn">12</button>
+                                        <button class="option-btn">13</button>
+                                    </div>
+                                    <p id="result-menengah" class="result"></p>
+                                </div>
+                            </div>
+                            
+                            <div id="level-mahir" class="level-content hidden">
+                                <h4>Level Mahir - Konsep Lanjutan Pemrograman</h4>
+                                <div class="code-quiz">
+                                    <p class="question">Apa output dari kode berikut: <code>function foo() { return { bar: "hello" }; } console.log(typeof foo().bar);</code></p>
+                                    <div class="options">
+                                        <button class="option-btn">object</button>
+                                        <button class="option-btn">string</button>
+                                        <button class="option-btn">undefined</button>
+                                        <button class="option-btn">function</button>
+                                    </div>
+                                    <p id="result-mahir" class="result"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <p>Kata Acak: <span id="kata-acak"></span></p>
-            <label for="jawaban">Jawaban Anda:</label>
-            <input type="text" id="jawaban">
-            <button id="btn-cek-jawaban">Cek</button>
-            <p id="hasil-game"></p>
         </section>
     </main>
 
     <script src="script.js"></script>
 </body>
-    </html>
+                            </html>
