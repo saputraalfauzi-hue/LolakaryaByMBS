@@ -95,6 +95,22 @@ function hitungSkala() {
     hasilElement.textContent = Math.round(skala).toLocaleString('id-ID');
 }
 
+function hitungPersegiPanjang() {
+    const p = parseFloat(document.getElementById('p-pp').value);
+    const l = parseFloat(document.getElementById('l-pp').value);
+    const luasElement = document.getElementById('luas-pp');
+    const kelilingElement = document.getElementById('keliling-pp');
+    if (isNaN(p) || isNaN(l) || p <= 0 || l <= 0) {
+        luasElement.textContent = "Input tidak valid.";
+        kelilingElement.textContent = "Input tidak valid.";
+        return;
+    }
+    const luas = p * l;
+    const keliling = 2 * (p + l);
+    luasElement.textContent = luas.toFixed(2);
+    kelilingElement.textContent = keliling.toFixed(2);
+}
+
 function hitungBMI() {
     const berat = parseFloat(document.getElementById('berat').value);
     const tinggi = parseFloat(document.getElementById('tinggi').value);
@@ -418,8 +434,8 @@ document.addEventListener('click', function(e) {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-    showModule('mtk');
-    document.querySelector('.tabs button[data-module="mtk"]').classList.add('active-tab');
+    showModule('profile');
+    document.querySelector('.tabs button[data-module="profile"]').classList.add('active-tab');
     showSubMtk('mtk-default');
     inisialisasiGame();
 
