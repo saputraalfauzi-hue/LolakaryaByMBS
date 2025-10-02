@@ -18,13 +18,57 @@
     </nav>
 
     <main id="content-container">
-        <section id="mtk" class="module active">
-            <h2>Kalkulator Sederhana (Luas Lingkaran)</h2>
-            <label for="jari-jari">Masukkan Jari-jari (cm):</label>
-            <input type="number" id="jari-jari">
-            <button onclick="hitungLuasLingkaran()">Hitung</button>
-            <p>Hasil Luas: <span id="hasil-mtk"></span> cm²</p>
-        </section>
+       <section id="mtk" class="module active">
+    <h2>Kalkulator Matematika & Fisika</h2>
+    <div class="mtk-container">
+        <nav class="mtk-submenu">
+            <h4>Fisika Dasar</h4>
+            <button onclick="showSubMtk('kecepatan')">Kecepatan</button>
+            <button onclick="showSubMtk('debit')">Debit</button>
+            <button onclick="showSubMtk('skala')">Skala</button>
+
+            <h4>Geometri (2D)</h4>
+            <button onclick="showSubMtk('luas-datar')">Luas & Keliling Bangun Datar</button>
+
+            <h4>Geometri (3D)</h4>
+            <button onclick="showSubMtk('luas-ruang')">Luas Permukaan & Volume</button>
+
+            <h4>Aljabar & Statistik</h4>
+            <button onclick="showSubMtk('aritmatika')">Barisan & Deret Aritmatika</button>
+            <button onclick="showSubMtk('geometri')">Barisan & Deret Geometri</button>
+            <button onclick="showSubMtk('peluang')">Peluang</button>
+        </nav>
+
+        <div class="mtk-content">
+            <div id="mtk-default" class="mtk-subcontent active">
+                <p>Silakan pilih jenis perhitungan dari menu di samping kiri. 👈</p>
+                <p>Contoh Awal: Menghitung Luas Lingkaran.</p>
+                <label for="jari-jari">Masukkan Jari-jari (cm):</label>
+                <input type="number" id="jari-jari">
+                <button onclick="hitungLuasLingkaran()">Hitung Luas</button>
+                <p>Hasil: <span id="hasil-mtk"></span> cm²</p>
+            </div>
+
+            <div id="kecepatan" class="mtk-subcontent hidden">
+                <h3>Kecepatan (Jarak, Waktu)</h3>
+                <p>Rumus Kecepatan: $v = \frac{s}{t}$</p>
+                <p>... *Tambahkan input dan logika di JS* ...</p>
+            </div>
+            
+            <div id="luas-datar" class="mtk-subcontent hidden">
+                <h3>Luas & Keliling Bangun Datar</h3>
+                <p>Pilihan: Persegi, Segitiga, Lingkaran, dll.</p>
+                <p>... *Tambahkan sub-pilihan di sini* ...</p>
+            </div>
+            
+            <div id="peluang" class="mtk-subcontent hidden">
+                <h3>Peluang</h3>
+                <p>Rumus Peluang: $P(A) = \frac{n(A)}{n(S)}$</p>
+                <p>... *Tambahkan input dan logika di JS* ...</p>
+            </div>
+            </div>
+    </div>
+</section>
 
         <section id="kesehatan" class="module hidden">
             <h2>Kalkulator BMI (Body Mass Index)</h2>
