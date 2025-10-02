@@ -100,3 +100,23 @@ document.addEventListener('DOMContentLoaded', inisialisasiGame);
 document.addEventListener('DOMContentLoaded', () => {
     showModule('mtk');
 });
+
+function showSubMtk(subMtkId) {
+    document.querySelectorAll('.mtk-subcontent').forEach(content => {
+        content.classList.add('hidden');
+        content.classList.remove('active');
+    });
+
+    document.querySelectorAll('.mtk-submenu button').forEach(button => {
+        button.classList.remove('active-submtk');
+    });
+
+    const activeSubMtk = document.getElementById(subMtkId);
+    if (activeSubMtk) {
+        activeSubMtk.classList.remove('hidden');
+        activeSubMtk.classList.add('active');
+    }
+
+    document.querySelector(`.mtk-submenu button[onclick="showSubMtk('${subMtkId}')"]`).classList.add('active-submtk');
+
+}
