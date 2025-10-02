@@ -46,7 +46,7 @@ header {
 }
 
 #content-container {
-    max-width: 800px;
+    max-width: 900px;
     margin: 0 auto;
     padding: 20px;
     background-color: white;
@@ -83,19 +83,18 @@ button:not(.tabs button) {
     margin-top: 10px;
 }
 
-/* --- Styling Khusus Modul Matematika --- */
 .mtk-container {
-    display: flex; /* Kunci agar menu dan konten berdampingan */
-    gap: 20px; /* Jarak antara menu dan konten */
-    min-height: 400px; /* Tinggi minimal agar menu terlihat */
+    display: flex;
+    gap: 20px;
+    min-height: 400px;
 }
 
 .mtk-submenu {
-    width: 200px; /* Lebar menu navigasi */
+    width: 250px;
     background-color: #f8f9fa;
     padding: 10px;
     border-radius: 5px;
-    flex-shrink: 0; /* Mencegah menu mengecil */
+    flex-shrink: 0;
 }
 
 .mtk-submenu h4 {
@@ -107,7 +106,7 @@ button:not(.tabs button) {
 }
 
 .mtk-submenu button {
-    display: block; /* Membuat tombol mengisi lebar penuh dan berbaris vertikal */
+    display: block;
     width: 100%;
     text-align: left;
     background-color: transparent;
@@ -130,15 +129,13 @@ button:not(.tabs button) {
 }
 
 .mtk-content {
-    flex-grow: 1; /* Konten mengisi sisa ruang yang ada */
+    flex-grow: 1;
     padding: 10px;
     border-left: 1px solid #ddd;
 }
 
-.mtk-subcontent {
-    /* Gaya untuk konten sub-modul */
-}
-
-.hidden {
-    display: none;
+.rumus-info {
+    font-style: italic;
+    font-size: 0.9em;
+    color: #6c757d;
 }
