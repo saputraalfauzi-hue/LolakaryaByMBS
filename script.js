@@ -24,6 +24,25 @@ function showModule(moduleId) {
     });
 }
 
+function showSubMtk(subMtkId) {
+    document.querySelectorAll('.mtk-subcontent').forEach(content => {
+        content.classList.add('hidden');
+        content.classList.remove('active');
+    });
+
+    document.querySelectorAll('.mtk-submenu button').forEach(button => {
+        button.classList.remove('active-submtk');
+    });
+
+    const activeSubMtk = document.getElementById(subMtkId);
+    if (activeSubMtk) {
+        activeSubMtk.classList.remove('hidden');
+        activeSubMtk.classList.add('active');
+    }
+
+    document.querySelector(`.mtk-submenu button[onclick="showSubMtk('${subMtkId}')"]`).classList.add('active-submtk');
+}
+
 function hitungLuasLingkaran() {
     const r = parseFloat(document.getElementById('jari-jari').value);
     const hasilElement = document.getElementById('hasil-mtk');
@@ -36,6 +55,69 @@ function hitungLuasLingkaran() {
     const Luas = Math.PI * Math.pow(r, 2);
 
     hasilElement.textContent = Luas.toFixed(2);
+}
+
+function hitungKecepatan() {
+    const s = parseFloat(document.getElementById('jarak-kec').value);
+    const t = parseFloat(document.getElementById('waktu-kec').value);
+    const hasilElement = document.getElementById('hasil-kecepatan');
+
+    if (isNaN(s) || isNaN(t) || t <= 0) {
+        hasilElement.textContent = "Data tidak valid.";
+        return;
+    }
+
+    const v = s / t;
+    hasilElement.textContent = v.toFixed(2);
+}
+
+function hitungDebit() {
+    const v = parseFloat(document.getElementById('volume-deb').value);
+    const t = parseFloat(document.getElementById('waktu-deb').value);
+    const hasilElement = document.getElementById('hasil-debit');
+
+    if (isNaN(v) || isNaN(t) || t <= 0) {
+        hasilElement.textContent = "Data tidak valid.";
+        return;
+    }
+
+    const Q = v / t;
+    hasilElement.textContent = Q.toFixed(2);
+}
+
+function hitungSkala() {
+    const jp = parseFloat(document.getElementById('jarak-peta').value);
+    const js_km = parseFloat(document.getElementById('jarak-sebenarnya').value);
+    const hasilElement = document.getElementById('hasil-skala');
+
+    if (isNaN(jp) || isNaN(js_km) || jp <= 0 || js_km <= 0) {
+        hasilElement.textContent = "Data tidak valid.";
+        return;
+    }
+
+    const js_cm = js_km * 100000;
+    
+    const skala = js_cm / jp;
+    hasilElement.textContent = Math.round(skala).toLocaleString('id-ID');
+}
+
+function hitungPersegiPanjang() {
+    const p = parseFloat(document.getElementById('p-pp').value);
+    const l = parseFloat(document.getElementById('l-pp').value);
+    const luasElement = document.getElementById('luas-pp');
+    const kelilingElement = document.getElementById('keliling-pp');
+
+    if (isNaN(p) || isNaN(l) || p <= 0 || l <= 0) {
+        luasElement.textContent = "Input tidak valid.";
+        kelilingElement.textContent = "Input tidak valid.";
+        return;
+    }
+
+    const luas = p * l;
+    const keliling = 2 * (p + l);
+
+    luasElement.textContent = luas.toFixed(2);
+    kelilingElement.textContent = keliling.toFixed(2);
 }
 
 function hitungBMI() {
@@ -99,24 +181,5 @@ document.addEventListener('DOMContentLoaded', inisialisasiGame);
 
 document.addEventListener('DOMContentLoaded', () => {
     showModule('mtk');
+    showSubMtk('mtk-default');
 });
-
-function showSubMtk(subMtkId) {
-    document.querySelectorAll('.mtk-subcontent').forEach(content => {
-        content.classList.add('hidden');
-        content.classList.remove('active');
-    });
-
-    document.querySelectorAll('.mtk-submenu button').forEach(button => {
-        button.classList.remove('active-submtk');
-    });
-
-    const activeSubMtk = document.getElementById(subMtkId);
-    if (activeSubMtk) {
-        activeSubMtk.classList.remove('hidden');
-        activeSubMtk.classList.add('active');
-    }
-
-    document.querySelector(`.mtk-submenu button[onclick="showSubMtk('${subMtkId}')"]`).classList.add('active-submtk');
-
-}
