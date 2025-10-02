@@ -12,9 +12,9 @@
     </header>
 
     <nav class="tabs">
-        <button onclick="showModule('mtk')">Matematika & Fisika</button>
-        <button onclick="showModule('kesehatan')">Kesehatan & Kebugaran</button>
-        <button onclick="showModule('game')">Minigame Bahasa</button>
+        <button data-module="mtk">Matematika & Fisika</button>
+        <button data-module="kesehatan">Kesehatan & Kebugaran</button>
+        <button data-module="game">Minigame Bahasa</button>
     </nav>
 
     <main id="content-container">
@@ -23,20 +23,20 @@
             <div class="mtk-container">
                 <nav class="mtk-submenu">
                     <h4>Fisika Dasar</h4>
-                    <button onclick="showSubMtk('kecepatan')">Kecepatan</button>
-                    <button onclick="showSubMtk('debit')">Debit</button>
-                    <button onclick="showSubMtk('skala')">Skala</button>
+                    <button data-submtk="kecepatan">Kecepatan</button>
+                    <button data-submtk="debit">Debit</button>
+                    <button data-submtk="skala">Skala</button>
 
                     <h4>Geometri (2D)</h4>
-                    <button onclick="showSubMtk('luas-datar')">Luas & Keliling Bangun Datar</button>
+                    <button data-submtk="luas-datar">Luas & Keliling Bangun Datar</button>
 
                     <h4>Geometri (3D)</h4>
-                    <button onclick="showSubMtk('luas-ruang')">Luas Permukaan & Volume</button>
+                    <button data-submtk="luas-ruang">Luas Permukaan & Volume</button>
 
                     <h4>Aljabar & Statistik</h4>
-                    <button onclick="showSubMtk('aritmatika')">Barisan & Deret Aritmatika</button>
-                    <button onclick="showSubMtk('geometri')">Barisan & Deret Geometri</button>
-                    <button onclick="showSubMtk('peluang')">Peluang</button>
+                    <button data-submtk="aritmatika">Barisan & Deret Aritmatika</button>
+                    <button data-submtk="geometri">Barisan & Deret Geometri</button>
+                    <button data-submtk="peluang">Peluang</button>
                 </nav>
 
                 <div class="mtk-content">
@@ -45,7 +45,7 @@
                         <p>Contoh Awal: Menghitung Luas Lingkaran.</p>
                         <label for="jari-jari">Masukkan Jari-jari (cm):</label>
                         <input type="number" id="jari-jari">
-                        <button onclick="hitungLuasLingkaran()">Hitung Luas</button>
+                        <button id="btn-luas-lingkaran">Hitung Luas</button>
                         <p>Hasil: <span id="hasil-mtk"></span> cm²</p>
                     </div>
 
@@ -55,9 +55,9 @@
                         <input type="number" id="jarak-kec">
                         <label for="waktu-kec">Waktu (jam):</label>
                         <input type="number" id="waktu-kec">
-                        <button onclick="hitungKecepatan()">Hitung Kecepatan</button>
+                        <button id="btn-kecepatan">Hitung Kecepatan</button>
                         <p>Kecepatan: <span id="hasil-kecepatan"></span> km/jam</p>
-                        <p class="rumus-info">Rumus: $v = s/t$ (Kecepatan = Jarak / Waktu)</p>
+                        <p class="rumus-info">Rumus: v = s / t (Kecepatan = Jarak / Waktu)</p>
                     </div>
 
                     <div id="debit" class="mtk-subcontent hidden">
@@ -66,9 +66,9 @@
                         <input type="number" id="volume-deb">
                         <label for="waktu-deb">Waktu (menit):</label>
                         <input type="number" id="waktu-deb">
-                        <button onclick="hitungDebit()">Hitung Debit</button>
+                        <button id="btn-debit">Hitung Debit</button>
                         <p>Debit: <span id="hasil-debit"></span> liter/menit</p>
-                        <p class="rumus-info">Rumus: $Q = V/t$ (Debit = Volume / Waktu)</p>
+                        <p class="rumus-info">Rumus: Q = V / t (Debit = Volume / Waktu)</p>
                     </div>
 
                     <div id="skala" class="mtk-subcontent hidden">
@@ -77,7 +77,7 @@
                         <input type="number" id="jarak-peta">
                         <label for="jarak-sebenarnya">Jarak Sebenarnya (km):</label>
                         <input type="number" id="jarak-sebenarnya">
-                        <button onclick="hitungSkala()">Hitung Skala</button>
+                        <button id="btn-skala">Hitung Skala</button>
                         <p>Skala: 1 : <span id="hasil-skala"></span></p>
                         <p class="rumus-info">Rumus: Skala = Jarak Peta / Jarak Sebenarnya</p>
                     </div>
@@ -87,9 +87,9 @@
                         <p>Contoh: **Persegi Panjang**</p>
                         <label for="p-pp">Panjang:</label><input type="number" id="p-pp">
                         <label for="l-pp">Lebar:</label><input type="number" id="l-pp">
-                        <button onclick="hitungPersegiPanjang()">Hitung</button>
+                        <button id="btn-persegi-panjang">Hitung</button>
                         <p>Luas: <span id="luas-pp"></span> | Keliling: <span id="keliling-pp"></span></p>
-                        <p class="rumus-info">Rumus Luas: $L=p \times l$ | Rumus Keliling: $K=2(p+l)$</p>
+                        <p class="rumus-info">Rumus Luas: L = p × l | Rumus Keliling: K = 2(p+l)</p>
                     </div>
 
                     <div id="luas-ruang" class="mtk-subcontent hidden">
@@ -118,7 +118,7 @@
             <input type="number" id="berat" placeholder="Contoh: 70">
             <label for="tinggi">Tinggi (m):</label>
             <input type="number" id="tinggi" placeholder="Contoh: 1.75">
-            <button onclick="hitungBMI()">Hitung BMI</button>
+            <button id="btn-bmi">Hitung BMI</button>
             <p>BMI Anda: <span id="hasil-bmi"></span></p>
             <p>Kategori: <span id="kategori-bmi"></span></p>
         </section>
@@ -128,7 +128,7 @@
             <p>Kata Acak: <span id="kata-acak"></span></p>
             <label for="jawaban">Jawaban Anda:</label>
             <input type="text" id="jawaban">
-            <button onclick="cekJawaban()">Cek</button>
+            <button id="btn-cek-jawaban">Cek</button>
             <p id="hasil-game"></p>
         </section>
     </main>
