@@ -1,6 +1,137 @@
 let skor = 0;
 let kesempatan = 3;
 
+let currentQuoteIndex = 0;
+const totalQuotes = 6;
+let quoteInterval;
+
+function showQuote(index) {
+    const quotes = document.querySelectorAll('.quote');
+    quotes.forEach(quote => quote.classList.remove('active'));
+    if (quotes[index]) {
+        quotes[index].classList.add('active');
+    }
+    
+    document.querySelector('.quote-counter').textContent = `${index + 1}/${totalQuotes}`;
+    currentQuoteIndex = index;
+}
+
+function nextQuote() {
+    currentQuoteIndex = (currentQuoteIndex + 1) % totalQuotes;
+    showQuote(currentQuoteIndex);
+}
+
+function prevQuote() {
+    currentQuoteIndex = (currentQuoteIndex - 1 + totalQuotes) % totalQuotes;
+    showQuote(currentQuoteIndex);
+}
+
+const bankSoalPython = {
+    pemula: [
+        {
+            question: "Apa output dari kode berikut: print(2 + 3)",
+            options: ["5", "23", "6", "Error"],
+            answer: "5"
+        },
+        {
+            question: "Fungsi apa yang digunakan untuk menampilkan teks di Python?",
+            options: ["echo()", "print()", "output()", "display()"],
+            answer: "print()"
+        },
+        {
+            question: "Bagaimana cara mendefinisikan fungsi di Python?",
+            options: ["function myFunc():", "def myFunc():", "define myFunc():", "func myFunc():"],
+            answer: "def myFunc():"
+        },
+        {
+            question: "Apa tipe data untuk nilai 3.14?",
+            options: ["int", "str", "float", "bool"],
+            answer: "float"
+        },
+        {
+            question: "Bagaimana cara membuat komentar satu baris di Python?",
+            options: ["// Ini komentar", "# Ini komentar", "/* Ini komentar */", "-- Ini komentar"],
+            answer: "# Ini komentar"
+        }
+    ],
+    menengah: [
+        {
+            question: "Apa output dari kode berikut: print([i for i in range(5)])",
+            options: ["[0, 1, 2, 3, 4]", "[1, 2, 3, 4, 5]", "[0, 1, 2, 3, 4, 5]", "Error"],
+            answer: "[0, 1, 2, 3, 4]"
+        },
+        {
+            question: "Bagaimana cara menangani exception di Python?",
+            options: ["try-catch", "try-except", "catch-try", "error-handle"],
+            answer: "try-except"
+        },
+        {
+            question: "Apa output dari kode berikut: print('Hello' + 'World')",
+            options: ["HelloWorld", "Hello World", "Hello+World", "Error"],
+            answer: "HelloWorld"
+        },
+        {
+            question: "Fungsi apa yang mengembalikan panjang list?",
+            options: ["size()", "length()", "len()", "count()"],
+            answer: "len()"
+        },
+        {
+            question: "Apa output dari kode berikut: print(2 ** 3)",
+            options: ["6", "8", "9", "5"],
+            answer: "8"
+        }
+    ],
+    mahir: [
+        {
+            question: "Apa output dari kode berikut: [x**2 for x in range(5) if x % 2 == 0]",
+            options: ["[0, 4, 16]", "[0, 1, 4, 9, 16]", "[0, 4]", "[1, 9]"],
+            answer: "[0, 4]"
+        },
+        {
+            question: "Apa perbedaan antara list dan tuple?",
+            options: [
+                "List mutable, tuple immutable",
+                "List immutable, tuple mutable", 
+                "Keduanya mutable",
+                "Keduanya immutable"
+            ],
+            answer: "List mutable, tuple immutable"
+        },
+        {
+            question: "Apa output dari kode berikut: print(lambda x: x*2)(5)",
+            options: ["10", "25", "7", "Error"],
+            answer: "10"
+        },
+        {
+            question: "Bagaimana cara mengimpor modul math di Python?",
+            options: ["import math", "include math", "require math", "using math"],
+            answer: "import math"
+        },
+        {
+            question: "Apa fungsi dari __init__ dalam class Python?",
+            options: [
+                "Method destructor",
+                "Method constructor", 
+                "Method utama",
+                "Method statis"
+            ],
+            answer: "Method constructor"
+        }
+    ]
+};
+
+const daftarKata = [
+    "print", "html", "def", "for", "in", "range", "if", "else", "while", 
+    "function", "variable", "class", "object", "method", "attribute", 
+    "import", "from", "return", "break", "continue", "list", "tuple", 
+    "dictionary", "string", "integer", "float", "boolean", "module", 
+    "package", "exception", "lambda", "decorator", "generator", "iterator"
+];
+
+let kataSaatIni = "";
+let soalSaatIni = null;
+let levelSaatIni = "";
+
 function showModule(moduleId) {
     document.querySelectorAll('.module').forEach(section => {
         section.classList.add('hidden');
@@ -34,6 +165,17 @@ function showSubGame(subGameId) {
     if (activeSubGame) {
         activeSubGame.classList.remove('hidden');
         activeSubGame.classList.add('active');
+        
+        if (subGameId === 'bahasa') {
+            inisialisasiGame();
+        } else if (subGameId === 'pahlawan-kode') {
+            document.querySelectorAll('.level-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+            document.querySelectorAll('.level-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+        }
     }
 }
 
@@ -44,6 +186,63 @@ function showLevel(levelId) {
     const activeLevel = document.getElementById(levelId);
     if (activeLevel) {
         activeLevel.classList.remove('hidden');
+        levelSaatIni = levelId.replace('level-', '');
+        generateSoalPython(levelSaatIni);
+    }
+}
+
+function generateSoalPython(level) {
+    let soalArray;
+    
+    if (level === 'random') {
+        soalArray = [...bankSoalPython.pemula, ...bankSoalPython.menengah, ...bankSoalPython.mahir];
+    } else {
+        soalArray = bankSoalPython[level];
+    }
+    
+    const randomIndex = Math.floor(Math.random() * soalArray.length);
+    soalSaatIni = soalArray[randomIndex];
+    
+    document.getElementById(`question-${level}`).textContent = soalSaatIni.question;
+    
+    const optionsContainer = document.getElementById(`options-${level}`);
+    optionsContainer.innerHTML = '';
+    
+    soalSaatIni.options.forEach(option => {
+        const button = document.createElement('button');
+        button.className = 'option-btn';
+        button.textContent = option;
+        optionsContainer.appendChild(button);
+    });
+    
+    document.getElementById(`result-${level}`).textContent = '';
+    document.getElementById(`result-${level}`).className = 'result';
+}
+
+function checkPythonAnswer(level, selectedAnswer) {
+    const resultElement = document.getElementById(`result-${level}`);
+    const optionButtons = document.querySelectorAll(`#level-${level} .option-btn`);
+    
+    optionButtons.forEach(btn => {
+        btn.classList.remove('correct', 'incorrect');
+        if (btn.textContent === soalSaatIni.answer) {
+            btn.classList.add('correct');
+        }
+        if (btn.textContent === selectedAnswer && btn.textContent !== soalSaatIni.answer) {
+            btn.classList.add('incorrect');
+        }
+    });
+    
+    if (selectedAnswer === soalSaatIni.answer) {
+        resultElement.textContent = "✅ Jawaban Benar!";
+        resultElement.className = "result correct";
+        
+        setTimeout(() => {
+            generateSoalPython(level);
+        }, 1500);
+    } else {
+        resultElement.textContent = "❌ Jawaban Salah!";
+        resultElement.className = "result incorrect";
     }
 }
 
@@ -178,9 +377,6 @@ function hitungBMR() {
     hasilElement.textContent = bmr.toFixed(2);
 }
 
-const daftarKata = ["PRODUKTIVITAS", "PENGKODEAN", "ALGORITMA", "TEKNOLOGI", "GEMINI"];
-let kataSaatIni = "";
-
 function acakKata(kata) {
     return kata.split('').sort(() => 0.5 - Math.random()).join('');
 }
@@ -209,10 +405,10 @@ function updateGameUI() {
 }
 
 function cekJawaban() {
-    const jawabanUser = document.getElementById('jawaban').value.toUpperCase();
+    const jawabanUser = document.getElementById('jawaban').value.toLowerCase();
     const hasilGameElement = document.getElementById('hasil-game');
     
-    if (jawabanUser === kataSaatIni) {
+    if (jawabanUser === kataSaatIni.toLowerCase()) {
         skor += 10;
         hasilGameElement.innerHTML = "🎉 <strong>Selamat! Jawaban Anda Benar!</strong> (+10 poin)";
         hasilGameElement.style.color = '#28a745';
@@ -367,29 +563,6 @@ function calculate(shape, containerId) {
     }
 }
 
-function checkCodeAnswer(level, selectedAnswer, correctAnswer) {
-    const resultElement = document.getElementById(`result-${level}`);
-    const optionButtons = document.querySelectorAll(`#level-${level} .option-btn`);
-    
-    optionButtons.forEach(btn => {
-        btn.classList.remove('correct', 'incorrect');
-        if (btn.textContent === correctAnswer) {
-            btn.classList.add('correct');
-        }
-        if (btn.textContent === selectedAnswer && btn.textContent !== correctAnswer) {
-            btn.classList.add('incorrect');
-        }
-    });
-    
-    if (selectedAnswer === correctAnswer) {
-        resultElement.textContent = "✅ Jawaban Benar!";
-        resultElement.className = "result correct";
-    } else {
-        resultElement.textContent = "❌ Jawaban Salah!";
-        resultElement.className = "result incorrect";
-    }
-}
-
 document.addEventListener('click', function(e) {
     if (e.target.id.startsWith('btn-calc-')) {
         const containerId = e.target.id.replace('btn-calc-', '');
@@ -421,19 +594,32 @@ document.addEventListener('click', function(e) {
         const levelContent = e.target.closest('.level-content');
         if (levelContent) {
             const level = levelContent.id.replace('level-', '');
-            
-            if (level === 'pemula') {
-                checkCodeAnswer('pemula', e.target.textContent, '5');
-            } else if (level === 'menengah') {
-                checkCodeAnswer('menengah', e.target.textContent, '12');
-            } else if (level === 'mahir') {
-                checkCodeAnswer('mahir', e.target.textContent, 'string');
-            }
+            checkPythonAnswer(level, e.target.textContent);
         }
     }
 });
 
 document.addEventListener('DOMContentLoaded', () => {
+    showQuote(0);
+    
+    quoteInterval = setInterval(nextQuote, 15000);
+    
+    document.getElementById('next-quote').addEventListener('click', () => {
+        nextQuote();
+        clearInterval(quoteInterval);
+        quoteInterval = setInterval(nextQuote, 15000);
+    });
+    
+    document.getElementById('prev-quote').addEventListener('click', () => {
+        prevQuote();
+        clearInterval(quoteInterval);
+        quoteInterval = setInterval(nextQuote, 15000);
+    });
+    
+    document.getElementById('close-quotes').addEventListener('click', () => {
+        document.getElementById('quotes-sidebar').style.display = 'none';
+    });
+
     showModule('profile');
     document.querySelector('.tabs button[data-module="profile"]').classList.add('active-tab');
     showSubMtk('mtk-default');
