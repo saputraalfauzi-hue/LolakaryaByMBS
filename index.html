@@ -257,8 +257,8 @@
             <div class="game-container">
                 <nav class="game-submenu">
                     <h4>Jenis Game</h4>
-                    <button data-subgame="bahasa">Game Bahasa</button>
-                    <button data-subgame="pahlawan-kode">Pahlawan Kode</button>
+                    <button data-subgame="bahasa">Susun Huruf (Programming)</button>
+                    <button data-subgame="pahlawan-kode">Pahlawan Kode (Python)</button>
                 </nav>
 
                 <div class="game-content">
@@ -271,7 +271,7 @@
                             <div class="game-stat-item">Skor: <span id="skor-game">0</span></div>
                             <div class="game-stat-item">Kesempatan: <span id="kesempatan-game">3</span></div>
                         </div>
-                        <h3>Tebak Kata Acak</h3>
+                        <h3>Susun Huruf - Kata Programming</h3>
                         <p>Kata Acak: <span id="kata-acak"></span></p>
                         <label for="jawaban">Jawaban Anda:</label>
                         <input type="text" id="jawaban">
@@ -281,52 +281,47 @@
 
                     <div id="pahlawan-kode" class="game-subcontent hidden">
                         <div class="hero-levels">
-                            <h3>Pilih Level Pahlawan Kode</h3>
+                            <h3>Pahlawan Kode - Python</h3>
                             <div class="level-buttons">
                                 <button data-level="pemula" class="level-btn">Pemula</button>
                                 <button data-level="menengah" class="level-btn">Menengah</button>
                                 <button data-level="mahir" class="level-btn">Mahir</button>
+                                <button data-level="random" class="level-btn">Random</button>
                             </div>
                             
                             <div id="level-pemula" class="level-content hidden">
-                                <h4>Level Pemula - Konsep Dasar Pemrograman</h4>
+                                <h4>Level Pemula - Python Dasar</h4>
                                 <div class="code-quiz">
-                                    <p class="question">Apa output dari kode berikut: <code>console.log(2 + 3);</code></p>
-                                    <div class="options">
-                                        <button class="option-btn">5</button>
-                                        <button class="option-btn">23</button>
-                                        <button class="option-btn">6</button>
-                                        <button class="option-btn">Error</button>
-                                    </div>
+                                    <p class="question" id="question-pemula"></p>
+                                    <div class="options" id="options-pemula"></div>
                                     <p id="result-pemula" class="result"></p>
                                 </div>
                             </div>
                             
                             <div id="level-menengah" class="level-content hidden">
-                                <h4>Level Menengah - Konsep Menengah Pemrograman</h4>
+                                <h4>Level Menengah - Python Menengah</h4>
                                 <div class="code-quiz">
-                                    <p class="question">Apa output dari kode berikut: <code>let x = 5; console.log(x++ + ++x);</code></p>
-                                    <div class="options">
-                                        <button class="option-btn">10</button>
-                                        <button class="option-btn">11</button>
-                                        <button class="option-btn">12</button>
-                                        <button class="option-btn">13</button>
-                                    </div>
+                                    <p class="question" id="question-menengah"></p>
+                                    <div class="options" id="options-menengah"></div>
                                     <p id="result-menengah" class="result"></p>
                                 </div>
                             </div>
                             
                             <div id="level-mahir" class="level-content hidden">
-                                <h4>Level Mahir - Konsep Lanjutan Pemrograman</h4>
+                                <h4>Level Mahir - Python Lanjutan</h4>
                                 <div class="code-quiz">
-                                    <p class="question">Apa output dari kode berikut: <code>function foo() { return { bar: "hello" }; } console.log(typeof foo().bar);</code></p>
-                                    <div class="options">
-                                        <button class="option-btn">object</button>
-                                        <button class="option-btn">string</button>
-                                        <button class="option-btn">undefined</button>
-                                        <button class="option-btn">function</button>
-                                    </div>
+                                    <p class="question" id="question-mahir"></p>
+                                    <div class="options" id="options-mahir"></div>
                                     <p id="result-mahir" class="result"></p>
+                                </div>
+                            </div>
+
+                            <div id="level-random" class="level-content hidden">
+                                <h4>Level Random - Semua Tingkat</h4>
+                                <div class="code-quiz">
+                                    <p class="question" id="question-random"></p>
+                                    <div class="options" id="options-random"></div>
+                                    <p id="result-random" class="result"></p>
                                 </div>
                             </div>
                         </div>
@@ -335,6 +330,45 @@
             </div>
         </section>
     </main>
+
+    <!-- Quotes Sidebar -->
+    <div id="quotes-sidebar">
+        <div class="quotes-header">
+            <h3>Kata Dari Tokoh Terkenal</h3>
+            <button id="close-quotes">×</button>
+        </div>
+        <div class="quotes-container">
+            <div class="quote active">
+                <p>"satu hal terberat dalam mendidik anak adalah memberitahukan bahwa kebenaran itu lebih penting daripada konsekuensinya"</p>
+                <div class="quote-author">~Mahatma Gandhi 🇮🇳 & Thomas Jefferson 🇺🇸~</div>
+            </div>
+            <div class="quote">
+                <p>"untuk mencapai kesuksesan kita jangan hanya bertindak, tapi juga perlu bermimpi. jangan hanya berencana, tapi juga perlu untuk percaya."</p>
+                <div class="quote-author">~Walt Disney 🏰 & Colin Powell 🇺🇸~</div>
+            </div>
+            <div class="quote">
+                <p>"ada dua cara menjalani hidup, yaitu menjalaninya dengan keajaiban-keajaiban atau menjalaninya dengan biasa biasa saja"</p>
+                <div class="quote-author">~Einstein 👴~</div>
+            </div>
+            <div class="quote">
+                <p>"Ilmu adalah cara untuk tidak hanya tahu, tetapi juga mengagumi."</p>
+                <div class="quote-author">~Carl Sagan 🔭~</div>
+            </div>
+            <div class="quote">
+                <p>"kebanyakan dari kita tidak mensyukuri apa yang sudah kita miliki tetapi kita selalu menyesali apa yang belum kita capai"</p>
+                <div class="quote-author">~Marcus Aurelius (Filsuf Stoa) 🏛️~</div>
+            </div>
+            <div class="quote">
+                <p>"kita boleh mengharapkan semua urusan berjalan lancar, tetapi jauh lebih baik bila kita siap mental dan berani menghadapi semua masalah yang mungkin datang kepada kita"</p>
+                <div class="quote-author">~Jim Carrey (Aktor/Filosof Modern) 🎭~</div>
+            </div>
+        </div>
+        <div class="quote-controls">
+            <button id="prev-quote">‹</button>
+            <span class="quote-counter">1/6</span>
+            <button id="next-quote">›</button>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
