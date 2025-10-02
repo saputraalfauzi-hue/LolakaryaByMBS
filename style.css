@@ -403,3 +403,148 @@ button:disabled {
         margin-bottom: 5px;
     }
 }
+
+#quotes-sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 320px;
+    height: 100vh;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-left: 1px solid #dee2e6;
+    box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease;
+}
+
+.quotes-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: #007bff;
+    color: white;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.quotes-header h3 {
+    margin: 0;
+    font-size: 1.1em;
+}
+
+#close-quotes {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5em;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+}
+
+#close-quotes:hover {
+    background-color: rgba(255,255,255,0.2);
+}
+
+.quotes-container {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.quote {
+    display: none;
+    text-align: center;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border-left: 4px solid #007bff;
+}
+
+.quote.active {
+    display: block;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.quote p {
+    font-style: italic;
+    line-height: 1.6;
+    margin-bottom: 15px;
+    color: #333;
+    font-size: 1em;
+}
+
+.quote-author {
+    font-weight: bold;
+    color: #007bff;
+    font-size: 0.9em;
+}
+
+.quote-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: #f8f9fa;
+    border-top: 1px solid #dee2e6;
+    gap: 15px;
+}
+
+.quote-controls button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2em;
+    transition: background-color 0.2s;
+}
+
+.quote-controls button:hover {
+    background-color: #0056b3;
+}
+
+.quote-counter {
+    font-weight: bold;
+    color: #495057;
+    min-width: 40px;
+    text-align: center;
+}
+
+@media (max-width: 1200px) {
+    #quotes-sidebar {
+        width: 280px;
+    }
+}
+
+@media (max-width: 768px) {
+    #quotes-sidebar {
+        display: none;
+    }
+    
+    #content-container {
+        margin-right: 0;
+    }
+}
