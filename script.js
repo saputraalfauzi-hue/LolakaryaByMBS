@@ -1,31 +1,6 @@
 let skor = 0;
 let kesempatan = 3;
 
-let currentQuoteIndex = 0;
-const totalQuotes = 6;
-let quoteInterval;
-
-function showQuote(index) {
-    const quotes = document.querySelectorAll('.quote');
-    quotes.forEach(quote => quote.classList.remove('active'));
-    if (quotes[index]) {
-        quotes[index].classList.add('active');
-    }
-    
-    document.querySelector('.quote-counter').textContent = `${index + 1}/${totalQuotes}`;
-    currentQuoteIndex = index;
-}
-
-function nextQuote() {
-    currentQuoteIndex = (currentQuoteIndex + 1) % totalQuotes;
-    showQuote(currentQuoteIndex);
-}
-
-function prevQuote() {
-    currentQuoteIndex = (currentQuoteIndex - 1 + totalQuotes) % totalQuotes;
-    showQuote(currentQuoteIndex);
-}
-
 const bankSoalPython = {
     pemula: [
         {
@@ -600,26 +575,6 @@ document.addEventListener('click', function(e) {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-    showQuote(0);
-    
-    quoteInterval = setInterval(nextQuote, 15000);
-    
-    document.getElementById('next-quote').addEventListener('click', () => {
-        nextQuote();
-        clearInterval(quoteInterval);
-        quoteInterval = setInterval(nextQuote, 15000);
-    });
-    
-    document.getElementById('prev-quote').addEventListener('click', () => {
-        prevQuote();
-        clearInterval(quoteInterval);
-        quoteInterval = setInterval(nextQuote, 15000);
-    });
-    
-    document.getElementById('close-quotes').addEventListener('click', () => {
-        document.getElementById('quotes-sidebar').style.display = 'none';
-    });
-
     showModule('profile');
     document.querySelector('.tabs button[data-module="profile"]').classList.add('active-tab');
     showSubMtk('mtk-default');
