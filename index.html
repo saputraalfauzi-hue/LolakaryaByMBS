@@ -8,76 +8,19 @@
 </head>
 <body>
     <header>
-        <div class="profile-header">
-            <div class="profile-picture">
-                <img src="f-t.jpg" alt="Foto Profil" id="profile-img">
-            </div>
-            <div class="header-text">
-                <h1>Welcome</h1>
-                <h1>To Multitask</h1>
-            </div>
-        </div>
+        <h1>Welcome</h1>
+        <h1>To Multitask</h1>
     </header>
 
     <nav class="tabs">
-        <button data-module="profile">Profile Development</button>
         <button data-module="mtk">Matematika & Fisika</button>
         <button data-module="kesehatan">Kesehatan & Kebugaran</button>
-        <button data-module="game">Minigame</button>
+        <button data-module="game">Minigame Bahasa</button>
+        <button data-module="motivasi">Gudang Motivasi</button>
     </nav>
 
     <main id="content-container">
-        <section id="profile" class="module active">
-            <div class="profile-container">
-                <div class="profile-section">
-                    <div class="profile-image">
-                        <img src="f-t.jpg" alt="Foto Profil">
-                    </div>
-                    <div class="profile-info">
-                        <h2>Profile Development</h2>
-                        <div class="profile-details">
-                            <div class="detail-item">
-                                <span class="label">Nama Lengkap:</span>
-                                <span class="value">MUHAMMAD BAGUS SAJIWO</span>
-                            </div>
-                            <div class="detail-item">
-                                <span class="label">Gelar/Jabatan Saat Ini:</span>
-                                <span class="value">Pelajar</span>
-                            </div>
-                            <div class="detail-item">
-                                <span class="label">Email:</span>
-                                <span class="value">saputraalfauzi@gmail.com</span>
-                            </div>
-                            <div class="detail-item">
-                                <span class="label">Nomor Kontak:</span>
-                                <span class="value">+62 858 8102 3889</span>
-                            </div>
-                            <div class="detail-item">
-                                <span class="label">GitHub:</span>
-                                <span class="value"><a href="https://github.com/saputraalfauzi-hue" target="_blank">https://github.com/saputraalfauzi-hue</a></span>
-                            </div>
-                            <div class="detail-item">
-                                <span class="label">Tujuan/Nilai Ditawarkan:</span>
-                                <span class="value">Mengembangkan teknik pengkodean</span>
-                            </div>
-                            <div class="detail-item">
-                                <span class="label">Keterampilan Teknis Utama:</span>
-                                <span class="value">Python & HTML (Dasar)</span>
-                            </div>
-                            <div class="detail-item">
-                                <span class="label">Dampak yang Diinginkan:</span>
-                                <span class="value">Meningkatkan produktivitas sehari-hari</span>
-                            </div>
-                        </div>
-                        <div class="profile-description">
-                            <p>Saya adalah seorang pelajar yang memiliki pengalaman/minat kuat di bidang AI/Pengkodean. Fokus utama saya adalah mengembangkan teknik pengkodean. Saya antusias menggunakan Python & HTML (Dasar) untuk mencapai meningkatkan produktivitas sehari-hari.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="mtk" class="module hidden">
+        <section id="mtk" class="module active">
             <h2>Kalkulator Matematika & Fisika</h2>
             <div class="mtk-container">
                 <nav class="mtk-submenu">
@@ -203,129 +146,51 @@
         </section>
 
         <section id="kesehatan" class="module hidden">
-            <h2>Kesehatan & Kebugaran</h2>
-            
-            <div class="health-container">
-                <div class="health-section">
-                    <h3>Kalkulator BMI (Body Mass Index)</h3>
-                    <label for="berat">Berat (kg):</label>
-                    <input type="number" id="berat" placeholder="Contoh: 70">
-                    <label for="tinggi">Tinggi (m):</label>
-                    <input type="number" id="tinggi" placeholder="Contoh: 1.75">
-                    <button id="btn-bmi">Hitung BMI</button>
-                    <p>BMI Anda: <span id="hasil-bmi"></span></p>
-                    <p>Kategori: <span id="kategori-bmi"></span></p>
-                </div>
-
-                <div class="health-section">
-                    <h3>Rumus Broca (Berat Badan Ideal)</h3>
-                    <label for="tinggi-broca">Tinggi Badan (cm):</label>
-                    <input type="number" id="tinggi-broca" placeholder="Contoh: 170">
-                    <label for="jenis-kelamin">Jenis Kelamin:</label>
-                    <select id="jenis-kelamin">
-                        <option value="pria">Pria</option>
-                        <option value="wanita">Wanita</option>
-                    </select>
-                    <button id="btn-broca">Hitung Berat Ideal</button>
-                    <p>Berat Badan Ideal: <span id="hasil-broca"></span> kg</p>
-                    <p class="rumus-info">Pria: (Tinggi - 100) kg | Wanita: (Tinggi - 105) kg</p>
-                </div>
-
-                <div class="health-section">
-                    <h3>Basal Metabolic Rate (BMR)</h3>
-                    <label for="berat-bmr">Berat Badan (kg):</label>
-                    <input type="number" id="berat-bmr" placeholder="Contoh: 70">
-                    <label for="tinggi-bmr">Tinggi Badan (cm):</label>
-                    <input type="number" id="tinggi-bmr" placeholder="Contoh: 170">
-                    <label for="usia-bmr">Usia (tahun):</label>
-                    <input type="number" id="usia-bmr" placeholder="Contoh: 25">
-                    <label for="jenis-kelamin-bmr">Jenis Kelamin:</label>
-                    <select id="jenis-kelamin-bmr">
-                        <option value="pria">Pria</option>
-                        <option value="wanita">Wanita</option>
-                    </select>
-                    <button id="btn-bmr">Hitung BMR</button>
-                    <p>BMR Anda: <span id="hasil-bmr"></span> kkal/hari</p>
-                    <p class="rumus-info">Pria: 66,5 + (13,7×berat) + (5×tinggi) - (6,8×usia)</p>
-                    <p class="rumus-info">Wanita: 655 + (9,6×berat) + (1,8×tinggi) - (4,7×usia)</p>
-                </div>
-            </div>
+            <h2>Kalkulator BMI (Body Mass Index)</h2>
+            <label for="berat">Berat (kg):</label>
+            <input type="number" id="berat" placeholder="Contoh: 70">
+            <label for="tinggi">Tinggi (m):</label>
+            <input type="number" id="tinggi" placeholder="Contoh: 1.75">
+            <button id="btn-bmi">Hitung BMI</button>
+            <p>BMI Anda: <span id="hasil-bmi"></span></p>
+            <p>Kategori: <span id="kategori-bmi"></span></p>
         </section>
 
         <section id="game" class="module hidden">
-            <h2>Minigame</h2>
-            <div class="game-container">
-                <nav class="game-submenu">
-                    <h4>Jenis Game</h4>
-                    <button data-subgame="bahasa">Susun Huruf (Programming)</button>
-                    <button data-subgame="pahlawan-kode">Pahlawan Kode (Python)</button>
-                </nav>
+            <h2>Minigame: Tebak Kata Acak ❓</h2>
+            <p>Kata Acak: <span id="kata-acak"></span></p>
+            <label for="jawaban">Jawaban Anda:</label>
+            <input type="text" id="jawaban">
+            <button id="btn-cek-jawaban">Cek</button>
+            <p id="hasil-game"></p>
+        </section>
 
-                <div class="game-content">
-                    <div id="game-default" class="game-subcontent active">
-                        <p>Silakan pilih jenis game dari menu di samping kiri.</p>
-                    </div>
-
-                    <div id="bahasa" class="game-subcontent hidden">
-                        <div class="game-stats">
-                            <div class="game-stat-item">Skor: <span id="skor-game">0</span></div>
-                            <div class="game-stat-item">Kesempatan: <span id="kesempatan-game">3</span></div>
-                        </div>
-                        <h3>Susun Huruf - Kata Programming</h3>
-                        <p>Kata Acak: <span id="kata-acak"></span></p>
-                        <label for="jawaban">Jawaban Anda:</label>
-                        <input type="text" id="jawaban">
-                        <button id="btn-cek-jawaban">Cek</button>
-                        <p id="hasil-game"></p>
-                    </div>
-
-                    <div id="pahlawan-kode" class="game-subcontent hidden">
-                        <div class="hero-levels">
-                            <h3>Pahlawan Kode - Python</h3>
-                            <div class="level-buttons">
-                                <button data-level="pemula" class="level-btn">Pemula</button>
-                                <button data-level="menengah" class="level-btn">Menengah</button>
-                                <button data-level="mahir" class="level-btn">Mahir</button>
-                                <button data-level="random" class="level-btn">Random</button>
-                            </div>
-                            
-                            <div id="level-pemula" class="level-content hidden">
-                                <h4>Level Pemula - Python Dasar</h4>
-                                <div class="code-quiz">
-                                    <p class="question" id="question-pemula"></p>
-                                    <div class="options" id="options-pemula"></div>
-                                    <p id="result-pemula" class="result"></p>
-                                </div>
-                            </div>
-                            
-                            <div id="level-menengah" class="level-content hidden">
-                                <h4>Level Menengah - Python Menengah</h4>
-                                <div class="code-quiz">
-                                    <p class="question" id="question-menengah"></p>
-                                    <div class="options" id="options-menengah"></div>
-                                    <p id="result-menengah" class="result"></p>
-                                </div>
-                            </div>
-                            
-                            <div id="level-mahir" class="level-content hidden">
-                                <h4>Level Mahir - Python Lanjutan</h4>
-                                <div class="code-quiz">
-                                    <p class="question" id="question-mahir"></p>
-                                    <div class="options" id="options-mahir"></div>
-                                    <p id="result-mahir" class="result"></p>
-                                </div>
-                            </div>
-
-                            <div id="level-random" class="level-content hidden">
-                                <h4>Level Random - Semua Tingkat</h4>
-                                <div class="code-quiz">
-                                    <p class="question" id="question-random"></p>
-                                    <div class="options" id="options-random"></div>
-                                    <p id="result-random" class="result"></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        <section id="motivasi" class="module hidden">
+            <h2>Kata-kata Dari Tokoh Besar</h2>
+            <div class="motivasi-container">
+                <div class="motivasi-item">
+                    <p class="motivasi-quote">Satu hal terberat dalam mendidik anak adalah memberitahukan bahwa kebenaran itu lebih penting daripada konsekuensinya</p>
+                    <p class="motivasi-author">~Mahatma Gandhi 🇮🇳 & Thomas Jefferson 🇺🇸~</p>
+                </div>
+                <div class="motivasi-item">
+                    <p class="motivasi-quote">Untuk mencapai kesuksesan kita jangan hanya bertindak, tapi juga perlu bermimpi. Jangan hanya berencana, tapi juga perlu untuk percaya.</p>
+                    <p class="motivasi-author">~Walt Disney 🏰 & Colin Powell 🇺🇸~</p>
+                </div>
+                <div class="motivasi-item">
+                    <p class="motivasi-quote">Ada dua cara menjalani hidup, yaitu menjalaninya dengan keajaiban-keajaiban atau menjalaninya dengan biasa biasa saja</p>
+                    <p class="motivasi-author">~Einstein 👴~</p>
+                </div>
+                <div class="motivasi-item">
+                    <p class="motivasi-quote">Ilmu adalah cara untuk tidak hanya tahu, tetapi juga mengagumi.</p>
+                    <p class="motivasi-author">~Carl Sagan 🔭~</p>
+                </div>
+                <div class="motivasi-item">
+                    <p class="motivasi-quote">Kebanyakan dari kita tidak mensyukuri apa yang sudah kita miliki tetapi kita selalu menyesali apa yang belum kita capai</p>
+                    <p class="motivasi-author">~Marcus Aurelius (Filsuf Stoa) 🏛️~</p>
+                </div>
+                <div class="motivasi-item">
+                    <p class="motivasi-quote">Kita boleh mengharapkan semua urusan berjalan lancar, tetapi jauh lebih baik bila kita siap mental dan berani menghadapi semua masalah yang mungkin datang kepada kita</p>
+                    <p class="motivasi-author">~Jim Carrey (Aktor/Filosof Modern) 🎭~</p>
                 </div>
             </div>
         </section>
@@ -333,4 +198,4 @@
 
     <script src="script.js"></script>
 </body>
-    </html>
+                                                  </html>
