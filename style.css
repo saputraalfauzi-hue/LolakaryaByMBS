@@ -82,3 +82,63 @@ button:not(.tabs button) {
     cursor: pointer;
     margin-top: 10px;
 }
+
+/* --- Styling Khusus Modul Matematika --- */
+.mtk-container {
+    display: flex; /* Kunci agar menu dan konten berdampingan */
+    gap: 20px; /* Jarak antara menu dan konten */
+    min-height: 400px; /* Tinggi minimal agar menu terlihat */
+}
+
+.mtk-submenu {
+    width: 200px; /* Lebar menu navigasi */
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-radius: 5px;
+    flex-shrink: 0; /* Mencegah menu mengecil */
+}
+
+.mtk-submenu h4 {
+    margin-top: 15px;
+    margin-bottom: 5px;
+    color: #007bff;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+}
+
+.mtk-submenu button {
+    display: block; /* Membuat tombol mengisi lebar penuh dan berbaris vertikal */
+    width: 100%;
+    text-align: left;
+    background-color: transparent;
+    color: #333;
+    border: none;
+    padding: 8px 10px;
+    margin: 3px 0;
+    transition: background-color 0.2s;
+}
+
+.mtk-submenu button:hover {
+    background-color: #e9ecef;
+    color: #007bff;
+}
+
+.mtk-submenu button.active-submtk {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+}
+
+.mtk-content {
+    flex-grow: 1; /* Konten mengisi sisa ruang yang ada */
+    padding: 10px;
+    border-left: 1px solid #ddd;
+}
+
+.mtk-subcontent {
+    /* Gaya untuk konten sub-modul */
+}
+
+.hidden {
+    display: none;
+}
