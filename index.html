@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Produktivitas Harian</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Aplikasi Multiguna Harian</h1>
+    </header>
+
+    <nav class="tabs">
+        <button onclick="showModule('mtk')">Matematika & Fisika</button>
+        <button onclick="showModule('kesehatan')">Kesehatan & Kebugaran</button>
+        <button onclick="showModule('game')">Minigame Bahasa</button>
+    </nav>
+
+    <main id="content-container">
+        <section id="mtk" class="module active">
+            <h2>Kalkulator Sederhana (Luas Lingkaran)</h2>
+            <label for="jari-jari">Masukkan Jari-jari (cm):</label>
+            <input type="number" id="jari-jari">
+            <button onclick="hitungLuasLingkaran()">Hitung</button>
+            <p>Hasil Luas: <span id="hasil-mtk"></span> cm²</p>
+        </section>
+
+        <section id="kesehatan" class="module hidden">
+            <h2>Kalkulator BMI (Body Mass Index)</h2>
+            <label for="berat">Berat (kg):</label>
+            <input type="number" id="berat" placeholder="Contoh: 70">
+            <label for="tinggi">Tinggi (m):</label>
+            <input type="number" id="tinggi" placeholder="Contoh: 1.75">
+            <button onclick="hitungBMI()">Hitung BMI</button>
+            <p>BMI Anda: <span id="hasil-bmi"></span></p>
+            <p>Kategori: <span id="kategori-bmi"></span></p>
+        </section>
+
+        <section id="game" class="module hidden">
+            <h2>Minigame: Tebak Kata Acak ❓</h2>
+            <p>Kata Acak: <span id="kata-acak"></span></p>
+            <label for="jawaban">Jawaban Anda:</label>
+            <input type="text" id="jawaban">
+            <button onclick="cekJawaban()">Cek</button>
+            <p id="hasil-game"></p>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
