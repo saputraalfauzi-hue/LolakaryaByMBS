@@ -377,6 +377,40 @@ button:disabled {
     cursor: not-allowed;
 }
 
+.motivasi-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.kutipan {
+    background-color: #f8f9fa;
+    border-left: 4px solid #007bff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 0 8px 8px 0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.kutipan:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.isi-kutipan {
+    font-style: italic;
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.penulis-kutipan {
+    text-align: right;
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 0;
+}
+
 @media (min-width: 768px) {
     .health-container {
         grid-template-columns: 1fr 1fr;
@@ -401,5 +435,14 @@ button:disabled {
     .detail-item .label {
         width: 100%;
         margin-bottom: 5px;
+    }
+
+    .kutipan {
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+    
+    .isi-kutipan {
+        font-size: 1em;
     }
     }
