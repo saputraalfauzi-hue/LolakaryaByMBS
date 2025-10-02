@@ -64,7 +64,7 @@ header {
     display: none;
 }
 
-input[type="number"], input[type="text"] {
+input[type="number"], input[type="text"], select {
     width: 100%;
     padding: 10px;
     margin: 8px 0;
@@ -83,13 +83,13 @@ button:not(.tabs button) {
     margin-top: 10px;
 }
 
-.mtk-container {
+.mtk-container, .game-container {
     display: flex;
     gap: 20px;
     min-height: 400px;
 }
 
-.mtk-submenu {
+.mtk-submenu, .game-submenu {
     width: 250px;
     background-color: #f8f9fa;
     padding: 10px;
@@ -97,7 +97,7 @@ button:not(.tabs button) {
     flex-shrink: 0;
 }
 
-.mtk-submenu h4 {
+.mtk-submenu h4, .game-submenu h4 {
     margin-top: 15px;
     margin-bottom: 5px;
     color: #007bff;
@@ -105,7 +105,7 @@ button:not(.tabs button) {
     padding-bottom: 5px;
 }
 
-.mtk-submenu button {
+.mtk-submenu button, .game-submenu button {
     display: block;
     width: 100%;
     text-align: left;
@@ -117,18 +117,18 @@ button:not(.tabs button) {
     transition: background-color 0.2s;
 }
 
-.mtk-submenu button:hover {
+.mtk-submenu button:hover, .game-submenu button:hover {
     background-color: #e9ecef;
     color: #007bff;
 }
 
-.mtk-submenu button.active-submtk {
+.mtk-submenu button.active-submtk, .game-submenu button.active-subgame {
     background-color: #007bff;
     color: white;
     font-weight: bold;
 }
 
-.mtk-content {
+.mtk-content, .game-content {
     flex-grow: 1;
     padding: 10px;
     border-left: 1px solid #ddd;
@@ -138,6 +138,26 @@ button:not(.tabs button) {
     font-style: italic;
     font-size: 0.9em;
     color: #6c757d;
+}
+
+.health-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+.health-section {
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+}
+
+.health-section h3 {
+    margin-top: 0;
+    color: #007bff;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 8px;
 }
 
 .game-stats {
@@ -155,7 +175,117 @@ button:not(.tabs button) {
     font-weight: bold;
 }
 
+.hero-levels {
+    padding: 15px;
+}
+
+.level-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.level-btn {
+    flex: 1;
+    padding: 12px;
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.level-btn:hover {
+    background-color: #5a6268;
+}
+
+.level-btn.active {
+    background-color: #007bff;
+}
+
+.level-content {
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+}
+
+.code-quiz {
+    margin-top: 15px;
+}
+
+.question {
+    font-weight: bold;
+    margin-bottom: 15px;
+    font-size: 1.1em;
+}
+
+code {
+    background-color: #f1f1f1;
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-family: 'Courier New', monospace;
+}
+
+.options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.option-btn {
+    padding: 10px;
+    background-color: #e9ecef;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.option-btn:hover {
+    background-color: #dae0e5;
+}
+
+.option-btn.correct {
+    background-color: #28a745;
+    color: white;
+    border-color: #28a745;
+}
+
+.option-btn.incorrect {
+    background-color: #dc3545;
+    color: white;
+    border-color: #dc3545;
+}
+
+.result {
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.result.correct {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.result.incorrect {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
 button:disabled {
     background-color: #6c757d;
     cursor: not-allowed;
 }
+
+@media (min-width: 768px) {
+    .health-container {
+        grid-template-columns: 1fr 1fr;
+    }
+    }
