@@ -407,7 +407,7 @@ function cekJawaban() {
 
 function generateInputs(containerId, fields) {
     const container = document.getElementById(containerId);
-    container.innerHTML = ''; 
+    container.innerHTML = '';
 
     fields.forEach(field => {
         const label = document.createElement('label');
