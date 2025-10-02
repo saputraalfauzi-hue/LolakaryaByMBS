@@ -13,6 +13,25 @@ header {
     text-align: center;
 }
 
+.profile-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.profile-picture img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 3px solid white;
+    object-fit: cover;
+}
+
+.header-text h1 {
+    margin: 5px 0;
+}
+
 .tabs {
     display: flex;
     justify-content: center;
@@ -81,6 +100,80 @@ button:not(.tabs button) {
     border-radius: 5px;
     cursor: pointer;
     margin-top: 10px;
+}
+
+.profile-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.profile-section {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+.profile-image img {
+    width: 200px;
+    height: 200px;
+    border-radius: 10px;
+    object-fit: cover;
+    border: 3px solid #007bff;
+}
+
+.profile-info {
+    flex: 1;
+}
+
+.profile-info h2 {
+    color: #007bff;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 10px;
+    margin-top: 0;
+}
+
+.profile-details {
+    margin: 20px 0;
+}
+
+.detail-item {
+    display: flex;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #eee;
+}
+
+.detail-item .label {
+    font-weight: bold;
+    width: 200px;
+    color: #555;
+}
+
+.detail-item .value {
+    flex: 1;
+}
+
+.detail-item a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.detail-item a:hover {
+    text-decoration: underline;
+}
+
+.profile-description {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    border-left: 4px solid #007bff;
+    margin-top: 20px;
+}
+
+.profile-description p {
+    margin: 0;
+    font-style: italic;
+    line-height: 1.6;
 }
 
 .mtk-container, .game-container {
@@ -288,4 +381,25 @@ button:disabled {
     .health-container {
         grid-template-columns: 1fr 1fr;
     }
+}
+
+@media (max-width: 768px) {
+    .profile-section {
+        flex-direction: column;
+        align-items: center;
     }
+    
+    .profile-image img {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .detail-item {
+        flex-direction: column;
+    }
+    
+    .detail-item .label {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+}
