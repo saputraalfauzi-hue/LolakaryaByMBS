@@ -696,3 +696,204 @@ button:disabled {
     background-color: #e9ecef;
     border-color: #007bff;
 }
+
+.glosarium-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.search-bar {
+    margin-bottom: 20px;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+.istilah-item {
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.istilah-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.istilah-item h3 {
+    color: var(--primary-color);
+    margin-top: 0;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 8px;
+}
+
+.istilah-item p {
+    margin-bottom: 0;
+    line-height: 1.6;
+}
+
+.debug-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.code-section {
+    background-color: #2d2d2d;
+    color: #f8f8f2;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    overflow-x: auto;
+}
+
+.code-section pre {
+    margin: 0;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.game-description {
+    text-align: center;
+    color: #666;
+    margin-bottom: 20px;
+    font-style: italic;
+}
+
+.question-section {
+    background-color: #e9ecef;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    border-left: 4px solid #007bff;
+}
+
+.explanation-section {
+    background-color: #d4edda;
+    padding: 15px;
+    border-radius: 5px;
+    margin: 15px 0;
+    border-left: 4px solid #28a745;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+#debug-options, #tebak-options {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+#debug-options .option-btn, #tebak-options .option-btn {
+    padding: 12px;
+    text-align: left;
+    background-color: #f8f9fa;
+    border: 2px solid #dee2e6;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#debug-options .option-btn:hover, #tebak-options .option-btn:hover {
+    background-color: #e9ecef;
+    border-color: #007bff;
+}
+
+#hasil-statistik {
+    background-color: var(--light-color);
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 15px;
+}
+
+#hasil-statistik p {
+    margin: 8px 0;
+    padding: 5px;
+    border-bottom: 1px solid #dee2e6;
+}
+
+#konversi-satuan select, #waktu-paruh input {
+    margin-bottom: 10px;
+}
+
+.calculator-space {
+    margin-top: 15px;
+}
+
+.calculator-space label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.calculator-space input {
+    margin-bottom: 10px;
+}
+
+.tebak-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+#tebak-explanation-section {
+    background-color: #d1ecf1;
+    padding: 15px;
+    border-radius: 5px;
+    margin: 15px 0;
+    border-left: 4px solid #17a2b8;
+}
+
+@media (max-width: 768px) {
+    .glosarium-container {
+        padding: 10px;
+    }
+    
+    .istilah-item {
+        padding: 15px;
+    }
+    
+    .code-section pre {
+        font-size: 12px;
+    }
+    
+    .debug-container, .tebak-container {
+        padding: 10px;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+    }
+    
+    .action-buttons button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .istilah-item h3 {
+        font-size: 1.1em;
+    }
+    
+    .code-section {
+        padding: 10px;
+    }
+    
+    .question-section, .explanation-section {
+        padding: 12px;
+    }
+}
