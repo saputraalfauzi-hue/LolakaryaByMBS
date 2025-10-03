@@ -169,27 +169,63 @@ function nextSoal() {
     generateSoalPython();
 }
 
-function hitungLuasLingkaran() {
-    const jari2 = parseFloat(document.getElementById('jari2').value);
-    const hasilElement = document.getElementById('hasil-luas-volume');
-    if (isNaN(jari2) || jari2 <= 0) {
-        hasilElement.textContent = "Masukkan nilai jari-jari yang valid.";
-        return;
+function hitungLuasVolume(jenis, values) {
+    let deskripsi = '';
+
+    if (jenis === 'kubus') {
+        const s = values['sisi'];
+        const luas = 6 * s * s; 
+        const volume = Math.pow(s, 3);
+        deskripsi = `Luas Permukaan Kubus: ${luas.toFixed(2)} | Volume: ${volume.toFixed(2)}`;
+    } else if (jenis === 'balok') {
+        const p = values['panjang'];
+        const l = values['lebar'];
+        const t = values['tinggi'];
+        const luas = 2 * (p * l + p * t + l * t);
+        const volume = p * l * t;
+        deskripsi = `Luas Permukaan Balok: ${luas.toFixed(2)} | Volume: ${volume.toFixed(2)}`;
+    } else if (jenis === 'bola') {
+        const r = values['jari2'];
+        const luas = 4 * Math.PI * r * r; 
+        const volume = (4 / 3) * Math.PI * Math.pow(r, 3);
+        deskripsi = `Luas Permukaan Bola: ${luas.toFixed(2)} | Volume: ${volume.toFixed(2)}`;
     }
-    const luas = Math.PI * jari2 * jari2;
-    hasilElement.textContent = `Luas Lingkaran: ${luas.toFixed(2)}`;
+    return deskripsi;
 }
 
-function hitungKecepatan() {
-    const kecepatan = parseFloat(document.getElementById('kecepatan').value);
-    const waktu = parseFloat(document.getElementById('waktu').value);
-    const hasilElement = document.getElementById('hasil-kecepatan');
-    if (isNaN(kecepatan) || isNaN(waktu) || kecepatan <= 0 || waktu <= 0) {
-        hasilElement.textContent = "Masukkan nilai kecepatan dan waktu yang valid.";
-        return;
+function hitungJarakWaktuKecepatan() {
+    const jarak = parseFloat(document.getElementById('jarak').value);
+    const kecepatan = parseFloat(document.getElementById('kecepatan-jkw').value);
+    const waktu = parseFloat(document.getElementById('waktu-jkw').value);
+    const hasilElement = document.getElementById('hasil-jkw');
+    let hasilTeks = '';
+
+    if (!isNaN(jarak) && !isNaN(kecepatan) && isNaN(waktu)) {
+        if (kecepatan > 0) {
+            const waktuHitung = jarak / kecepatan;
+            hasilTeks = `Waktu Tempuh: ${waktuHitung.toFixed(2)} jam`;
+        } else {
+            hasilTeks = "Kecepatan harus lebih dari nol.";
+        }
+    } else if (!isNaN(jarak) && isNaN(kecepatan) && !isNaN(waktu)) {
+        if (waktu > 0) {
+            const kecepatanHitung = jarak / waktu;
+            hasilTeks = `Kecepatan: ${kecepatanHitung.toFixed(2)} km/jam`;
+        } else {
+            hasilTeks = "Waktu harus lebih dari nol.";
+        }
+    } else if (isNaN(jarak) && !isNaN(kecepatan) && !isNaN(waktu)) {
+        const jarakHitung = kecepatan * waktu;
+        hasilTeks = `Jarak Tempuh: ${jarakHitung.toFixed(2)} km`;
+    } else {
+        hasilTeks = "Masukkan tepat dua nilai (Jarak, Kecepatan, atau Waktu) yang ingin dihitung.";
     }
-    const jarak = kecepatan * waktu;
-    hasilElement.textContent = `Jarak Tempuh: ${jarak.toFixed(2)} km`;
+
+    if (!hasilTeks.includes("Masukkan")) {
+        hasilElement.textContent = hasilTeks;
+    } else {
+        hasilElement.textContent = "Masukkan tepat dua nilai (Jarak, Kecepatan, atau Waktu) yang ingin dihitung.";
+    }
 }
 
 function hitungDebit() {
@@ -237,7 +273,7 @@ function hitungWaktuParuh() {
     let n = 0;
     let temp = perbandingan;
 
-    while (temp > 1) {
+    while (temp > 1.001) {
         temp /= 2;
         n++;
     }
@@ -278,6 +314,50 @@ function hitungBMI() {
     hasilElement.textContent = `BMI Anda: ${bmi.toFixed(2)} (${kategori})`;
 }
 
+function hitungBMR() {
+    const berat = parseFloat(document.getElementById('berat-bmr').value);
+    const tinggi = parseFloat(document.getElementById('tinggi-bmr').value);
+    const usia = parseFloat(document.getElementById('usia-bmr').value);
+    const gender = document.getElementById('gender-bmr').value;
+    const hasilElement = document.getElementById('hasil-bmr');
+    let bmr = 0;
+
+    if (isNaN(berat) || isNaN(tinggi) || isNaN(usia) || berat <= 0 || tinggi <= 0 || usia <= 0) {
+        hasilElement.textContent = "Masukkan Berat, Tinggi, dan Usia yang valid.";
+        return;
+    }
+
+    if (gender === 'pria') {
+        bmr = 88.362 + (13.397 * berat) + (4.799 * tinggi) - (5.677 * usia);
+    } else if (gender === 'wanita') {
+        bmr = 447.593 + (9.247 * berat) + (3.098 * tinggi) - (4.330 * usia);
+    }
+
+    hasilElement.textContent = `BMR Anda (Kebutuhan Kalori Dasar): ${bmr.toFixed(0)} Kalori/hari`;
+}
+
+function hitungMHR() {
+    const usia = parseFloat(document.getElementById('usia-mhr').value);
+    const hasilElement = document.getElementById('hasil-mhr');
+    let mhr = 0;
+
+    if (isNaN(usia) || usia <= 0) {
+        hasilElement.textContent = "Masukkan Usia yang valid.";
+        return;
+    }
+
+    mhr = 220 - usia;
+
+    let zonaPembakaranLemak = [mhr * 0.6, mhr * 0.7].map(n => n.toFixed(0));
+    let zonaKardio = [mhr * 0.7, mhr * 0.85].map(n => n.toFixed(0));
+
+    hasilElement.innerHTML = `
+        <p>Denyut Jantung Maksimal (MHR): ${mhr} bpm</p>
+        <p>Zona Pembakaran Lemak (60-70%): ${zonaPembakaranLemak[0]} - ${zonaPembakaranLemak[1]} bpm</p>
+        <p>Zona Kardio (70-85%): ${zonaKardio[0]} - ${zonaKardio[1]} bpm</p>
+    `;
+}
+
 const inputMappings = {
     'select-luas-volume': {
         'kubus': [{ id: 'sisi', label: 'Sisi:' }],
@@ -300,9 +380,17 @@ function generateInputFields(selectId) {
     const container = document.getElementById(containerId);
     container.innerHTML = '';
     const selectedValue = selectElement.value;
+    
+    let currentMapping = inputMappings[selectId];
 
-    if (selectedValue && inputMappings[selectId][selectedValue]) {
-        inputMappings[selectId][selectedValue].forEach(field => {
+    if (selectId.includes('aritmatika')) {
+        currentMapping = inputMappings['select-aritmatika'];
+    } else if (selectId.includes('geometri')) {
+        currentMapping = inputMappings['select-geometri'];
+    }
+
+    if (selectedValue && currentMapping[selectedValue]) {
+        currentMapping[selectedValue].forEach(field => {
             const label = document.createElement('label');
             label.setAttribute('for', field.id);
             label.textContent = field.label;
@@ -345,10 +433,6 @@ function handleDeretChange() {
         generateInputFields('select-geometri');
     }
 }
-
-document.getElementById('select-deret').addEventListener('change', handleDeretChange);
-document.getElementById('select-luas-volume').addEventListener('change', () => generateInputFields('select-luas-volume'));
-
 
 function hitungDeret() {
     const deretType = document.getElementById('select-deret').value;
@@ -421,11 +505,8 @@ function hitungDeret() {
     }
 }
 
-document.getElementById('btn-deret').addEventListener('click', hitungDeret);
-
-
 function inisialisasiDebuggingGame() {
-    document.getElementById('debug-feedback').textContent = "Game Debugging siap! Klik Mulai Debugging.";
+    document.getElementById('debug-feedback').textContent = "Game Debugging siap! (Konten kuis belum diisi).";
     document.getElementById('btn-debug-next').style.display = 'none';
     document.getElementById('debug-pertanyaan').innerHTML = '';
     document.getElementById('debug-options').innerHTML = '';
@@ -433,7 +514,7 @@ function inisialisasiDebuggingGame() {
 }
 
 function inisialisasiTebakOutput() {
-    document.getElementById('tebak-feedback').textContent = "Game Tebak Output siap! Klik Mulai Tebak.";
+    document.getElementById('tebak-feedback').textContent = "Game Tebak Output siap! (Konten kuis belum diisi).";
     document.getElementById('btn-tebak-next').style.display = 'none';
     document.getElementById('tebak-pertanyaan').innerHTML = '';
     document.getElementById('tebak-options').innerHTML = '';
@@ -441,7 +522,7 @@ function inisialisasiTebakOutput() {
 }
 
 function inisialisasiGameBahasa() {
-    document.getElementById('bahasa-feedback').textContent = "Game Bahasa Pemrograman siap! Klik Mulai Game Bahasa.";
+    document.getElementById('bahasa-feedback').textContent = "Game Bahasa Pemrograman siap! (Konten kuis belum diisi).";
     document.getElementById('btn-bahasa-next').style.display = 'none';
     document.getElementById('bahasa-pertanyaan').innerHTML = '';
     document.getElementById('bahasa-options').innerHTML = '';
@@ -492,11 +573,48 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('btn-start-python').addEventListener('click', startGame);
     document.getElementById('btn-next').addEventListener('click', nextSoal);
+    
     document.getElementById('btn-bmi').addEventListener('click', hitungBMI);
-    document.getElementById('btn-luas-lingkaran').addEventListener('click', hitungLuasLingkaran);
-    document.getElementById('btn-kecepatan').addEventListener('click', hitungKecepatan);
+    document.getElementById('btn-bmr').addEventListener('click', hitungBMR);
+    document.getElementById('btn-mhr').addEventListener('click', hitungMHR);
+
+    document.getElementById('btn-kecepatan').addEventListener('click', hitungJarakWaktuKecepatan); 
     document.getElementById('btn-debit').addEventListener('click', hitungDebit);
     document.getElementById('btn-skala').addEventListener('click', hitungSkala);
     document.getElementById('btn-waktu-paruh').addEventListener('click', hitungWaktuParuh);
-});
+    document.getElementById('btn-deret').addEventListener('click', hitungDeret);
+    
+    document.getElementById('select-deret').addEventListener('change', handleDeretChange);
+    document.getElementById('select-luas-volume').addEventListener('change', () => generateInputFields('select-luas-volume'));
+    
+    document.getElementById('btn-luas-volume').addEventListener('click', function() {
+        const selectId = 'select-luas-volume';
+        const selectElement = document.getElementById(selectId);
+        const selectedValue = selectElement.value;
+        const inputMap = inputMappings[selectId][selectedValue];
+        const hasilElement = document.getElementById('hasil-luas-volume');
+        const values = {};
+        let error = false;
 
+        if (!inputMap) {
+            hasilElement.textContent = "Pilih bangun ruang terlebih dahulu.";
+            return;
+        }
+
+        inputMap.forEach(field => {
+            const input = document.getElementById(field.id);
+            const value = parseFloat(input.value);
+            if (isNaN(value) || value <= 0) {
+                error = true;
+            }
+            values[field.id] = value;
+        });
+
+        if (error) {
+            hasilElement.textContent = "Masukkan semua nilai input yang valid dan positif.";
+            return;
+        }
+        
+        hasilElement.textContent = hitungLuasVolume(selectedValue, values);
+    });
+});
