@@ -205,6 +205,15 @@ button:not(.tabs button):active {
     display: flex;
     gap: 30px;
     align-items: flex-start;
+    margin-bottom: 40px;
+    padding-bottom: 30px;
+    border-bottom: 2px solid #e9ecef;
+}
+
+.profile-section:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
 }
 
 .profile-image img {
@@ -613,4 +622,4 @@ button:disabled {
     .level-buttons {
         flex-direction: column;
     }
-    }
+                                }
