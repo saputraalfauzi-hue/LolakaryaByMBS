@@ -26,6 +26,7 @@
         <button data-module="profile">Profile Development</button>
         <button data-module="mtk">Matematika & Fisika</button>
         <button data-module="kesehatan">Kesehatan & Kebugaran</button>
+        <button data-module="glosarium">Glosarium Coding & AI</button>
         <button data-module="game">Minigame</button>
         <button data-module="motivasi">Gudang Motivasi</button>
     </nav>
@@ -135,12 +136,18 @@
                     <button data-submtk="kecepatan">Kecepatan</button>
                     <button data-submtk="debit">Debit</button>
                     <button data-submtk="skala">Skala</button>
+                    <button data-submtk="konversi-satuan">Konversi Satuan</button>
+                    <button data-submtk="waktu-paruh">Waktu Paruh</button>
+
+                    <h4>Statistik</h4>
+                    <button data-submtk="statistik-dasar">Statistik Dasar</button>
 
                     <h4>Geometri (2D)</h4>
                     <button data-submtk="luas-datar">Luas & Keliling Bangun Datar</button>
 
                     <h4>Geometri (3D)</h4>
                     <button data-submtk="luas-ruang">Luas Permukaan & Volume</button>
+                    <button data-submtk="geometri-lanjut">Geometri Lanjut</button>
 
                     <h4>Aljabar & Statistik</h4>
                     <button data-submtk="aritmatika">Barisan & Deret Aritmatika</button>
@@ -191,6 +198,65 @@
                         <p class="rumus-info">Rumus: Skala = Jarak Peta / Jarak Sebenarnya</p>
                     </div>
 
+                    <div id="konversi-satuan" class="mtk-subcontent hidden">
+                        <h3>Konversi Satuan</h3>
+                        <label for="nilai-konversi">Nilai:</label>
+                        <input type="number" id="nilai-konversi" placeholder="Masukkan nilai">
+                        
+                        <label for="dari-satuan">Dari Satuan:</label>
+                        <select id="dari-satuan">
+                            <option value="byte">Byte</option>
+                            <option value="kilobyte">Kilobyte</option>
+                            <option value="megabyte">Megabyte</option>
+                            <option value="celsius">Celsius</option>
+                            <option value="fahrenheit">Fahrenheit</option>
+                            <option value="kelvin">Kelvin</option>
+                        </select>
+                        
+                        <label for="ke-satuan">Ke Satuan:</label>
+                        <select id="ke-satuan">
+                            <option value="byte">Byte</option>
+                            <option value="kilobyte">Kilobyte</option>
+                            <option value="megabyte">Megabyte</option>
+                            <option value="celsius">Celsius</option>
+                            <option value="fahrenheit">Fahrenheit</option>
+                            <option value="kelvin">Kelvin</option>
+                        </select>
+                        
+                        <button id="btn-konversi">Konversi</button>
+                        <p>Hasil: <span id="hasil-konversi"></span></p>
+                    </div>
+
+                    <div id="waktu-paruh" class="mtk-subcontent hidden">
+                        <h3>Waktu Paruh</h3>
+                        <label for="jumlah-awal">Jumlah Awal:</label>
+                        <input type="number" id="jumlah-awal" placeholder="Contoh: 100">
+                        
+                        <label for="waktu-paruh-input">Waktu Paruh:</label>
+                        <input type="number" id="waktu-paruh-input" placeholder="Dalam satuan waktu">
+                        
+                        <label for="waktu-total">Waktu Total:</label>
+                        <input type="number" id="waktu-total" placeholder="Dalam satuan waktu yang sama">
+                        
+                        <button id="btn-waktu-paruh">Hitung Sisa</button>
+                        <p>Sisa setelah <span id="waktu-display"></span>: <span id="hasil-waktu-paruh"></span></p>
+                        <p class="rumus-info">Rumus: N = N₀ × (1/2)^(t/T)</p>
+                    </div>
+
+                    <div id="statistik-dasar" class="mtk-subcontent hidden">
+                        <h3>Statistik Dasar</h3>
+                        <label for="data-statistik">Masukkan data (pisahkan dengan koma):</label>
+                        <input type="text" id="data-statistik" placeholder="Contoh: 5, 10, 15, 20, 25">
+                        <button id="btn-statistik">Hitung Statistik</button>
+                        
+                        <div id="hasil-statistik">
+                            <p>Rata-rata: <span id="rata-rata"></span></p>
+                            <p>Median: <span id="median"></span></p>
+                            <p>Modus: <span id="modus"></span></p>
+                            <p>Jangkauan: <span id="jangkauan"></span></p>
+                        </div>
+                    </div>
+
                     <div id="luas-datar" class="mtk-subcontent hidden">
                         <h3>Luas & Keliling Bangun Datar</h3>
                         <select id="select-luas-datar">
@@ -214,6 +280,17 @@
                             <option value="kerucut">Kerucut</option>
                         </select>
                         <div id="calc-luas-ruang" class="calculator-space"></div>
+                    </div>
+
+                    <div id="geometri-lanjut" class="mtk-subcontent hidden">
+                        <h3>Geometri Lanjut</h3>
+                        <select id="select-geometri-lanjut">
+                            <option value="">--Pilih Bangun Ruang--</option>
+                            <option value="limas-segitiga">Limas Segitiga</option>
+                            <option value="limas-segiempat">Limas Segiempat</option>
+                            <option value="bola">Bola</option>
+                        </select>
+                        <div id="calc-geometri-lanjut" class="calculator-space"></div>
                     </div>
 
                     <div id="aritmatika" class="mtk-subcontent hidden">
@@ -302,6 +379,57 @@
             </div>
         </section>
 
+        <section id="glosarium" class="module hidden">
+            <h2>Glosarium Coding & AI</h2>
+            <div class="glosarium-container">
+                <div class="search-bar">
+                    <input type="text" id="search-glosarium" placeholder="Cari istilah coding & AI...">
+                </div>
+                
+                <div class="glosarium-list">
+                    <div class="istilah-item">
+                        <h3>API (Application Programming Interface)</h3>
+                        <p>Antarmuka yang memungkinkan aplikasi berkomunikasi satu sama lain. API mendefinisikan cara developer harus meminta dan menerima data dari sistem lain.</p>
+                    </div>
+                    
+                    <div class="istilah-item">
+                        <h3>Tensor</h3>
+                        <p>Struktur data multidimensi yang digunakan dalam machine learning dan deep learning. Tensor adalah generalisasi dari skalar, vektor, dan matriks.</p>
+                    </div>
+                    
+                    <div class="istilah-item">
+                        <h3>Mutable vs Immutable</h3>
+                        <p>Mutable: objek yang dapat diubah setelah dibuat (contoh: list, dictionary). Immutable: objek yang tidak dapat diubah setelah dibuat (contoh: string, tuple).</p>
+                    </div>
+                    
+                    <div class="istilah-item">
+                        <h3>Asynchronous Programming</h3>
+                        <p>Pemrograman yang memungkinkan eksekusi kode berjalan tanpa menunggu operasi sebelumnya selesai, meningkatkan efisiensi dan responsivitas aplikasi.</p>
+                    </div>
+                    
+                    <div class="istilah-item">
+                        <h3>Algorithm</h3>
+                        <p>Langkah-langkah terstruktur dan terdefinisi dengan baik untuk menyelesaikan suatu masalah atau melakukan komputasi tertentu.</p>
+                    </div>
+                    
+                    <div class="istilah-item">
+                        <h3>Machine Learning</h3>
+                        <p>Cabang AI yang memungkinkan komputer belajar dari data tanpa diprogram secara eksplisit, menggunakan algoritma yang mengidentifikasi pola dalam data.</p>
+                    </div>
+                    
+                    <div class="istilah-item">
+                        <h3>Neural Network</h3>
+                        <p>Sistem komputasi yang terinspirasi dari jaringan saraf biologis, terdiri dari lapisan neuron yang saling terhubung untuk memproses informasi.</p>
+                    </div>
+                    
+                    <div class="istilah-item">
+                        <h3>Big O Notation</h3>
+                        <p>Notasi matematika yang menggambarkan efisiensi algoritma dalam hal waktu eksekusi atau penggunaan memori berdasarkan ukuran input.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section id="game" class="module hidden">
             <h2>Minigame</h2>
             <div class="game-container">
@@ -309,6 +437,8 @@
                     <h4>Jenis Game</h4>
                     <button data-subgame="bahasa">Susun Huruf (Programming)</button>
                     <button data-subgame="pahlawan-kode">Pahlawan Kode (Python)</button>
+                    <button data-subgame="debugging-detective">Debugging Detective</button>
+                    <button data-subgame="tebak-output">Tebak Output</button>
                 </nav>
 
                 <div class="game-content">
@@ -373,6 +503,73 @@
                                     <div class="options" id="options-random"></div>
                                     <p id="result-random" class="result"></p>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="debugging-detective" class="game-subcontent hidden">
+                        <div class="game-stats">
+                            <div class="game-stat-item">Level: <span id="level-debugging">1</span></div>
+                            <div class="game-stat-item">Skor: <span id="skor-debugging">0</span></div>
+                            <div class="game-stat-item">Kesempatan: <span id="kesempatan-debugging">3</span></div>
+                        </div>
+                        
+                        <h3>🔍 Debugging Detective</h3>
+                        <p class="game-description">Temukan dan perbaiki bug dalam kode Python!</p>
+                        
+                        <div class="debug-container">
+                            <div class="code-section">
+                                <h4>Kode yang Bermasalah:</h4>
+                                <pre id="problem-code"></pre>
+                            </div>
+                            
+                            <div class="question-section">
+                                <p id="debug-question"></p>
+                            </div>
+                            
+                            <div class="options-section">
+                                <div id="debug-options"></div>
+                            </div>
+                            
+                            <div class="explanation-section hidden" id="explanation-section">
+                                <h4>📝 Penjelasan:</h4>
+                                <p id="debug-explanation"></p>
+                            </div>
+                            
+                            <div class="action-buttons">
+                                <button id="btn-next-debug">Soal Berikutnya</button>
+                                <button id="btn-try-again" class="hidden">Coba Lagi</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="tebak-output" class="game-subcontent hidden">
+                        <div class="game-stats">
+                            <div class="game-stat-item">Skor: <span id="skor-tebak">0</span></div>
+                            <div class="game-stat-item">Kesempatan: <span id="kesempatan-tebak">3</span></div>
+                        </div>
+                        
+                        <h3>🎯 Tebak Output Python</h3>
+                        <p class="game-description">Tebak output dari kode Python berikut!</p>
+                        
+                        <div class="tebak-container">
+                            <div class="code-section">
+                                <h4>Kode Python:</h4>
+                                <pre id="tebak-code"></pre>
+                            </div>
+                            
+                            <div class="options-section">
+                                <div id="tebak-options"></div>
+                            </div>
+                            
+                            <div class="explanation-section hidden" id="tebak-explanation-section">
+                                <h4>📝 Penjelasan:</h4>
+                                <p id="tebak-explanation"></p>
+                            </div>
+                            
+                            <div class="action-buttons">
+                                <button id="btn-next-tebak">Soal Berikutnya</button>
+                                <button id="btn-try-again-tebak" class="hidden">Coba Lagi</button>
                             </div>
                         </div>
                     </div>
