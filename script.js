@@ -35,1152 +35,468 @@ const bankSoalPython = {
             options: ["[0, 1, 2, 3, 4]", "[1, 2, 3, 4, 5]", "[0, 1, 2, 3, 4, 5]", "Error"],
             answer: "[0, 1, 2, 3, 4]"
         },
-        {
-            question: "Bagaimana cara menangani exception di Python?",
-            options: ["try-catch", "try-except", "catch-try", "error-handle"],
-            answer: "try-except"
-        },
-        {
-            question: "Apa output dari kode berikut: print('Hello' + 'World')",
-            options: ["HelloWorld", "Hello World", "Hello+World", "Error"],
-            answer: "HelloWorld"
-        },
-        {
-            question: "Fungsi apa yang mengembalikan panjang list?",
-            options: ["size()", "length()", "len()", "count()"],
-            answer: "len()"
-        },
-        {
-            question: "Apa output dari kode berikut: print(2 ** 3)",
-            options: ["6", "8", "9", "5"],
-            answer: "8"
-        }
     ],
-    mahir: [
+    lanjutan: [
         {
-            question: "Apa output dari kode berikut: [x**2 for x in range(5) if x % 2 == 0]",
-            options: ["[0, 4, 16]", "[0, 1, 4, 9, 16]", "[0, 4]", "[1, 9]"],
-            answer: "[0, 4]"
-        },
-        {
-            question: "Apa perbedaan antara list dan tuple?",
-            options: [
-                "List mutable, tuple immutable",
-                "List immutable, tuple mutable", 
-                "Keduanya mutable",
-                "Keduanya immutable"
-            ],
-            answer: "List mutable, tuple immutable"
-        },
-        {
-            question: "Apa output dari kode berikut: print(lambda x: x*2)(5)",
-            options: ["10", "25", "7", "Error"],
-            answer: "10"
-        },
-        {
-            question: "Bagaimana cara mengimpor modul math di Python?",
-            options: ["import math", "include math", "require math", "using math"],
-            answer: "import math"
-        },
-        {
-            question: "Apa fungsi dari __init__ dalam class Python?",
-            options: [
-                "Method destructor",
-                "Method constructor", 
-                "Method utama",
-                "Method statis"
-            ],
-            answer: "Method constructor"
+            question: "Apa yang akan terjadi jika Anda memanggil fungsi generator setelah iterasi selesai?",
+            options: ["Program crash", "Mengembalikan None", "Mengeluarkan StopIteration", "Mengulang dari awal"],
+            answer: "Mengeluarkan StopIteration"
         }
     ]
 };
 
-const bankSoalTebakOutput = [
-    {
-        code: `print(5 // 2)`,
-        options: ["2", "2.5", "3", "Error"],
-        answer: "2",
-        explanation: "Operator // adalah floor division, yang membulatkan hasil ke bawah ke bilangan bulat terdekat."
-    },
-    {
-        code: `print(True and False or True)`,
-        options: ["True", "False", "Error", "None"],
-        answer: "True",
-        explanation: "Operator 'and' memiliki prioritas lebih tinggi dari 'or'. True and False = False, kemudian False or True = True."
-    },
-    {
-        code: `x = [1, 2, 3]\ny = x\ny.append(4)\nprint(x)`,
-        options: ["[1, 2, 3]", "[1, 2, 3, 4]", "[4]", "Error"],
-        answer: "[1, 2, 3, 4]",
-        explanation: "List adalah mutable object. y = x membuat referensi ke objek yang sama, jadi perubahan di y mempengaruhi x."
-    },
-    {
-        code: `print(3 * 'hi ')`,
-        options: ["hihihi", "hi hi hi ", "hihihi ", "Error"],
-        answer: "hi hi hi ",
-        explanation: "Operator * dengan string mengulang string tersebut sebanyak angka yang diberikan."
-    }
-];
-
-const bankSoalDebugging = {
-    syntax: [
-        {
-            code: `def greet(name)\n    print("Hello, " + name)\ngreet("Alice")`,
-            question: "Apa error dalam kode di atas?",
-            options: [
-                "Missing colon after function definition",
-                "Incorrect variable name", 
-                "Wrong string concatenation",
-                "No error"
-            ],
-            answer: "Missing colon after function definition",
-            explanation: "Fungsi di Python harus diakhiri dengan colon (:). Perbaikan: def greet(name):"
-        },
-        {
-            code: `x = 5\nif x = 5:\n    print("x is 5")`,
-            question: "Bagaimana memperbaiki kode ini?",
-            options: [
-                "Ganti '=' dengan '==' dalam kondisi if",
-                "Tambahkan colon setelah print",
-                "Ubah variabel x menjadi string",
-                "Kode sudah benar"
-            ],
-            answer: "Ganti '=' dengan '==' dalam kondisi if",
-            explanation: "Operator perbandingan di Python adalah '==', sedangkan '=' adalah operator assignment."
-        }
-    ],
-    indentation: [
-        {
-            code: `def calculate_sum(a, b):\nresult = a + b\nreturn result\nprint(calculate_sum(3, 4))`,
-            question: "Mengapa kode ini menghasilkan IndentationError?",
-            options: [
-                "Baris result dan return tidak di-indentasi",
-                "Nama fungsi tidak sesuai",
-                "Parameter fungsi salah",
-                "Tidak ada error"
-            ],
-            answer: "Baris result dan return tidak di-indentasi",
-            explanation: "Di Python, blok kode dalam fungsi harus di-indentasi. Perbaikan:\ndef calculate_sum(a, b):\n    result = a + b\n    return result"
-        }
-    ],
-    logic: [
-        {
-            code: `numbers = [1, 2, 3, 4, 5]\ntotal = 0\nfor i in range(len(numbers)):\n    total += i\nprint("Total:", total)`,
-            question: "Mengapa output tidak sesuai harapan?",
-            options: [
-                "Loop menggunakan index bukan nilai",
-                "Range seharusnya range(5)",
-                "Variabel total tidak direset",
-                "Output sudah benar"
-            ],
-            answer: "Loop menggunakan index bukan nilai",
-            explanation: "Kode menjumlahkan index (0,1,2,3,4) bukan nilai list. Perbaikan: total += numbers[i] atau for num in numbers: total += num"
-        }
-    ]
-};
-
-const daftarKata = [
-    "print", "html", "def", "for", "in", "range", "if", "else", "while", 
-    "function", "variable", "class", "object", "method", "attribute", 
-    "import", "from", "return", "break", "continue", "list", "tuple", 
-    "dictionary", "string", "integer", "float", "boolean", "module", 
-    "package", "exception", "lambda", "decorator", "generator", "iterator"
-];
-
-let kataSaatIni = "";
-let soalSaatIni = null;
-let levelSaatIni = "";
-let skorDebugging = 0;
-let kesempatanDebugging = 3;
-let levelDebugging = 1;
-let soalDebuggingSaatIni = null;
-let tipeSoalDebugging = 'syntax';
-let skorTebak = 0;
-let kesempatanTebak = 3;
-let soalTebakSaatIni = null;
+let currentSoalIndex = 0;
+let currentSoalSet = [];
 
 function showModule(moduleId) {
-    document.querySelectorAll('.module').forEach(section => {
-        section.classList.add('hidden');
-        section.classList.remove('active');
+    document.querySelectorAll('.module').forEach(module => {
+        module.classList.remove('active');
+        module.style.display = 'none';
     });
     const activeModule = document.getElementById(moduleId);
     if (activeModule) {
-        activeModule.classList.remove('hidden');
         activeModule.classList.add('active');
+        activeModule.style.display = 'block';
     }
 }
 
 function showSubMtk(subMtkId) {
-    document.querySelectorAll('.mtk-subcontent').forEach(content => {
-        content.classList.add('hidden');
-        content.classList.remove('active');
+    document.querySelectorAll('.mtk-submodule').forEach(submodule => {
+        submodule.classList.remove('active-submtk');
+        submodule.style.display = 'none';
     });
     const activeSubMtk = document.getElementById(subMtkId);
     if (activeSubMtk) {
-        activeSubMtk.classList.remove('hidden');
-        activeSubMtk.classList.add('active');
+        activeSubMtk.classList.add('active-submtk');
+        activeSubMtk.style.display = 'block';
     }
 }
 
 function showSubGame(subGameId) {
-    document.querySelectorAll('.game-subcontent').forEach(content => {
-        content.classList.add('hidden');
-        content.classList.remove('active');
+    document.querySelectorAll('.game-submodule').forEach(submodule => {
+        submodule.classList.remove('active-subgame');
+        submodule.style.display = 'none';
     });
     const activeSubGame = document.getElementById(subGameId);
     if (activeSubGame) {
-        activeSubGame.classList.remove('hidden');
-        activeSubGame.classList.add('active');
+        activeSubGame.classList.add('active-subgame');
+        activeSubGame.style.display = 'block';
         
-        if (subGameId === 'bahasa') {
-            inisialisasiGame();
-        } else if (subGameId === 'pahlawan-kode') {
-            document.querySelectorAll('.level-content').forEach(content => {
-                content.classList.add('hidden');
-            });
-            document.querySelectorAll('.level-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-        } else if (subGameId === 'debugging-detective') {
-            initDebuggingGame();
+        if (subGameId === 'python-kode') {
+            document.getElementById('btn-start-python').style.display = 'block';
+            resetQuiz();
+        } else if (subGameId === 'debugging') {
+            inisialisasiDebuggingGame();
         } else if (subGameId === 'tebak-output') {
-            initTebakOutput();
+            inisialisasiTebakOutput();
+        } else if (subGameId === 'bahasa') {
+            inisialisasiGameBahasa();
         }
     }
 }
 
-function showLevel(levelId) {
-    document.querySelectorAll('.level-content').forEach(content => {
-        content.classList.add('hidden');
-    });
-    const activeLevel = document.getElementById(levelId);
-    if (activeLevel) {
-        activeLevel.classList.remove('hidden');
-        levelSaatIni = levelId.replace('level-', '');
-        generateSoalPython(levelSaatIni);
-    }
+function resetQuiz() {
+    currentSoalIndex = 0;
+    skor = 0;
+    kesempatan = 3;
+    document.getElementById('skor-info').textContent = `Skor: ${skor} | Kesempatan: ${kesempatan}`;
+    document.getElementById('feedback').textContent = 'Klik "Mulai Kuis" untuk memulai.';
+    document.getElementById('soal-container').classList.remove('hidden');
+    document.getElementById('options-container').innerHTML = '';
+    document.getElementById('btn-next').style.display = 'none';
+    document.getElementById('pertanyaan').textContent = '';
 }
 
-function generateSoalPython(level) {
-    let soalArray;
-    
-    if (level === 'random') {
-        soalArray = [...bankSoalPython.pemula, ...bankSoalPython.menengah, ...bankSoalPython.mahir];
-    } else {
-        soalArray = bankSoalPython[level];
+function startGame() {
+    const tingkat = document.getElementById('tingkat-kesulitan').value;
+    currentSoalSet = bankSoalPython[tingkat];
+    resetQuiz();
+    document.getElementById('btn-start-python').style.display = 'none';
+    generateSoalPython();
+}
+
+function generateSoalPython() {
+    if (currentSoalIndex >= currentSoalSet.length || kesempatan <= 0) {
+        document.getElementById('pertanyaan').textContent = `Kuis Selesai! Skor Akhir: ${skor}`;
+        document.getElementById('options-container').innerHTML = '';
+        document.getElementById('btn-next').style.display = 'none';
+        document.getElementById('btn-start-python').textContent = 'Mulai Ulang Kuis';
+        document.getElementById('btn-start-python').style.display = 'block';
+        document.getElementById('feedback').textContent = kesempatan <= 0 ? "Kesempatan habis!" : "Anda menyelesaikan semua soal!";
+        return;
     }
-    
-    const randomIndex = Math.floor(Math.random() * soalArray.length);
-    soalSaatIni = soalArray[randomIndex];
-    
-    document.getElementById(`question-${level}`).textContent = soalSaatIni.question;
-    
-    const optionsContainer = document.getElementById(`options-${level}`);
+
+    const soal = currentSoalSet[currentSoalIndex];
+    document.getElementById('pertanyaan').textContent = soal.question;
+    const optionsContainer = document.getElementById('options-container');
     optionsContainer.innerHTML = '';
-    
-    soalSaatIni.options.forEach(option => {
+    document.getElementById('btn-next').style.display = 'none';
+    document.getElementById('feedback').textContent = '';
+
+    soal.options.forEach(option => {
         const button = document.createElement('button');
-        button.className = 'option-btn';
         button.textContent = option;
+        button.classList.add('option-btn');
+        button.onclick = () => checkPythonAnswer(option, soal.answer, button);
         optionsContainer.appendChild(button);
     });
-    
-    document.getElementById(`result-${level}`).textContent = '';
-    document.getElementById(`result-${level}`).className = 'result';
 }
 
-function checkPythonAnswer(level, selectedAnswer) {
-    const resultElement = document.getElementById(`result-${level}`);
-    const optionButtons = document.querySelectorAll(`#level-${level} .option-btn`);
-    
-    optionButtons.forEach(btn => {
-        btn.classList.remove('correct', 'incorrect');
-        if (btn.textContent === soalSaatIni.answer) {
+function checkPythonAnswer(selected, correct, button) {
+    const allOptions = document.querySelectorAll('#options-container .option-btn');
+    allOptions.forEach(btn => {
+        btn.disabled = true;
+        if (btn.textContent === correct) {
             btn.classList.add('correct');
         }
-        if (btn.textContent === selectedAnswer && btn.textContent !== soalSaatIni.answer) {
-            btn.classList.add('incorrect');
-        }
     });
-    
-    if (selectedAnswer === soalSaatIni.answer) {
-        resultElement.textContent = "✅ Jawaban Benar!";
-        resultElement.className = "result correct";
-        
-        setTimeout(() => {
-            generateSoalPython(level);
-        }, 1500);
+
+    if (selected === correct) {
+        skor++;
+        document.getElementById('feedback').textContent = "Jawaban Benar! 🎉";
     } else {
-        resultElement.textContent = "❌ Jawaban Salah!";
-        resultElement.className = "result incorrect";
+        kesempatan--;
+        document.getElementById('feedback').textContent = `Jawaban Salah! Jawaban yang benar adalah: ${correct}`;
+        button.classList.add('incorrect');
     }
+
+    document.getElementById('skor-info').textContent = `Skor: ${skor} | Kesempatan: ${kesempatan}`;
+    document.getElementById('btn-next').style.display = 'block';
+}
+
+function nextSoal() {
+    currentSoalIndex++;
+    generateSoalPython();
 }
 
 function hitungLuasLingkaran() {
-    const button = document.getElementById('btn-luas-lingkaran');
-    button.classList.add('loading');
-    
-    setTimeout(() => {
-        const r = parseFloat(document.getElementById('jari-jari').value);
-        const hasilElement = document.getElementById('hasil-mtk');
-        if (isNaN(r) || r <= 0) {
-            hasilElement.textContent = "Masukkan angka jari-jari yang valid.";
-            button.classList.remove('loading');
-            return;
-        }
-        const Luas = Math.PI * Math.pow(r, 2);
-        hasilElement.textContent = Luas.toFixed(2);
-        button.classList.remove('loading');
-    }, 800);
+    const jari2 = parseFloat(document.getElementById('jari2').value);
+    const hasilElement = document.getElementById('hasil-luas-volume');
+    if (isNaN(jari2) || jari2 <= 0) {
+        hasilElement.textContent = "Masukkan nilai jari-jari yang valid.";
+        return;
+    }
+    const luas = Math.PI * jari2 * jari2;
+    hasilElement.textContent = `Luas Lingkaran: ${luas.toFixed(2)}`;
 }
 
 function hitungKecepatan() {
-    const button = document.getElementById('btn-kecepatan');
-    button.classList.add('loading');
-    
-    setTimeout(() => {
-        const s = parseFloat(document.getElementById('jarak-kec').value);
-        const t = parseFloat(document.getElementById('waktu-kec').value);
-        const hasilElement = document.getElementById('hasil-kecepatan');
-        if (isNaN(s) || isNaN(t) || t <= 0) {
-            hasilElement.textContent = "Data tidak valid.";
-            button.classList.remove('loading');
-            return;
-        }
-        const v = s / t;
-        hasilElement.textContent = v.toFixed(2);
-        button.classList.remove('loading');
-    }, 800);
+    const kecepatan = parseFloat(document.getElementById('kecepatan').value);
+    const waktu = parseFloat(document.getElementById('waktu').value);
+    const hasilElement = document.getElementById('hasil-kecepatan');
+    if (isNaN(kecepatan) || isNaN(waktu) || kecepatan <= 0 || waktu <= 0) {
+        hasilElement.textContent = "Masukkan nilai kecepatan dan waktu yang valid.";
+        return;
+    }
+    const jarak = kecepatan * waktu;
+    hasilElement.textContent = `Jarak Tempuh: ${jarak.toFixed(2)} km`;
 }
 
 function hitungDebit() {
-    const button = document.getElementById('btn-debit');
-    button.classList.add('loading');
-    
-    setTimeout(() => {
-        const v = parseFloat(document.getElementById('volume-deb').value);
-        const t = parseFloat(document.getElementById('waktu-deb').value);
-        const hasilElement = document.getElementById('hasil-debit');
-        if (isNaN(v) || isNaN(t) || t <= 0) {
-            hasilElement.textContent = "Data tidak valid.";
-            button.classList.remove('loading');
-            return;
-        }
-        const Q = v / t;
-        hasilElement.textContent = Q.toFixed(2);
-        button.classList.remove('loading');
-    }, 800);
+    const volume = parseFloat(document.getElementById('volume').value);
+    const waktuDebit = parseFloat(document.getElementById('waktu-debit').value);
+    const hasilElement = document.getElementById('hasil-debit');
+    if (isNaN(volume) || isNaN(waktuDebit) || volume <= 0 || waktuDebit <= 0) {
+        hasilElement.textContent = "Masukkan nilai volume dan waktu yang valid.";
+        return;
+    }
+    const debit = volume / waktuDebit;
+    hasilElement.textContent = `Debit: ${debit.toFixed(2)} L/detik`;
 }
 
 function hitungSkala() {
-    const button = document.getElementById('btn-skala');
-    button.classList.add('loading');
-    
-    setTimeout(() => {
-        const jp = parseFloat(document.getElementById('jarak-peta').value);
-        const js_km = parseFloat(document.getElementById('jarak-sebenarnya').value);
-        const hasilElement = document.getElementById('hasil-skala');
-        if (isNaN(jp) || isNaN(js_km) || jp <= 0 || js_km <= 0) {
-            hasilElement.textContent = "Data tidak valid.";
-            button.classList.remove('loading');
-            return;
-        }
-        const js_cm = js_km * 100000;
-        const skala = js_cm / jp;
-        hasilElement.textContent = Math.round(skala).toLocaleString('id-ID');
-        button.classList.remove('loading');
-    }, 800);
-}
-
-function hitungKonversiSatuan() {
-    const button = document.getElementById('btn-konversi');
-    button.classList.add('loading');
-    
-    setTimeout(() => {
-        const nilai = parseFloat(document.getElementById('nilai-konversi').value);
-        const dari = document.getElementById('dari-satuan').value;
-        const ke = document.getElementById('ke-satuan').value;
-        const hasilElement = document.getElementById('hasil-konversi');
-        
-        if (isNaN(nilai)) {
-            hasilElement.textContent = "Masukkan nilai yang valid.";
-            button.classList.remove('loading');
-            return;
-        }
-        
-        let hasil;
-        
-        if ((dari.includes('byte') || dari.includes('bit')) && (ke.includes('byte') || ke.includes('bit'))) {
-            const factors = {
-                'byte': 1,
-                'kilobyte': 1024,
-                'megabyte': 1024 * 1024
-            };
-            hasil = (nilai * factors[dari]) / factors[ke];
-        } else {
-            if (dari === 'celsius') {
-                if (ke === 'fahrenheit') hasil = (nilai * 9/5) + 32;
-                else if (ke === 'kelvin') hasil = nilai + 273.15;
-                else hasil = nilai;
-            } else if (dari === 'fahrenheit') {
-                if (ke === 'celsius') hasil = (nilai - 32) * 5/9;
-                else if (ke === 'kelvin') hasil = (nilai - 32) * 5/9 + 273.15;
-                else hasil = nilai;
-            } else if (dari === 'kelvin') {
-                if (ke === 'celsius') hasil = nilai - 273.15;
-                else if (ke === 'fahrenheit') hasil = (nilai - 273.15) * 9/5 + 32;
-                else hasil = nilai;
-            }
-        }
-        
-        hasilElement.textContent = hasil.toFixed(4);
-        button.classList.remove('loading');
-    }, 800);
+    const jarakPeta = parseFloat(document.getElementById('jarak-peta').value);
+    const jarakAsli = parseFloat(document.getElementById('jarak-asli').value);
+    const hasilElement = document.getElementById('hasil-skala');
+    if (isNaN(jarakPeta) || isNaN(jarakAsli) || jarakPeta <= 0 || jarakAsli <= 0) {
+        hasilElement.textContent = "Masukkan nilai jarak peta dan jarak asli yang valid.";
+        return;
+    }
+    const jarakAsliCm = jarakAsli * 100000;
+    const skala = jarakAsliCm / jarakPeta;
+    hasilElement.textContent = `Skala: 1 : ${skala.toFixed(0)}`;
 }
 
 function hitungWaktuParuh() {
-    const button = document.getElementById('btn-waktu-paruh');
-    button.classList.add('loading');
-    
-    setTimeout(() => {
-        const N0 = parseFloat(document.getElementById('jumlah-awal').value);
-        const T = parseFloat(document.getElementById('waktu-paruh-input').value);
-        const t = parseFloat(document.getElementById('waktu-total').value);
-        const hasilElement = document.getElementById('hasil-waktu-paruh');
-        const waktuDisplay = document.getElementById('waktu-display');
-        
-        if (isNaN(N0) || isNaN(T) || isNaN(t) || N0 <= 0 || T <= 0 || t < 0) {
-            hasilElement.textContent = "Data tidak valid.";
-            button.classList.remove('loading');
-            return;
-        }
-        
-        const N = N0 * Math.pow(0.5, t / T);
-        hasilElement.textContent = N.toFixed(4);
-        waktuDisplay.textContent = t + " satuan waktu";
-        button.classList.remove('loading');
-    }, 800);
-}
+    const massaAwal = parseFloat(document.getElementById('massa-awal').value);
+    const massaAkhir = parseFloat(document.getElementById('massa-akhir').value);
+    const waktuTotal = parseFloat(document.getElementById('waktu-total').value);
+    const hasilElement = document.getElementById('hasil-waktu-paruh');
 
-function hitungStatistik() {
-    const button = document.getElementById('btn-statistik');
-    button.classList.add('loading');
-    
-    setTimeout(() => {
-        const dataInput = document.getElementById('data-statistik').value;
-        const dataArray = dataInput.split(',').map(item => parseFloat(item.trim())).filter(item => !isNaN(item));
-        
-        if (dataArray.length === 0) {
-            document.getElementById('rata-rata').textContent = "Data tidak valid";
-            document.getElementById('median').textContent = "Data tidak valid";
-            document.getElementById('modus').textContent = "Data tidak valid";
-            document.getElementById('jangkauan').textContent = "Data tidak valid";
-            button.classList.remove('loading');
-            return;
-        }
-        
-        dataArray.sort((a, b) => a - b);
-        
-        const rataRata = dataArray.reduce((a, b) => a + b, 0) / dataArray.length;
-        
-        let median;
-        const mid = Math.floor(dataArray.length / 2);
-        if (dataArray.length % 2 === 0) {
-            median = (dataArray[mid - 1] + dataArray[mid]) / 2;
-        } else {
-            median = dataArray[mid];
-        }
-        
-        const frekuensi = {};
-        dataArray.forEach(num => {
-            frekuensi[num] = (frekuensi[num] || 0) + 1;
-        });
-        
-        let modus = [];
-        let maxFreq = 0;
-        for (const num in frekuensi) {
-            if (frekuensi[num] > maxFreq) {
-                modus = [parseFloat(num)];
-                maxFreq = frekuensi[num];
-            } else if (frekuensi[num] === maxFreq) {
-                modus.push(parseFloat(num));
-            }
-        }
-        
-        const jangkauan = dataArray[dataArray.length - 1] - dataArray[0];
-        
-        document.getElementById('rata-rata').textContent = rataRata.toFixed(2);
-        document.getElementById('median').textContent = median;
-        document.getElementById('modus').textContent = modus.length === dataArray.length ? "Tidak ada modus" : modus.join(', ');
-        document.getElementById('jangkauan').textContent = jangkauan;
-        button.classList.remove('loading');
-    }, 800);
+    if (isNaN(massaAwal) || isNaN(massaAkhir) || isNaN(waktuTotal) || massaAwal <= 0 || waktuTotal <= 0) {
+        hasilElement.textContent = "Masukkan nilai massa/persentase dan waktu yang valid.";
+        return;
+    }
+
+    if (massaAkhir >= massaAwal) {
+        hasilElement.textContent = "Massa/Persentase akhir harus lebih kecil dari awal.";
+        return;
+    }
+
+    const perbandingan = massaAwal / massaAkhir;
+    let n = 0;
+    let temp = perbandingan;
+
+    while (temp > 1) {
+        temp /= 2;
+        n++;
+    }
+
+    if (Math.abs(temp - 1) > 0.001) {
+        hasilElement.textContent = "Perbandingan massa tidak tepat mengikuti urutan setengah kali.";
+        return;
+    }
+
+    const waktuParuh = waktuTotal / n;
+    hasilElement.textContent = `Waktu Paruh (t½): ${waktuParuh.toFixed(2)} satuan waktu`;
 }
 
 function hitungBMI() {
-    const button = document.getElementById('btn-bmi');
-    button.classList.add('loading');
-    
-    setTimeout(() => {
-        const berat = parseFloat(document.getElementById('berat').value);
-        const tinggi = parseFloat(document.getElementById('tinggi').value);
-        const hasilBMIElement = document.getElementById('hasil-bmi');
-        const kategoriElement = document.getElementById('kategori-bmi');
-        if (isNaN(berat) || isNaN(tinggi) || tinggi <= 0) {
-            hasilBMIElement.textContent = "Data tidak valid.";
-            kategoriElement.textContent = "";
-            button.classList.remove('loading');
-            return;
-        }
-        const bmi = berat / (tinggi * tinggi);
-        let kategori = "";
-        if (bmi < 18.5) {
-            kategori = "Kurus (Underweight)";
-        } else if (bmi >= 18.5 && bmi <= 24.9) {
-            kategori = "Normal (Healthy Weight)";
-        } else if (bmi >= 25 && bmi <= 29.9) {
-            kategori = "Gemuk (Overweight)";
-        } else {
-            kategori = "Obesitas (Obese)";
-        }
-        hasilBMIElement.textContent = bmi.toFixed(2);
-        kategoriElement.textContent = kategori;
-        button.classList.remove('loading');
-    }, 800);
-}
+    const berat = parseFloat(document.getElementById('berat').value);
+    const tinggiCm = parseFloat(document.getElementById('tinggi').value);
+    const hasilElement = document.getElementById('hasil-bmi');
 
-function hitungBroca() {
-    const button = document.getElementById('btn-broca');
-    button.classList.add('loading');
-    
-    setTimeout(() => {
-        const tinggi = parseFloat(document.getElementById('tinggi-broca').value);
-        const jenisKelamin = document.getElementById('jenis-kelamin').value;
-        const hasilElement = document.getElementById('hasil-broca');
-        
-        if (isNaN(tinggi) || tinggi <= 0) {
-            hasilElement.textContent = "Masukkan tinggi badan yang valid.";
-            button.classList.remove('loading');
-            return;
-        }
-        
-        let beratIdeal;
-        if (jenisKelamin === 'pria') {
-            beratIdeal = tinggi - 100;
-        } else {
-            beratIdeal = tinggi - 105;
-        }
-        
-        hasilElement.textContent = beratIdeal.toFixed(1);
-        button.classList.remove('loading');
-    }, 800);
-}
-
-function hitungBMR() {
-    const button = document.getElementById('btn-bmr');
-    button.classList.add('loading');
-    
-    setTimeout(() => {
-        const berat = parseFloat(document.getElementById('berat-bmr').value);
-        const tinggi = parseFloat(document.getElementById('tinggi-bmr').value);
-        const usia = parseFloat(document.getElementById('usia-bmr').value);
-        const jenisKelamin = document.getElementById('jenis-kelamin-bmr').value;
-        const hasilElement = document.getElementById('hasil-bmr');
-        
-        if (isNaN(berat) || isNaN(tinggi) || isNaN(usia) || berat <= 0 || tinggi <= 0 || usia <= 0) {
-            hasilElement.textContent = "Data tidak valid.";
-            button.classList.remove('loading');
-            return;
-        }
-        
-        let bmr;
-        if (jenisKelamin === 'pria') {
-            bmr = 66.5 + (13.7 * berat) + (5 * tinggi) - (6.8 * usia);
-        } else {
-            bmr = 655 + (9.6 * berat) + (1.8 * tinggi) - (4.7 * usia);
-        }
-        
-        hasilElement.textContent = bmr.toFixed(2);
-        button.classList.remove('loading');
-    }, 800);
-}
-
-function acakKata(kata) {
-    return kata.split('').sort(() => 0.5 - Math.random()).join('');
-}
-
-function inisialisasiGame() {
-    const indeksAcak = Math.floor(Math.random() * daftarKata.length);
-    kataSaatIni = daftarKata[indeksAcak];
-    document.getElementById('kata-acak').textContent = acakKata(kataSaatIni);
-    document.getElementById('hasil-game').textContent = "Susunlah kata ini!";
-    document.getElementById('hasil-game').style.color = '#333';
-    document.getElementById('jawaban').value = "";
-    
-    if (kesempatan <= 0) {
-        kesempatan = 3;
-        skor = 0;
+    if (isNaN(berat) || isNaN(tinggiCm) || berat <= 0 || tinggiCm <= 0) {
+        hasilElement.textContent = "Masukkan berat dan tinggi badan yang valid.";
+        return;
     }
-    updateGameUI();
+
+    const tinggiM = tinggiCm / 100;
+    const bmi = berat / (tinggiM * tinggiM);
+    let kategori = '';
+
+    if (bmi < 18.5) {
+        kategori = 'Kekurangan Berat Badan';
+    } else if (bmi >= 18.5 && bmi < 24.9) {
+        kategori = 'Berat Badan Normal';
+    } else if (bmi >= 25 && bmi < 29.9) {
+        kategori = 'Kelebihan Berat Badan';
+    } else {
+        kategori = 'Obesitas';
+    }
+
+    hasilElement.textContent = `BMI Anda: ${bmi.toFixed(2)} (${kategori})`;
 }
 
-function updateGameUI() {
-    const skorElement = document.getElementById('skor-game');
-    const kesempatanElement = document.getElementById('kesempatan-game');
-    
-    if (skorElement) skorElement.textContent = skor;
-    if (kesempatanElement) kesempatanElement.textContent = kesempatan;
-}
+const inputMappings = {
+    'select-luas-volume': {
+        'kubus': [{ id: 'sisi', label: 'Sisi:' }],
+        'balok': [{ id: 'panjang', label: 'Panjang:' }, { id: 'lebar', label: 'Lebar:' }, { id: 'tinggi', label: 'Tinggi:' }],
+        'bola': [{ id: 'jari2', label: 'Jari-jari:' }]
+    },
+    'select-aritmatika': {
+        'un': [{ id: 'suku_a', label: 'Suku Pertama (a):' }, { id: 'suku_n', label: 'Suku ke- (n):' }, { id: 'beda_b', label: 'Beda (b):' }],
+        'sn': [{ id: 'suku_a', label: 'Suku Pertama (a):' }, { id: 'suku_n', label: 'Jumlah Suku (n):' }, { id: 'beda_b', label: 'Beda (b):' }]
+    },
+    'select-geometri': {
+        'un': [{ id: 'suku_a', label: 'Suku Pertama (a):' }, { id: 'suku_n', label: 'Suku ke- (n):' }, { id: 'rasio_r', label: 'Rasio (r):' }],
+        'sn': [{ id: 'suku_a', label: 'Suku Pertama (a):' }, { id: 'suku_n', label: 'Jumlah Suku (n):' }, { id: 'rasio_r', label: 'Rasio (r):' }]
+    }
+};
 
-function cekJawaban() {
-    const button = document.getElementById('btn-cek-jawaban');
-    button.classList.add('loading');
-    
-    setTimeout(() => {
-        const jawabanUser = document.getElementById('jawaban').value.toLowerCase();
-        const hasilGameElement = document.getElementById('hasil-game');
-        
-        if (jawabanUser === kataSaatIni.toLowerCase()) {
-            skor += 10;
-            hasilGameElement.innerHTML = "🎉 <strong>Selamat! Jawaban Anda Benar!</strong> (+10 poin)";
-            hasilGameElement.style.color = '#28a745';
-            setTimeout(inisialisasiGame, 1500);
-        } else {
-            kesempatan--;
-            if (kesempatan <= 0) {
-                hasilGameElement.innerHTML = `❌ <strong>Game Over!</strong> Skor akhir: ${skor}`;
-                setTimeout(() => {
-                    skor = 0;
-                    kesempatan = 3;
-                    inisialisasiGame();
-                }, 3000);
-            } else {
-                hasilGameElement.innerHTML = `❌ Salah! Kesempatan tersisa: ${kesempatan}`;
-                hasilGameElement.style.color = '#dc3545';
-            }
-        }
-        updateGameUI();
-        button.classList.remove('loading');
-    }, 800);
-}
-
-function generateInputs(containerId, fields) {
+function generateInputFields(selectId) {
+    const selectElement = document.getElementById(selectId);
+    const containerId = selectId === 'select-luas-volume' ? 'input-luas-volume' : 'input-deret';
     const container = document.getElementById(containerId);
     container.innerHTML = '';
+    const selectedValue = selectElement.value;
 
-    fields.forEach(field => {
-        const label = document.createElement('label');
-        label.setAttribute('for', field.id);
-        label.textContent = field.label;
-        container.appendChild(label);
-
-        const input = document.createElement('input');
-        input.type = 'number';
-        input.id = field.id;
-        container.appendChild(input);
-    });
-
-    const button = document.createElement('button');
-    button.textContent = 'Hitung';
-    button.id = `btn-calc-${containerId}`;
-    container.appendChild(button);
-
-    const result = document.createElement('p');
-    result.innerHTML = `Hasil: <span id="hasil-${containerId}"></span>`;
-    container.appendChild(result);
-}
-
-function calculate(shape, containerId) {
-    const button = document.getElementById(`btn-calc-${containerId}`);
-    button.classList.add('loading');
-    
-    setTimeout(() => {
-        const hasilElement = document.getElementById(`hasil-${containerId}`);
-        let resultText = '';
-
-        try {
-            switch (shape) {
-                case 'persegi':
-                    const s = parseFloat(document.getElementById('sisi').value);
-                    if (isNaN(s)) throw new Error();
-                    resultText = `Luas: ${s*s}, Keliling: ${4*s}`;
-                    break;
-                case 'persegi-panjang':
-                    const p = parseFloat(document.getElementById('panjang').value);
-                    const l = parseFloat(document.getElementById('lebar').value);
-                    if (isNaN(p) || isNaN(l)) throw new Error();
-                    resultText = `Luas: ${p*l}, Keliling: ${2*(p+l)}`;
-                    break;
-                case 'segitiga':
-                    const a = parseFloat(document.getElementById('alas').value);
-                    const t = parseFloat(document.getElementById('tinggi').value);
-                    if (isNaN(a) || isNaN(t)) throw new Error();
-                    resultText = `Luas: ${0.5*a*t}`;
-                    break;
-                case 'lingkaran':
-                    const r = parseFloat(document.getElementById('jari2').value);
-                    if (isNaN(r)) throw new Error();
-                    resultText = `Luas: ${(Math.PI * r * r).toFixed(2)}, Keliling: ${(2 * Math.PI * r).toFixed(2)}`;
-                    break;
-                case 'jajar-genjang':
-                    const al = parseFloat(document.getElementById('alas').value);
-                    const ti = parseFloat(document.getElementById('tinggi').value);
-                    if (isNaN(al) || isNaN(ti)) throw new Error();
-                    resultText = `Luas: ${al*ti}`;
-                    break;
-                case 'kubus':
-                    const rusuk = parseFloat(document.getElementById('rusuk').value);
-                    if (isNaN(rusuk)) throw new Error();
-                    resultText = `Volume: ${Math.pow(rusuk, 3)}, Luas Permukaan: ${6*Math.pow(rusuk, 2)}`;
-                    break;
-                case 'balok':
-                    const pj = parseFloat(document.getElementById('panjang').value);
-                    const lb = parseFloat(document.getElementById('lebar').value);
-                    const tg = parseFloat(document.getElementById('tinggi').value);
-                    if (isNaN(pj) || isNaN(lb) || isNaN(tg)) throw new Error();
-                    resultText = `Volume: ${pj*lb*tg}, Luas Permukaan: ${2*((pj*lb)+(pj*tg)+(lb*tg))}`;
-                    break;
-                case 'tabung':
-                    const r_tabung = parseFloat(document.getElementById('jari2').value);
-                    const t_tabung = parseFloat(document.getElementById('tinggi').value);
-                    if (isNaN(r_tabung) || isNaN(t_tabung)) throw new Error();
-                    const vol_t = (Math.PI * Math.pow(r_tabung, 2) * t_tabung).toFixed(2);
-                    const lp_t = (2 * Math.PI * r_tabung * (r_tabung + t_tabung)).toFixed(2);
-                    resultText = `Volume: ${vol_t}, Luas Permukaan: ${lp_t}`;
-                    break;
-                case 'kerucut':
-                    const r_kerucut = parseFloat(document.getElementById('jari2').value);
-                    const t_kerucut = parseFloat(document.getElementById('tinggi').value);
-                    if(isNaN(r_kerucut) || isNaN(t_kerucut)) throw new Error();
-                    const s_kerucut = Math.sqrt(Math.pow(r_kerucut, 2) + Math.pow(t_kerucut, 2));
-                    const vol_k = ((1/3) * Math.PI * Math.pow(r_kerucut, 2) * t_kerucut).toFixed(2);
-                    const lp_k = (Math.PI * r_kerucut * (r_kerucut + s_kerucut)).toFixed(2);
-                    resultText = `Volume: ${vol_k}, Luas Permukaan: ${lp_k}`;
-                    break;
-                case 'limas-segitiga':
-                    const a_limas3 = parseFloat(document.getElementById('alas').value);
-                    const t_limas3 = parseFloat(document.getElementById('tinggi').value);
-                    const t_sisi3 = parseFloat(document.getElementById('tinggi-sisi').value);
-                    if(isNaN(a_limas3) || isNaN(t_limas3) || isNaN(t_sisi3)) throw new Error();
-                    const vol_limas3 = (1/3) * (1/2 * a_limas3 * t_limas3) * t_sisi3;
-                    const lp_limas3 = (1/2 * a_limas3 * t_limas3) + (3 * 1/2 * a_limas3 * t_sisi3);
-                    resultText = `Volume: ${vol_limas3.toFixed(2)}, Luas Permukaan: ${lp_limas3.toFixed(2)}`;
-                    break;
-                case 'limas-segiempat':
-                    const s_limas4 = parseFloat(document.getElementById('sisi').value);
-                    const t_limas4 = parseFloat(document.getElementById('tinggi').value);
-                    if(isNaN(s_limas4) || isNaN(t_limas4)) throw new Error();
-                    const vol_limas4 = (1/3) * Math.pow(s_limas4, 2) * t_limas4;
-                    const lp_limas4 = Math.pow(s_limas4, 2) + (4 * 1/2 * s_limas4 * t_limas4);
-                    resultText = `Volume: ${vol_limas4.toFixed(2)}, Luas Permukaan: ${lp_limas4.toFixed(2)}`;
-                    break;
-                case 'bola':
-                    const r_bola = parseFloat(document.getElementById('jari2').value);
-                    if(isNaN(r_bola)) throw new Error();
-                    const vol_bola = (4/3) * Math.PI * Math.pow(r_bola, 3);
-                    const lp_bola = 4 * Math.PI * Math.pow(r_bola, 2);
-                    resultText = `Volume: ${vol_bola.toFixed(2)}, Luas Permukaan: ${lp_bola.toFixed(2)}`;
-                    break;
-                case 'aritmatika-un':
-                    const a_un = parseFloat(document.getElementById('suku_a').value);
-                    const n_un = parseFloat(document.getElementById('suku_n').value);
-                    const b_un = parseFloat(document.getElementById('beda_b').value);
-                    if(isNaN(a_un) || isNaN(n_un) || isNaN(b_un)) throw new Error();
-                    resultText = `Un = ${a_un + (n_un - 1) * b_un}`;
-                    break;
-                case 'aritmatika-sn':
-                    const a_sn = parseFloat(document.getElementById('suku_a').value);
-                    const n_sn = parseFloat(document.getElementById('suku_n').value);
-                    const b_sn = parseFloat(document.getElementById('beda_b').value);
-                    if(isNaN(a_sn) || isNaN(n_sn) || isNaN(b_sn)) throw new Error();
-                    resultText = `Sn = ${(n_sn/2) * (2*a_sn + (n_sn-1)*b_sn)}`;
-                    break;
-                case 'geometri-un':
-                    const ag_un = parseFloat(document.getElementById('suku_a').value);
-                    const ng_un = parseFloat(document.getElementById('suku_n').value);
-                    const rg_un = parseFloat(document.getElementById('rasio_r').value);
-                    if(isNaN(ag_un) || isNaN(ng_un) || isNaN(rg_un)) throw new Error();
-                    resultText = `Un = ${ag_un * Math.pow(rg_un, ng_un - 1)}`;
-                    break;
-                case 'geometri-sn':
-                    const ag_sn = parseFloat(document.getElementById('suku_a').value);
-                    const ng_sn = parseFloat(document.getElementById('suku_n').value);
-                    const rg_sn = parseFloat(document.getElementById('rasio_r').value);
-                    if(isNaN(ag_sn) || isNaN(ng_sn) || isNaN(rg_sn)) throw new Error();
-                    let sn_geo;
-                    if(rg_sn > 1) sn_geo = (ag_sn * (Math.pow(rg_sn, ng_sn) - 1)) / (rg_sn - 1);
-                    else sn_geo = (ag_sn * (1 - Math.pow(rg_sn, ng_sn))) / (1 - rg_sn);
-                    resultText = `Sn = ${sn_geo.toFixed(2)}`;
-                    break;
-                case 'peluang':
-                    const na = parseFloat(document.getElementById('peluang-na').value);
-                    const ns = parseFloat(document.getElementById('peluang-ns').value);
-                    if(isNaN(na) || isNaN(ns) || ns === 0) throw new Error();
-                    resultText = `P(A) = ${(na/ns).toFixed(3)} atau ${((na/ns)*100).toFixed(1)}%`;
-                    break;
-            }
-            hasilElement.textContent = resultText;
-        } catch (error) {
-            hasilElement.textContent = 'Input tidak valid. Periksa kembali angka Anda.';
-        }
-        button.classList.remove('loading');
-    }, 800);
-}
-
-function generateSoalDebugging() {
-    const soalArray = bankSoalDebugging[tipeSoalDebugging];
-    const randomIndex = Math.floor(Math.random() * soalArray.length);
-    soalDebuggingSaatIni = soalArray[randomIndex];
-    
-    document.getElementById('problem-code').textContent = soalDebuggingSaatIni.code;
-    document.getElementById('debug-question').textContent = soalDebuggingSaatIni.question;
-    
-    const optionsContainer = document.getElementById('debug-options');
-    optionsContainer.innerHTML = '';
-    
-    soalDebuggingSaatIni.options.forEach(option => {
-        const button = document.createElement('button');
-        button.className = 'option-btn';
-        button.textContent = option;
-        optionsContainer.appendChild(button);
-    });
-    
-    document.getElementById('explanation-section').classList.add('hidden');
-    document.getElementById('btn-next-debug').classList.remove('hidden');
-    document.getElementById('btn-try-again').classList.add('hidden');
-}
-
-function checkDebugAnswer(selectedAnswer) {
-    const explanationSection = document.getElementById('explanation-section');
-    const explanationText = document.getElementById('debug-explanation');
-    const optionButtons = document.querySelectorAll('#debug-options .option-btn');
-    const nextButton = document.getElementById('btn-next-debug');
-    const tryAgainButton = document.getElementById('btn-try-again');
-    
-    optionButtons.forEach(btn => {
-        btn.classList.remove('correct', 'incorrect');
-        if (btn.textContent === soalDebuggingSaatIni.answer) {
-            btn.classList.add('correct');
-        }
-        if (btn.textContent === selectedAnswer && btn.textContent !== soalDebuggingSaatIni.answer) {
-            btn.classList.add('incorrect');
-        }
-    });
-    
-    if (selectedAnswer === soalDebuggingSaatIni.answer) {
-        skorDebugging += 10;
-        explanationText.textContent = "✅ Benar! " + soalDebuggingSaatIni.explanation;
-        explanationSection.classList.remove('hidden');
-        nextButton.classList.remove('hidden');
-        tryAgainButton.classList.add('hidden');
-        
-        if (skorDebugging >= 30 && levelDebugging === 1) {
-            levelDebugging = 2;
-            tipeSoalDebugging = 'indentation';
-        } else if (skorDebugging >= 60 && levelDebugging === 2) {
-            levelDebugging = 3;
-            tipeSoalDebugging = 'logic';
-        }
-        
-        document.getElementById('skor-debugging').textContent = skorDebugging;
-        document.getElementById('level-debugging').textContent = levelDebugging;
-    } else {
-        kesempatanDebugging--;
-        explanationText.textContent = "❌ Salah! " + soalDebuggingSaatIni.explanation;
-        explanationSection.classList.remove('hidden');
-        nextButton.classList.add('hidden');
-        tryAgainButton.classList.remove('hidden');
-        
-        document.getElementById('kesempatan-debugging').textContent = kesempatanDebugging;
-        
-        if (kesempatanDebugging <= 0) {
-            setTimeout(() => {
-                skorDebugging = 0;
-                kesempatanDebugging = 3;
-                levelDebugging = 1;
-                tipeSoalDebugging = 'syntax';
-                document.getElementById('skor-debugging').textContent = skorDebugging;
-                document.getElementById('kesempatan-debugging').textContent = kesempatanDebugging;
-                document.getElementById('level-debugging').textContent = levelDebugging;
-                generateSoalDebugging();
-            }, 3000);
-        }
-    }
-}
-
-function initDebuggingGame() {
-    skorDebugging = 0;
-    kesempatanDebugging = 3;
-    levelDebugging = 1;
-    tipeSoalDebugging = 'syntax';
-    
-    document.getElementById('skor-debugging').textContent = skorDebugging;
-    document.getElementById('kesempatan-debugging').textContent = kesempatanDebugging;
-    document.getElementById('level-debugging').textContent = levelDebugging;
-    
-    generateSoalDebugging();
-}
-
-function generateSoalTebak() {
-    const randomIndex = Math.floor(Math.random() * bankSoalTebakOutput.length);
-    soalTebakSaatIni = bankSoalTebakOutput[randomIndex];
-    
-    document.getElementById('tebak-code').textContent = soalTebakSaatIni.code;
-    
-    const optionsContainer = document.getElementById('tebak-options');
-    optionsContainer.innerHTML = '';
-    
-    soalTebakSaatIni.options.forEach(option => {
-        const button = document.createElement('button');
-        button.className = 'option-btn';
-        button.textContent = option;
-        optionsContainer.appendChild(button);
-    });
-    
-    document.getElementById('tebak-explanation-section').classList.add('hidden');
-    document.getElementById('btn-next-tebak').classList.remove('hidden');
-    document.getElementById('btn-try-again-tebak').classList.add('hidden');
-}
-
-function checkTebakAnswer(selectedAnswer) {
-    const explanationSection = document.getElementById('tebak-explanation-section');
-    const explanationText = document.getElementById('tebak-explanation');
-    const optionButtons = document.querySelectorAll('#tebak-options .option-btn');
-    const nextButton = document.getElementById('btn-next-tebak');
-    const tryAgainButton = document.getElementById('btn-try-again-tebak');
-    
-    optionButtons.forEach(btn => {
-        btn.classList.remove('correct', 'incorrect');
-        if (btn.textContent === soalTebakSaatIni.answer) {
-            btn.classList.add('correct');
-        }
-        if (btn.textContent === selectedAnswer && btn.textContent !== soalTebakSaatIni.answer) {
-            btn.classList.add('incorrect');
-        }
-    });
-    
-    if (selectedAnswer === soalTebakSaatIni.answer) {
-        skorTebak += 10;
-        explanationText.textContent = "✅ Benar! " + soalTebakSaatIni.explanation;
-        explanationSection.classList.remove('hidden');
-        nextButton.classList.remove('hidden');
-        tryAgainButton.classList.add('hidden');
-        
-        document.getElementById('skor-tebak').textContent = skorTebak;
-    } else {
-        kesempatanTebak--;
-        explanationText.textContent = "❌ Salah! " + soalTebakSaatIni.explanation;
-        explanationSection.classList.remove('hidden');
-        nextButton.classList.add('hidden');
-        tryAgainButton.classList.remove('hidden');
-        
-        document.getElementById('kesempatan-tebak').textContent = kesempatanTebak;
-        
-        if (kesempatanTebak <= 0) {
-            setTimeout(() => {
-                skorTebak = 0;
-                kesempatanTebak = 3;
-                document.getElementById('skor-tebak').textContent = skorTebak;
-                document.getElementById('kesempatan-tebak').textContent = kesempatanTebak;
-                generateSoalTebak();
-            }, 3000);
-        }
-    }
-}
-
-function initTebakOutput() {
-    skorTebak = 0;
-    kesempatanTebak = 3;
-    
-    document.getElementById('skor-tebak').textContent = skorTebak;
-    document.getElementById('kesempatan-tebak').textContent = kesempatanTebak;
-    
-    generateSoalTebak();
-}
-
-function addSmoothInteractions() {
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
+    if (selectedValue && inputMappings[selectId][selectedValue]) {
+        inputMappings[selectId][selectedValue].forEach(field => {
+            const label = document.createElement('label');
+            label.setAttribute('for', field.id);
+            label.textContent = field.label;
+            const input = document.createElement('input');
+            input.setAttribute('type', 'number');
+            input.setAttribute('id', field.id);
+            input.setAttribute('placeholder', field.label.replace(':', ''));
+            container.appendChild(label);
+            container.appendChild(input);
         });
+    }
+}
+
+function handleDeretChange() {
+    const selectDeret = document.getElementById('select-deret');
+    const selectAritmatika = document.getElementById('select-aritmatika');
+    const selectGeometri = document.getElementById('select-geometri');
+
+    selectAritmatika.classList.add('hidden');
+    selectGeometri.classList.add('hidden');
+    document.getElementById('input-deret').innerHTML = '';
+
+    if (selectDeret.value === 'aritmatika') {
+        selectAritmatika.classList.remove('hidden');
+        selectAritmatika.innerHTML = `
+            <option value="none">Pilih Hitungan</option>
+            <option value="un">Suku ke-n (Un)</option>
+            <option value="sn">Jumlah Suku ke-n (Sn)</option>
+        `;
+        selectAritmatika.onchange = () => generateInputFields('select-aritmatika');
+        generateInputFields('select-aritmatika');
+    } else if (selectDeret.value === 'geometri') {
+        selectGeometri.classList.remove('hidden');
+        selectGeometri.innerHTML = `
+            <option value="none">Pilih Hitungan</option>
+            <option value="un">Suku ke-n (Un)</option>
+            <option value="sn">Jumlah Suku ke-n (Sn)</option>
+        `;
+        selectGeometri.onchange = () => generateInputFields('select-geometri');
+        generateInputFields('select-geometri');
+    }
+}
+
+document.getElementById('select-deret').addEventListener('change', handleDeretChange);
+document.getElementById('select-luas-volume').addEventListener('change', () => generateInputFields('select-luas-volume'));
+
+
+function hitungDeret() {
+    const deretType = document.getElementById('select-deret').value;
+    let selectElementId = '';
+    
+    if (deretType === 'aritmatika') {
+        selectElementId = 'select-aritmatika';
+    } else if (deretType === 'geometri') {
+        selectElementId = 'select-geometri';
+    } else {
+        document.getElementById('hasil-deret').textContent = "Pilih jenis deret terlebih dahulu.";
+        return;
+    }
+
+    const hitunganType = document.getElementById(selectElementId).value;
+    const hasilElement = document.getElementById('hasil-deret');
+    const inputMap = inputMappings[selectElementId][hitunganType];
+    const values = {};
+    let error = false;
+
+    if (!inputMap) {
+        hasilElement.textContent = "Pilih hitungan yang ingin dilakukan.";
+        return;
+    }
+
+    inputMap.forEach(field => {
+        const input = document.getElementById(field.id);
+        const value = parseFloat(input.value);
+        if (isNaN(value)) {
+            error = true;
+        }
+        values[field.id] = value;
     });
 
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
-            const tabs = document.querySelectorAll('.tabs button');
-            const currentIndex = Array.from(tabs).findIndex(tab => 
-                tab.classList.contains('active-tab'));
-            
-            let newIndex;
-            if (e.key === 'ArrowRight') {
-                newIndex = (currentIndex + 1) % tabs.length;
+    if (error) {
+        hasilElement.textContent = "Masukkan semua nilai input yang valid.";
+        return;
+    }
+
+    let hasil = 0;
+    
+    if (deretType === 'aritmatika') {
+        const a = values['suku_a'];
+        const n = values['suku_n'];
+        const b = values['beda_b'];
+        
+        if (hitunganType === 'un') {
+            hasil = a + (n - 1) * b;
+            hasilElement.textContent = `Suku ke-${n} (Un): ${hasil.toFixed(2)}`;
+        } else if (hitunganType === 'sn') {
+            hasil = (n / 2) * (2 * a + (n - 1) * b);
+            hasilElement.textContent = `Jumlah Suku ke-${n} (Sn): ${hasil.toFixed(2)}`;
+        }
+    } else if (deretType === 'geometri') {
+        const a = values['suku_a'];
+        const n = values['suku_n'];
+        const r = values['rasio_r'];
+        
+        if (hitunganType === 'un') {
+            hasil = a * Math.pow(r, n - 1);
+            hasilElement.textContent = `Suku ke-${n} (Un): ${hasil.toFixed(2)}`;
+        } else if (hitunganType === 'sn') {
+            if (r === 1) {
+                hasil = a * n;
             } else {
-                newIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+                hasil = a * (Math.pow(r, n) - 1) / (r - 1);
             }
-            
-            tabs[newIndex].click();
+            hasilElement.textContent = `Jumlah Suku ke-${n} (Sn): ${hasil.toFixed(2)}`;
         }
-    });
+    }
 }
 
-document.addEventListener('click', function(e) {
-    if (e.target.id.startsWith('btn-calc-')) {
-        const containerId = e.target.id.replace('btn-calc-', '');
-        const selectId = containerId.replace('calc-', 'select-');
-        const selectElement = document.getElementById(selectId);
-        
-        if (selectElement) {
-            const selectedValue = selectElement.value;
-            let calcId = selectedValue;
-            
-            if(containerId.includes('aritmatika')) calcId = `aritmatika-${selectedValue}`;
-            if(containerId.includes('geometri')) calcId = `geometri-${selectedValue}`;
-            
-            calculate(calcId, containerId);
-        }
-    }
-    
-    if (e.target.classList.contains('level-btn')) {
-        document.querySelectorAll('.level-btn').forEach(btn => {
-            btn.classList.remove('active');
-        });
-        e.target.classList.add('active');
-        
-        const level = e.target.dataset.level;
-        showLevel(`level-${level}`);
-    }
-    
-    if (e.target.classList.contains('option-btn')) {
-        const levelContent = e.target.closest('.level-content');
-        if (levelContent) {
-            const level = levelContent.id.replace('level-', '');
-            checkPythonAnswer(level, e.target.textContent);
-        }
-        
-        const debugContainer = e.target.closest('#debugging-detective');
-        if (debugContainer) {
-            checkDebugAnswer(e.target.textContent);
-        }
-        
-        const tebakContainer = e.target.closest('#tebak-output');
-        if (tebakContainer) {
-            checkTebakAnswer(e.target.textContent);
-        }
-    }
-});
+document.getElementById('btn-deret').addEventListener('click', hitungDeret);
+
+
+function inisialisasiDebuggingGame() {
+    document.getElementById('debug-feedback').textContent = "Game Debugging siap! Klik Mulai Debugging.";
+    document.getElementById('btn-debug-next').style.display = 'none';
+    document.getElementById('debug-pertanyaan').innerHTML = '';
+    document.getElementById('debug-options').innerHTML = '';
+    document.getElementById('btn-start-debugging').style.display = 'block';
+}
+
+function inisialisasiTebakOutput() {
+    document.getElementById('tebak-feedback').textContent = "Game Tebak Output siap! Klik Mulai Tebak.";
+    document.getElementById('btn-tebak-next').style.display = 'none';
+    document.getElementById('tebak-pertanyaan').innerHTML = '';
+    document.getElementById('tebak-options').innerHTML = '';
+    document.getElementById('btn-start-tebak-output').style.display = 'block';
+}
+
+function inisialisasiGameBahasa() {
+    document.getElementById('bahasa-feedback').textContent = "Game Bahasa Pemrograman siap! Klik Mulai Game Bahasa.";
+    document.getElementById('btn-bahasa-next').style.display = 'none';
+    document.getElementById('bahasa-pertanyaan').innerHTML = '';
+    document.getElementById('bahasa-options').innerHTML = '';
+    document.getElementById('btn-start-bahasa').style.display = 'block';
+}
 
 document.addEventListener('DOMContentLoaded', () => {
-    showModule('profile');
-    document.querySelector('.tabs button[data-module="profile"]').classList.add('active-tab');
-    showSubMtk('mtk-default');
-    inisialisasiGame();
-    addSmoothInteractions();
-
-    const tabButtons = document.querySelectorAll('.tabs button');
-    tabButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            tabButtons.forEach(btn => btn.classList.remove('active-tab'));
-            button.classList.add('active-tab');
-            const moduleId = button.dataset.module;
+    document.querySelectorAll('.tabs button').forEach(button => {
+        button.addEventListener('click', function() {
+            const moduleId = this.getAttribute('data-module');
             showModule(moduleId);
+            document.querySelectorAll('.tabs button').forEach(btn => btn.classList.remove('active-tab'));
+            this.classList.add('active-tab');
+
+            if (moduleId === 'mtk') {
+                document.querySelector('.mtk-submenu button').click();
+            } else if (moduleId === 'game') {
+                document.querySelector('.game-submenu button').click();
+            }
         });
     });
 
-    const subMtkButtons = document.querySelectorAll('.mtk-submenu button');
-    subMtkButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            subMtkButtons.forEach(btn => btn.classList.remove('active-submtk'));
-            button.classList.add('active-submtk');
-            const subMtkId = button.dataset.submtk;
+    const profileButton = document.querySelector('.tabs button[data-module="profile"]');
+    if (profileButton) {
+        profileButton.classList.add('active-tab');
+        profileButton.click();
+    } else {
+        showModule('profile');
+    }
+
+    document.querySelectorAll('.mtk-submenu button').forEach(button => {
+        button.addEventListener('click', function() {
+            const subMtkId = this.getAttribute('data-submtk');
             showSubMtk(subMtkId);
+            document.querySelectorAll('.mtk-submenu button').forEach(btn => btn.classList.remove('active-submtk'));
+            this.classList.add('active-submtk');
         });
     });
-
-    const subGameButtons = document.querySelectorAll('.game-submenu button');
-    subGameButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            subGameButtons.forEach(btn => btn.classList.remove('active-subgame'));
-            button.classList.add('active-subgame');
-            const subGameId = button.dataset.subgame;
+    
+    document.querySelectorAll('.game-submenu button').forEach(button => {
+        button.addEventListener('click', function() {
+            const subGameId = this.getAttribute('data-subgame');
             showSubGame(subGameId);
+            document.querySelectorAll('.game-submenu button').forEach(btn => btn.classList.remove('active-subgame'));
+            this.classList.add('active-subgame');
         });
     });
 
+    document.getElementById('btn-start-python').addEventListener('click', startGame);
+    document.getElementById('btn-next').addEventListener('click', nextSoal);
+    document.getElementById('btn-bmi').addEventListener('click', hitungBMI);
     document.getElementById('btn-luas-lingkaran').addEventListener('click', hitungLuasLingkaran);
     document.getElementById('btn-kecepatan').addEventListener('click', hitungKecepatan);
     document.getElementById('btn-debit').addEventListener('click', hitungDebit);
     document.getElementById('btn-skala').addEventListener('click', hitungSkala);
-    document.getElementById('btn-konversi').addEventListener('click', hitungKonversiSatuan);
     document.getElementById('btn-waktu-paruh').addEventListener('click', hitungWaktuParuh);
-    document.getElementById('btn-statistik').addEventListener('click', hitungStatistik);
-    document.getElementById('btn-bmi').addEventListener('click', hitungBMI);
-    document.getElementById('btn-broca').addEventListener('click', hitungBroca);
-    document.getElementById('btn-bmr').addEventListener('click', hitungBMR);
-    document.getElementById('btn-cek-jawaban').addEventListener('click', cekJawaban);
-    document.getElementById('btn-peluang').addEventListener('click', () => calculate('peluang', 'peluang'));
-    document.getElementById('btn-next-debug').addEventListener('click', generateSoalDebugging);
-    document.getElementById('btn-try-again').addEventListener('click', generateSoalDebugging);
-    document.getElementById('btn-next-tebak').addEventListener('click', generateSoalTebak);
-    document.getElementById('btn-try-again-tebak').addEventListener('click', generateSoalTebak);
-
-    const inputMappings = {
-        'select-luas-datar': {
-            'persegi': [{ id: 'sisi', label: 'Sisi:' }],
-            'persegi-panjang': [{ id: 'panjang', label: 'Panjang:' }, { id: 'lebar', label: 'Lebar:' }],
-            'segitiga': [{ id: 'alas', label: 'Alas:' }, { id: 'tinggi', label: 'Tinggi:' }],
-            'lingkaran': [{ id: 'jari2', label: 'Jari-jari:' }],
-            'jajar-genjang': [{ id: 'alas', label: 'Alas:' }, { id: 'tinggi', label: 'Tinggi:' }]
-        },
-        'select-luas-ruang': {
-            'kubus': [{ id: 'rusuk', label: 'Rusuk:' }],
-            'balok': [{ id: 'panjang', label: 'Panjang:' }, { id: 'lebar', label: 'Lebar:' }, { id: 'tinggi', label: 'Tinggi:' }],
-            'tabung': [{ id: 'jari2', label: 'Jari-jari:' }, { id: 'tinggi', label: 'Tinggi:' }],
-            'kerucut': [{ id: 'jari2', label: 'Jari-jari:' }, { id: 'tinggi', label: 'Tinggi:' }]
-        },
-        'select-geometri-lanjut': {
-            'limas-segitiga': [
-                { id: 'alas', label: 'Alas Segitiga:' },
-                { id: 'tinggi', label: 'Tinggi Alas:' },
-                { id: 'tinggi-sisi', label: 'Tinggi Limas:' }
-            ],
-            'limas-segiempat': [
-                { id: 'sisi', label: 'Sisi Alas:' },
-                { id: 'tinggi', label: 'Tinggi Limas:' }
-            ],
-            'bola': [
-                { id: 'jari2', label: 'Jari-jari:' }
-            ]
-        },
-        'select-aritmatika': {
-            'un': [{ id: 'suku_a', label: 'Suku Pertama (a):' }, { id: 'suku_n', label: 'Suku ke- (n):' }, { id: 'beda_b', label: 'Beda (b):' }],
-            'sn': [{ id: 'suku_a', label: 'Suku Pertama (a):' }, { id: 'suku_n', label: 'Jumlah Suku (n):' }, { id: 'beda_b', label: 'Beda (b):' }]
-        },
-        'select-geometri': {
-            'un': [{ id: 'suku_a', label: 'Suku Pertama (a):' }, { id: 'suku_n', label: 'Suku ke- (n):' }, { id: 'rasio_r', label: 'Rasio (r):' }],
-            'sn': [{ id: 'suku_a', label: 'Suku Pertama (a):' }, { id: 'suku_n', label: 'Jumlah Suku (n):' }, { id: 'rasio_r', label: 'Rasio (r):' }]
-        }
-    };
-
-    for (const selectId in inputMappings) {
-        const selectElement = document.getElementById(selectId);
-        const containerId = selectId.replace('select', 'calc');
-        
-        selectElement.addEventListener('change', (event) => {
-            const selectedValue = event.target.value;
-            const fields = inputMappings[selectId][selectedValue];
-            if (fields) {
-                generateInputs(containerId, fields);
-            } else {
-                document.getElementById(containerId).innerHTML = '';
-            }
-        });
-    }
 });
+
