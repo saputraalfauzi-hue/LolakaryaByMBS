@@ -6,11 +6,21 @@ body {
     padding: 0;
 }
 
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #0056b3;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --dark-color: #343a40;
+    --light-color: #f8f9fa;
+}
+
 header {
-    background-color: #007bff;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
     color: white;
     padding: 20px;
     text-align: center;
+    box-shadow: 0 4px 12px rgba(0,123,255,0.3);
 }
 
 .profile-header {
@@ -21,24 +31,33 @@ header {
 }
 
 .profile-picture img {
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
-    border: 3px solid white;
+    border: 4px solid white;
     object-fit: cover;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease;
+}
+
+.profile-picture img:hover {
+    transform: scale(1.05);
 }
 
 .header-text h1 {
     margin: 5px 0;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    font-weight: 700;
 }
 
 .tabs {
     display: flex;
     justify-content: center;
-    background-color: #343a40;
+    background: linear-gradient(to right, var(--dark-color), #495057);
     padding: 0;
     margin-bottom: 20px;
-    border-bottom: 3px solid #007bff;
+    border-bottom: 3px solid var(--primary-color);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .tabs button {
@@ -51,17 +70,34 @@ header {
     cursor: pointer;
     font-weight: bold;
     transition: background-color 0.3s, color 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.tabs button::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 3px;
+    background: white;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.tabs button.active-tab::after {
+    width: 80%;
 }
 
 .tabs button:hover {
-    background-color: #007bff;
+    background-color: var(--primary-color);
     color: white;
 }
 
 .tabs button.active-tab {
-    background-color: #007bff;
+    background-color: var(--primary-color);
     color: white;
-    border-bottom: 3px solid white;
 }
 
 #content-container {
@@ -77,6 +113,12 @@ header {
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .hidden {
@@ -88,18 +130,70 @@ input[type="number"], input[type="text"], select {
     padding: 10px;
     margin: 8px 0;
     box-sizing: border-box;
-    border: 1px solid #ccc;
+    border: 2px solid #e9ecef;
     border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+input[type="number"]:focus, input[type="text"]:focus, select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0,123,255,0.1);
+    outline: none;
+}
+
+input:invalid {
+    border-color: var(--danger-color);
+}
+
+input:valid {
+    border-color: var(--success-color);
 }
 
 button:not(.tabs button) {
-    background-color: #28a745;
+    background-color: var(--success-color);
     color: white;
     padding: 10px 15px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     margin-top: 10px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+button:not(.tabs button):hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(40,167,69,0.3);
+}
+
+button:not(.tabs button):active {
+    transform: translateY(0);
+}
+
+.loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 50%;
+    left: 50%;
+    margin-left: -10px;
+    margin-top: -10px;
+    border: 2px solid transparent;
+    border-top: 2px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 .profile-container {
@@ -118,7 +212,7 @@ button:not(.tabs button) {
     height: 200px;
     border-radius: 10px;
     object-fit: cover;
-    border: 3px solid #007bff;
+    border: 3px solid var(--primary-color);
 }
 
 .profile-info {
@@ -126,8 +220,8 @@ button:not(.tabs button) {
 }
 
 .profile-info h2 {
-    color: #007bff;
-    border-bottom: 2px solid #007bff;
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
     padding-bottom: 10px;
     margin-top: 0;
 }
@@ -154,7 +248,7 @@ button:not(.tabs button) {
 }
 
 .detail-item a {
-    color: #007bff;
+    color: var(--primary-color);
     text-decoration: none;
 }
 
@@ -163,10 +257,10 @@ button:not(.tabs button) {
 }
 
 .profile-description {
-    background-color: #f8f9fa;
+    background-color: var(--light-color);
     padding: 20px;
     border-radius: 8px;
-    border-left: 4px solid #007bff;
+    border-left: 4px solid var(--primary-color);
     margin-top: 20px;
 }
 
@@ -184,7 +278,7 @@ button:not(.tabs button) {
 
 .mtk-submenu, .game-submenu {
     width: 250px;
-    background-color: #f8f9fa;
+    background-color: var(--light-color);
     padding: 10px;
     border-radius: 5px;
     flex-shrink: 0;
@@ -193,7 +287,7 @@ button:not(.tabs button) {
 .mtk-submenu h4, .game-submenu h4 {
     margin-top: 15px;
     margin-bottom: 5px;
-    color: #007bff;
+    color: var(--primary-color);
     border-bottom: 1px solid #ccc;
     padding-bottom: 5px;
 }
@@ -212,11 +306,11 @@ button:not(.tabs button) {
 
 .mtk-submenu button:hover, .game-submenu button:hover {
     background-color: #e9ecef;
-    color: #007bff;
+    color: var(--primary-color);
 }
 
 .mtk-submenu button.active-submtk, .game-submenu button.active-subgame {
-    background-color: #007bff;
+    background-color: var(--primary-color);
     color: white;
     font-weight: bold;
 }
@@ -243,13 +337,13 @@ button:not(.tabs button) {
     padding: 15px;
     border: 1px solid #e0e0e0;
     border-radius: 8px;
-    background-color: #f8f9fa;
+    background-color: var(--light-color);
 }
 
 .health-section h3 {
     margin-top: 0;
-    color: #007bff;
-    border-bottom: 2px solid #007bff;
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
     padding-bottom: 8px;
 }
 
@@ -261,11 +355,13 @@ button:not(.tabs button) {
 }
 
 .game-stat-item {
-    background-color: #f8f9fa;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
     padding: 10px 20px;
     border-radius: 5px;
     border: 1px solid #dee2e6;
     font-weight: bold;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
 .hero-levels {
@@ -281,27 +377,40 @@ button:not(.tabs button) {
 .level-btn {
     flex: 1;
     padding: 12px;
-    background-color: #6c757d;
+    background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: all 0.3s ease;
 }
 
 .level-btn:hover {
-    background-color: #5a6268;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 }
 
 .level-btn.active {
-    background-color: #007bff;
+    background-color: var(--primary-color);
+}
+
+.level-btn[data-level="pemula"] {
+    background: linear-gradient(135deg, var(--success-color) 0%, #20c997 100%);
+}
+
+.level-btn[data-level="menengah"] {
+    background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);
+}
+
+.level-btn[data-level="mahir"] {
+    background: linear-gradient(135deg, var(--danger-color) 0%, #e83e8c 100%);
 }
 
 .level-content {
     padding: 20px;
     border: 1px solid #e0e0e0;
     border-radius: 8px;
-    background-color: #f8f9fa;
+    background-color: var(--light-color);
 }
 
 .code-quiz {
@@ -342,15 +451,15 @@ code {
 }
 
 .option-btn.correct {
-    background-color: #28a745;
+    background-color: var(--success-color);
     color: white;
-    border-color: #28a745;
+    border-color: var(--success-color);
 }
 
 .option-btn.incorrect {
-    background-color: #dc3545;
+    background-color: var(--danger-color);
     color: white;
-    border-color: #dc3545;
+    border-color: var(--danger-color);
 }
 
 .result {
@@ -383,12 +492,24 @@ button:disabled {
 }
 
 .kutipan {
-    background-color: #f8f9fa;
-    border-left: 4px solid #007bff;
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 0 8px 8px 0;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: linear-gradient(135deg, var(--light-color) 0%, #e9ecef 100%);
+    border-left: 4px solid var(--primary-color);
+    padding: 25px;
+    margin-bottom: 25px;
+    border-radius: 0 12px 12px 0;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.kutipan::before {
+    content: '"';
+    font-size: 4em;
+    color: var(--primary-color);
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    opacity: 0.3;
+    font-family: Georgia, serif;
 }
 
 .kutipan:hover {
@@ -399,9 +520,11 @@ button:disabled {
 .isi-kutipan {
     font-style: italic;
     font-size: 1.1em;
-    line-height: 1.6;
-    margin-bottom: 10px;
-    color: #333;
+    line-height: 1.7;
+    margin-bottom: 15px;
+    color: #495057;
+    position: relative;
+    z-index: 1;
 }
 
 .penulis-kutipan {
@@ -409,6 +532,15 @@ button:disabled {
     font-weight: bold;
     color: #555;
     margin-bottom: 0;
+}
+
+#hasil-game {
+    padding: 15px;
+    border-radius: 8px;
+    margin: 15px 0;
+    font-weight: bold;
+    text-align: center;
+    transition: all 0.3s ease;
 }
 
 @media (min-width: 768px) {
@@ -444,5 +576,41 @@ button:disabled {
     
     .isi-kutipan {
         font-size: 1em;
+    }
+    
+    .mtk-container, .game-container {
+        flex-direction: column;
+    }
+    
+    .mtk-submenu, .game-submenu {
+        width: 100%;
+        order: 2;
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+    
+    .tabs {
+        flex-wrap: wrap;
+    }
+    
+    .tabs button {
+        flex: 1 0 45%;
+        margin: 2px;
+        padding: 12px 8px;
+        font-size: 0.9em;
+    }
+    
+    .options {
+        grid-template-columns: 1fr;
+    }
+    
+    .level-buttons {
+        flex-direction: column;
     }
     }
