@@ -820,16 +820,98 @@ button:disabled {
     text-align: left;
     background-color: #f8f9fa;
     border: 2px solid #dee2e6;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease;
+    color: #495057;
+    font-weight: 500;
 }
 
 #debug-options .option-btn:hover, #tebak-options .option-btn:hover {
-    background-color: #e9ecef;
-    border-color: #007bff;
+    background-color: #e8f5e8;
+    border-color: #4caf50;
+    color: #2e7d32;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2);
 }
 
+/* Warna untuk jawaban benar/salah */
+.option-btn.correct {
+    background: linear-gradient(135deg, #4caf50 0%, #2e7d32 100%);
+    color: white;
+    border-color: #2e7d32;
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+}
+
+.option-btn.incorrect {
+    background: linear-gradient(135deg, #f44336 0%, #c62828 100%);
+    color: white;
+    border-color: #c62828;
+    box-shadow: 0 4px 12px rgba(244, 67, 54, 0.3);
+}
+
+/* Container styling untuk konsistensi */
+.debug-container, .tebak-container {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border: 1px solid #e8f5e8;
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 15px;
+}
+
+/* Section styling dengan aksen hijau */
+.question-section {
+    background-color: #f1f8e9;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    border-left: 4px solid #4caf50;
+}
+
+.explanation-section {
+    background-color: #e8f5e8;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 15px 0;
+    border-left: 4px solid #4caf50;
+}
+
+#tebak-explanation-section {
+    background-color: #e8f5e8;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 15px 0;
+    border-left: 4px solid #4caf50;
+}
+
+/* Game stats dengan tema hijau */
+.game-stat-item {
+    background: linear-gradient(135deg, #66bb6a 0%, #4caf50 100%);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: 1px solid #4caf50;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(102, 187, 106, 0.3);
+}
+
+/* Code section styling */
+.code-section {
+    background-color: #2d2d2d;
+    color: #f8f8f2;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    overflow-x: auto;
+    border-left: 4px solid #4caf50;
+}
+
+.code-section pre {
+    margin: 0;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    line-height: 1.4;
+        }
 #hasil-statistik {
     background-color: var(--light-color);
     padding: 15px;
