@@ -72,18 +72,21 @@
                     <option value="bola">Bola</option>
                 </select>
                 <div id="input-luas-volume" class="calculator-space"></div>
-                <button id="btn-luas-lingkaran" class="calc-btn">Hitung</button>
+                <button id="btn-luas-volume" class="calc-btn">Hitung</button>
                 <p id="hasil-luas-volume" class="hasil-perhitungan"></p>
             </div>
 
             <div id="jarak-waktu" class="mtk-submodule">
-                <h3>Kalkulator Jarak & Waktu</h3>
-                <label for="kecepatan">Kecepatan (km/jam):</label>
-                <input type="number" id="kecepatan" placeholder="Masukkan Kecepatan">
-                <label for="waktu">Waktu (jam):</label>
-                <input type="number" id="waktu" placeholder="Masukkan Waktu">
-                <button id="btn-kecepatan" class="calc-btn">Hitung Jarak</button>
-                <p id="hasil-kecepatan" class="hasil-perhitungan"></p>
+                <h3>Kalkulator Jarak, Waktu, Kecepatan</h3>
+                <p>Kosongkan satu kolom yang ingin dihitung.</p>
+                <label for="jarak">Jarak (km):</label>
+                <input type="number" id="jarak" placeholder="Masukkan Jarak (km)">
+                <label for="kecepatan-jkw">Kecepatan (km/jam):</label>
+                <input type="number" id="kecepatan-jkw" placeholder="Masukkan Kecepatan (km/jam)">
+                <label for="waktu-jkw">Waktu (jam):</label>
+                <input type="number" id="waktu-jkw" placeholder="Masukkan Waktu (jam)">
+                <button id="btn-kecepatan" class="calc-btn">Hitung</button>
+                <p id="hasil-jkw" class="hasil-perhitungan"></p>
             </div>
 
             <div id="debit-skala" class="mtk-submodule">
@@ -148,6 +151,31 @@
                 <input type="number" id="tinggi" placeholder="Masukkan Tinggi Badan">
                 <button id="btn-bmi" class="calc-btn">Hitung BMI</button>
                 <p id="hasil-bmi" class="hasil-perhitungan"></p>
+            </div>
+            
+            <div id="bmr-kalkulator" class="sub-section" style="margin-top: 20px;">
+                <h3>Kalkulator BMR (Basal Metabolic Rate)</h3>
+                <label for="berat-bmr">Berat Badan (kg):</label>
+                <input type="number" id="berat-bmr" placeholder="Masukkan Berat Badan">
+                <label for="tinggi-bmr">Tinggi Badan (cm):</label>
+                <input type="number" id="tinggi-bmr" placeholder="Masukkan Tinggi Badan">
+                <label for="usia-bmr">Usia (tahun):</label>
+                <input type="number" id="usia-bmr" placeholder="Masukkan Usia">
+                <label for="gender-bmr">Jenis Kelamin:</label>
+                <select id="gender-bmr">
+                    <option value="pria">Pria</option>
+                    <option value="wanita">Wanita</option>
+                </select>
+                <button id="btn-bmr" class="calc-btn">Hitung BMR</button>
+                <p id="hasil-bmr" class="hasil-perhitungan"></p>
+            </div>
+
+            <div id="mhr-kalkulator" class="sub-section" style="margin-top: 20px;">
+                <h3>Target Denyut Jantung Maksimal (MHR)</h3>
+                <label for="usia-mhr">Usia (tahun):</label>
+                <input type="number" id="usia-mhr" placeholder="Masukkan Usia">
+                <button id="btn-mhr" class="calc-btn">Hitung MHR</button>
+                <p id="hasil-mhr" class="hasil-perhitungan"></p>
             </div>
         </section>
 
