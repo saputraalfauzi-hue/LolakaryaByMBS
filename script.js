@@ -568,6 +568,35 @@ function hitungBMR() {
     hasilElement.textContent = `BMR Anda (Kebutuhan Kalori Dasar): ${bmr.toFixed(0)} Kalori/hari`;
 }
 
+function hitungBroca() {
+    const tinggi = parseFloat(document.getElementById('tinggi-broca').value);
+    const gender = document.getElementById('gender-broca').value;
+    const hasilElement = document.getElementById('hasil-broca');
+    
+    if (isNaN(tinggi) || tinggi <= 0) {
+        hasilElement.textContent = "Masukkan tinggi badan yang valid.";
+        return;
+    }
+    
+    let beratIdeal;
+    const dasar = tinggi - 100;
+    
+    if (gender === 'pria') {
+        beratIdeal = dasar - (0.10 * dasar); // 10% pengurangan untuk pria
+    } else {
+        beratIdeal = dasar - (0.15 * dasar); // 15% pengurangan untuk wanita
+    }
+    
+    // Hitung rentang berat ideal (±5%)
+    const rentangBawah = (beratIdeal * 0.95).toFixed(1);
+    const rentangAtas = (beratIdeal * 1.05).toFixed(1);
+    
+    hasilElement.innerHTML = `
+        <p><strong>Berat Badan Ideal:</strong> ${beratIdeal.toFixed(1)} kg</p>
+        <p><strong>Rentang Sehat:</strong> ${rentangBawah} kg - ${rentangAtas} kg</p>
+    `;
+}
+
 function hitungMHR() {
     const usia = parseFloat(document.getElementById('usia-mhr').value);
     const hasilElement = document.getElementById('hasil-mhr');
@@ -1111,6 +1140,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // EVENT LISTENERS KESEHATAN BARU
     document.getElementById('btn-bmi').addEventListener('click', hitungBMI);
+    document.getElementById('btn-broca').addEventListener('click', hitungBroca);
     document.getElementById('btn-bmr').addEventListener('click', hitungBMR);
     document.getElementById('btn-mhr').addEventListener('click', hitungMHR);
     
