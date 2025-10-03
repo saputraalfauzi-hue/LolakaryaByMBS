@@ -222,51 +222,79 @@ function checkPythonAnswer(level, selectedAnswer) {
 }
 
 function hitungLuasLingkaran() {
-    const r = parseFloat(document.getElementById('jari-jari').value);
-    const hasilElement = document.getElementById('hasil-mtk');
-    if (isNaN(r) || r <= 0) {
-        hasilElement.textContent = "Masukkan angka jari-jari yang valid.";
-        return;
-    }
-    const Luas = Math.PI * Math.pow(r, 2);
-    hasilElement.textContent = Luas.toFixed(2);
+    const button = document.getElementById('btn-luas-lingkaran');
+    button.classList.add('loading');
+    
+    setTimeout(() => {
+        const r = parseFloat(document.getElementById('jari-jari').value);
+        const hasilElement = document.getElementById('hasil-mtk');
+        if (isNaN(r) || r <= 0) {
+            hasilElement.textContent = "Masukkan angka jari-jari yang valid.";
+            button.classList.remove('loading');
+            return;
+        }
+        const Luas = Math.PI * Math.pow(r, 2);
+        hasilElement.textContent = Luas.toFixed(2);
+        button.classList.remove('loading');
+    }, 800);
 }
 
 function hitungKecepatan() {
-    const s = parseFloat(document.getElementById('jarak-kec').value);
-    const t = parseFloat(document.getElementById('waktu-kec').value);
-    const hasilElement = document.getElementById('hasil-kecepatan');
-    if (isNaN(s) || isNaN(t) || t <= 0) {
-        hasilElement.textContent = "Data tidak valid.";
-        return;
-    }
-    const v = s / t;
-    hasilElement.textContent = v.toFixed(2);
+    const button = document.getElementById('btn-kecepatan');
+    button.classList.add('loading');
+    
+    setTimeout(() => {
+        const s = parseFloat(document.getElementById('jarak-kec').value);
+        const t = parseFloat(document.getElementById('waktu-kec').value);
+        const hasilElement = document.getElementById('hasil-kecepatan');
+        if (isNaN(s) || isNaN(t) || t <= 0) {
+            hasilElement.textContent = "Data tidak valid.";
+            button.classList.remove('loading');
+            return;
+        }
+        const v = s / t;
+        hasilElement.textContent = v.toFixed(2);
+        button.classList.remove('loading');
+    }, 800);
 }
 
 function hitungDebit() {
-    const v = parseFloat(document.getElementById('volume-deb').value);
-    const t = parseFloat(document.getElementById('waktu-deb').value);
-    const hasilElement = document.getElementById('hasil-debit');
-    if (isNaN(v) || isNaN(t) || t <= 0) {
-        hasilElement.textContent = "Data tidak valid.";
-        return;
-    }
-    const Q = v / t;
-    hasilElement.textContent = Q.toFixed(2);
+    const button = document.getElementById('btn-debit');
+    button.classList.add('loading');
+    
+    setTimeout(() => {
+        const v = parseFloat(document.getElementById('volume-deb').value);
+        const t = parseFloat(document.getElementById('waktu-deb').value);
+        const hasilElement = document.getElementById('hasil-debit');
+        if (isNaN(v) || isNaN(t) || t <= 0) {
+            hasilElement.textContent = "Data tidak valid.";
+            button.classList.remove('loading');
+            return;
+        }
+        const Q = v / t;
+        hasilElement.textContent = Q.toFixed(2);
+        button.classList.remove('loading');
+    }, 800);
 }
 
 function hitungSkala() {
-    const jp = parseFloat(document.getElementById('jarak-peta').value);
-    const js_km = parseFloat(document.getElementById('jarak-sebenarnya').value);
-    const hasilElement = document.getElementById('hasil-skala');
-    if (isNaN(jp) || isNaN(js_km) || jp <= 0 || js_km <= 0) {
-        hasilElement.textContent = "Data tidak valid.";
-        return;
-    }
-    const js_cm = js_km * 100000;
-    const skala = js_cm / jp;
-    hasilElement.textContent = Math.round(skala).toLocaleString('id-ID');
+    const button = document.getElementById('btn-skala');
+    button.classList.add('loading');
+    
+    setTimeout(() => {
+        const jp = parseFloat(document.getElementById('jarak-peta').value);
+        const js_km = parseFloat(document.getElementById('jarak-sebenarnya').value);
+        const hasilElement = document.getElementById('hasil-skala');
+        if (isNaN(jp) || isNaN(js_km) || jp <= 0 || js_km <= 0) {
+            hasilElement.textContent = "Data tidak valid.";
+            button.classList.remove('loading');
+            return;
+        }
+        const js_cm = js_km * 100000;
+        const skala = js_cm / jp;
+        hasilElement.textContent = Math.round(skala).toLocaleString('id-ID');
+        button.classList.remove('loading');
+    }, 800);
 }
 
 function hitungPersegiPanjang() {
@@ -286,70 +314,91 @@ function hitungPersegiPanjang() {
 }
 
 function hitungBMI() {
-    const berat = parseFloat(document.getElementById('berat').value);
-    const tinggi = parseFloat(document.getElementById('tinggi').value);
-    const hasilBMIElement = document.getElementById('hasil-bmi');
-    const kategoriElement = document.getElementById('kategori-bmi');
-    if (isNaN(berat) || isNaN(tinggi) || tinggi <= 0) {
-        hasilBMIElement.textContent = "Data tidak valid.";
-        kategoriElement.textContent = "";
-        return;
-    }
-    const bmi = berat / (tinggi * tinggi);
-    let kategori = "";
-    if (bmi < 18.5) {
-        kategori = "Kurus (Underweight)";
-    } else if (bmi >= 18.5 && bmi <= 24.9) {
-        kategori = "Normal (Healthy Weight)";
-    } else if (bmi >= 25 && bmi <= 29.9) {
-        kategori = "Gemuk (Overweight)";
-    } else {
-        kategori = "Obesitas (Obese)";
-    }
-    hasilBMIElement.textContent = bmi.toFixed(2);
-    kategoriElement.textContent = kategori;
+    const button = document.getElementById('btn-bmi');
+    button.classList.add('loading');
+    
+    setTimeout(() => {
+        const berat = parseFloat(document.getElementById('berat').value);
+        const tinggi = parseFloat(document.getElementById('tinggi').value);
+        const hasilBMIElement = document.getElementById('hasil-bmi');
+        const kategoriElement = document.getElementById('kategori-bmi');
+        if (isNaN(berat) || isNaN(tinggi) || tinggi <= 0) {
+            hasilBMIElement.textContent = "Data tidak valid.";
+            kategoriElement.textContent = "";
+            button.classList.remove('loading');
+            return;
+        }
+        const bmi = berat / (tinggi * tinggi);
+        let kategori = "";
+        if (bmi < 18.5) {
+            kategori = "Kurus (Underweight)";
+        } else if (bmi >= 18.5 && bmi <= 24.9) {
+            kategori = "Normal (Healthy Weight)";
+        } else if (bmi >= 25 && bmi <= 29.9) {
+            kategori = "Gemuk (Overweight)";
+        } else {
+            kategori = "Obesitas (Obese)";
+        }
+        hasilBMIElement.textContent = bmi.toFixed(2);
+        kategoriElement.textContent = kategori;
+        button.classList.remove('loading');
+    }, 800);
 }
 
 function hitungBroca() {
-    const tinggi = parseFloat(document.getElementById('tinggi-broca').value);
-    const jenisKelamin = document.getElementById('jenis-kelamin').value;
-    const hasilElement = document.getElementById('hasil-broca');
+    const button = document.getElementById('btn-broca');
+    button.classList.add('loading');
     
-    if (isNaN(tinggi) || tinggi <= 0) {
-        hasilElement.textContent = "Masukkan tinggi badan yang valid.";
-        return;
-    }
-    
-    let beratIdeal;
-    if (jenisKelamin === 'pria') {
-        beratIdeal = tinggi - 100;
-    } else {
-        beratIdeal = tinggi - 105;
-    }
-    
-    hasilElement.textContent = beratIdeal.toFixed(1);
+    setTimeout(() => {
+        const tinggi = parseFloat(document.getElementById('tinggi-broca').value);
+        const jenisKelamin = document.getElementById('jenis-kelamin').value;
+        const hasilElement = document.getElementById('hasil-broca');
+        
+        if (isNaN(tinggi) || tinggi <= 0) {
+            hasilElement.textContent = "Masukkan tinggi badan yang valid.";
+            button.classList.remove('loading');
+            return;
+        }
+        
+        let beratIdeal;
+        if (jenisKelamin === 'pria') {
+            beratIdeal = tinggi - 100;
+        } else {
+            beratIdeal = tinggi - 105;
+        }
+        
+        hasilElement.textContent = beratIdeal.toFixed(1);
+        button.classList.remove('loading');
+    }, 800);
 }
 
 function hitungBMR() {
-    const berat = parseFloat(document.getElementById('berat-bmr').value);
-    const tinggi = parseFloat(document.getElementById('tinggi-bmr').value);
-    const usia = parseFloat(document.getElementById('usia-bmr').value);
-    const jenisKelamin = document.getElementById('jenis-kelamin-bmr').value;
-    const hasilElement = document.getElementById('hasil-bmr');
+    const button = document.getElementById('btn-bmr');
+    button.classList.add('loading');
     
-    if (isNaN(berat) || isNaN(tinggi) || isNaN(usia) || berat <= 0 || tinggi <= 0 || usia <= 0) {
-        hasilElement.textContent = "Data tidak valid.";
-        return;
-    }
-    
-    let bmr;
-    if (jenisKelamin === 'pria') {
-        bmr = 66.5 + (13.7 * berat) + (5 * tinggi) - (6.8 * usia);
-    } else {
-        bmr = 655 + (9.6 * berat) + (1.8 * tinggi) - (4.7 * usia);
-    }
-    
-    hasilElement.textContent = bmr.toFixed(2);
+    setTimeout(() => {
+        const berat = parseFloat(document.getElementById('berat-bmr').value);
+        const tinggi = parseFloat(document.getElementById('tinggi-bmr').value);
+        const usia = parseFloat(document.getElementById('usia-bmr').value);
+        const jenisKelamin = document.getElementById('jenis-kelamin-bmr').value;
+        const hasilElement = document.getElementById('hasil-bmr');
+        
+        if (isNaN(berat) || isNaN(tinggi) || isNaN(usia) || berat <= 0 || tinggi <= 0 || usia <= 0) {
+            hasilElement.textContent = "Data tidak valid.";
+            button.classList.remove('loading');
+            return;
+        }
+        
+        let bmr;
+        if (jenisKelamin === 'pria') {
+            bmr = 66.5 + (13.7 * berat) + (5 * tinggi) - (6.8 * usia);
+        } else {
+            bmr = 655 + (9.6 * berat) + (1.8 * tinggi) - (4.7 * usia);
+        }
+        
+        hasilElement.textContent = bmr.toFixed(2);
+        button.classList.remove('loading');
+    }, 800);
 }
 
 function acakKata(kata) {
@@ -380,29 +429,35 @@ function updateGameUI() {
 }
 
 function cekJawaban() {
-    const jawabanUser = document.getElementById('jawaban').value.toLowerCase();
-    const hasilGameElement = document.getElementById('hasil-game');
+    const button = document.getElementById('btn-cek-jawaban');
+    button.classList.add('loading');
     
-    if (jawabanUser === kataSaatIni.toLowerCase()) {
-        skor += 10;
-        hasilGameElement.innerHTML = "🎉 <strong>Selamat! Jawaban Anda Benar!</strong> (+10 poin)";
-        hasilGameElement.style.color = '#28a745';
-        setTimeout(inisialisasiGame, 1500);
-    } else {
-        kesempatan--;
-        if (kesempatan <= 0) {
-            hasilGameElement.innerHTML = `❌ <strong>Game Over!</strong> Skor akhir: ${skor}`;
-            setTimeout(() => {
-                skor = 0;
-                kesempatan = 3;
-                inisialisasiGame();
-            }, 3000);
+    setTimeout(() => {
+        const jawabanUser = document.getElementById('jawaban').value.toLowerCase();
+        const hasilGameElement = document.getElementById('hasil-game');
+        
+        if (jawabanUser === kataSaatIni.toLowerCase()) {
+            skor += 10;
+            hasilGameElement.innerHTML = "🎉 <strong>Selamat! Jawaban Anda Benar!</strong> (+10 poin)";
+            hasilGameElement.style.color = '#28a745';
+            setTimeout(inisialisasiGame, 1500);
         } else {
-            hasilGameElement.innerHTML = `❌ Salah! Kesempatan tersisa: ${kesempatan}`;
-            hasilGameElement.style.color = '#dc3545';
+            kesempatan--;
+            if (kesempatan <= 0) {
+                hasilGameElement.innerHTML = `❌ <strong>Game Over!</strong> Skor akhir: ${skor}`;
+                setTimeout(() => {
+                    skor = 0;
+                    kesempatan = 3;
+                    inisialisasiGame();
+                }, 3000);
+            } else {
+                hasilGameElement.innerHTML = `❌ Salah! Kesempatan tersisa: ${kesempatan}`;
+                hasilGameElement.style.color = '#dc3545';
+            }
         }
-    }
-    updateGameUI();
+        updateGameUI();
+        button.classList.remove('loading');
+    }, 800);
 }
 
 function generateInputs(containerId, fields) {
@@ -432,110 +487,148 @@ function generateInputs(containerId, fields) {
 }
 
 function calculate(shape, containerId) {
-    const hasilElement = document.getElementById(`hasil-${containerId}`);
-    let resultText = '';
+    const button = document.getElementById(`btn-calc-${containerId}`);
+    button.classList.add('loading');
+    
+    setTimeout(() => {
+        const hasilElement = document.getElementById(`hasil-${containerId}`);
+        let resultText = '';
 
-    try {
-        switch (shape) {
-            case 'persegi':
-                const s = parseFloat(document.getElementById('sisi').value);
-                if (isNaN(s)) throw new Error();
-                resultText = `Luas: ${s*s}, Keliling: ${4*s}`;
-                break;
-            case 'persegi-panjang':
-                const p = parseFloat(document.getElementById('panjang').value);
-                const l = parseFloat(document.getElementById('lebar').value);
-                if (isNaN(p) || isNaN(l)) throw new Error();
-                resultText = `Luas: ${p*l}, Keliling: ${2*(p+l)}`;
-                break;
-            case 'segitiga':
-                const a = parseFloat(document.getElementById('alas').value);
-                const t = parseFloat(document.getElementById('tinggi').value);
-                if (isNaN(a) || isNaN(t)) throw new Error();
-                resultText = `Luas: ${0.5*a*t}`;
-                break;
-            case 'lingkaran':
-                const r = parseFloat(document.getElementById('jari2').value);
-                if (isNaN(r)) throw new Error();
-                resultText = `Luas: ${(Math.PI * r * r).toFixed(2)}, Keliling: ${(2 * Math.PI * r).toFixed(2)}`;
-                break;
-            case 'jajar-genjang':
-                const al = parseFloat(document.getElementById('alas').value);
-                const ti = parseFloat(document.getElementById('tinggi').value);
-                if (isNaN(al) || isNaN(ti)) throw new Error();
-                resultText = `Luas: ${al*ti}`;
-                break;
-            case 'kubus':
-                const rusuk = parseFloat(document.getElementById('rusuk').value);
-                if (isNaN(rusuk)) throw new Error();
-                resultText = `Volume: ${Math.pow(rusuk, 3)}, Luas Permukaan: ${6*Math.pow(rusuk, 2)}`;
-                break;
-            case 'balok':
-                const pj = parseFloat(document.getElementById('panjang').value);
-                const lb = parseFloat(document.getElementById('lebar').value);
-                const tg = parseFloat(document.getElementById('tinggi').value);
-                if (isNaN(pj) || isNaN(lb) || isNaN(tg)) throw new Error();
-                resultText = `Volume: ${pj*lb*tg}, Luas Permukaan: ${2*((pj*lb)+(pj*tg)+(lb*tg))}`;
-                break;
-            case 'tabung':
-                const r_tabung = parseFloat(document.getElementById('jari2').value);
-                const t_tabung = parseFloat(document.getElementById('tinggi').value);
-                if (isNaN(r_tabung) || isNaN(t_tabung)) throw new Error();
-                const vol_t = (Math.PI * Math.pow(r_tabung, 2) * t_tabung).toFixed(2);
-                const lp_t = (2 * Math.PI * r_tabung * (r_tabung + t_tabung)).toFixed(2);
-                resultText = `Volume: ${vol_t}, Luas Permukaan: ${lp_t}`;
-                break;
-            case 'kerucut':
-                const r_kerucut = parseFloat(document.getElementById('jari2').value);
-                const t_kerucut = parseFloat(document.getElementById('tinggi').value);
-                if(isNaN(r_kerucut) || isNaN(t_kerucut)) throw new Error();
-                const s_kerucut = Math.sqrt(Math.pow(r_kerucut, 2) + Math.pow(t_kerucut, 2));
-                const vol_k = ((1/3) * Math.PI * Math.pow(r_kerucut, 2) * t_kerucut).toFixed(2);
-                const lp_k = (Math.PI * r_kerucut * (r_kerucut + s_kerucut)).toFixed(2);
-                resultText = `Volume: ${vol_k}, Luas Permukaan: ${lp_k}`;
-                break;
-            case 'aritmatika-un':
-                const a_un = parseFloat(document.getElementById('suku_a').value);
-                const n_un = parseFloat(document.getElementById('suku_n').value);
-                const b_un = parseFloat(document.getElementById('beda_b').value);
-                if(isNaN(a_un) || isNaN(n_un) || isNaN(b_un)) throw new Error();
-                resultText = `Un = ${a_un + (n_un - 1) * b_un}`;
-                break;
-            case 'aritmatika-sn':
-                const a_sn = parseFloat(document.getElementById('suku_a').value);
-                const n_sn = parseFloat(document.getElementById('suku_n').value);
-                const b_sn = parseFloat(document.getElementById('beda_b').value);
-                if(isNaN(a_sn) || isNaN(n_sn) || isNaN(b_sn)) throw new Error();
-                resultText = `Sn = ${(n_sn/2) * (2*a_sn + (n_sn-1)*b_sn)}`;
-                break;
-            case 'geometri-un':
-                const ag_un = parseFloat(document.getElementById('suku_a').value);
-                const ng_un = parseFloat(document.getElementById('suku_n').value);
-                const rg_un = parseFloat(document.getElementById('rasio_r').value);
-                if(isNaN(ag_un) || isNaN(ng_un) || isNaN(rg_un)) throw new Error();
-                resultText = `Un = ${ag_un * Math.pow(rg_un, ng_un - 1)}`;
-                break;
-            case 'geometri-sn':
-                const ag_sn = parseFloat(document.getElementById('suku_a').value);
-                const ng_sn = parseFloat(document.getElementById('suku_n').value);
-                const rg_sn = parseFloat(document.getElementById('rasio_r').value);
-                if(isNaN(ag_sn) || isNaN(ng_sn) || isNaN(rg_sn)) throw new Error();
-                let sn_geo;
-                if(rg_sn > 1) sn_geo = (ag_sn * (Math.pow(rg_sn, ng_sn) - 1)) / (rg_sn - 1);
-                else sn_geo = (ag_sn * (1 - Math.pow(rg_sn, ng_sn))) / (1 - rg_sn);
-                resultText = `Sn = ${sn_geo.toFixed(2)}`;
-                break;
-            case 'peluang':
-                const na = parseFloat(document.getElementById('peluang-na').value);
-                const ns = parseFloat(document.getElementById('peluang-ns').value);
-                if(isNaN(na) || isNaN(ns) || ns === 0) throw new Error();
-                resultText = `P(A) = ${(na/ns).toFixed(3)} atau ${((na/ns)*100).toFixed(1)}%`;
-                break;
+        try {
+            switch (shape) {
+                case 'persegi':
+                    const s = parseFloat(document.getElementById('sisi').value);
+                    if (isNaN(s)) throw new Error();
+                    resultText = `Luas: ${s*s}, Keliling: ${4*s}`;
+                    break;
+                case 'persegi-panjang':
+                    const p = parseFloat(document.getElementById('panjang').value);
+                    const l = parseFloat(document.getElementById('lebar').value);
+                    if (isNaN(p) || isNaN(l)) throw new Error();
+                    resultText = `Luas: ${p*l}, Keliling: ${2*(p+l)}`;
+                    break;
+                case 'segitiga':
+                    const a = parseFloat(document.getElementById('alas').value);
+                    const t = parseFloat(document.getElementById('tinggi').value);
+                    if (isNaN(a) || isNaN(t)) throw new Error();
+                    resultText = `Luas: ${0.5*a*t}`;
+                    break;
+                case 'lingkaran':
+                    const r = parseFloat(document.getElementById('jari2').value);
+                    if (isNaN(r)) throw new Error();
+                    resultText = `Luas: ${(Math.PI * r * r).toFixed(2)}, Keliling: ${(2 * Math.PI * r).toFixed(2)}`;
+                    break;
+                case 'jajar-genjang':
+                    const al = parseFloat(document.getElementById('alas').value);
+                    const ti = parseFloat(document.getElementById('tinggi').value);
+                    if (isNaN(al) || isNaN(ti)) throw new Error();
+                    resultText = `Luas: ${al*ti}`;
+                    break;
+                case 'kubus':
+                    const rusuk = parseFloat(document.getElementById('rusuk').value);
+                    if (isNaN(rusuk)) throw new Error();
+                    resultText = `Volume: ${Math.pow(rusuk, 3)}, Luas Permukaan: ${6*Math.pow(rusuk, 2)}`;
+                    break;
+                case 'balok':
+                    const pj = parseFloat(document.getElementById('panjang').value);
+                    const lb = parseFloat(document.getElementById('lebar').value);
+                    const tg = parseFloat(document.getElementById('tinggi').value);
+                    if (isNaN(pj) || isNaN(lb) || isNaN(tg)) throw new Error();
+                    resultText = `Volume: ${pj*lb*tg}, Luas Permukaan: ${2*((pj*lb)+(pj*tg)+(lb*tg))}`;
+                    break;
+                case 'tabung':
+                    const r_tabung = parseFloat(document.getElementById('jari2').value);
+                    const t_tabung = parseFloat(document.getElementById('tinggi').value);
+                    if (isNaN(r_tabung) || isNaN(t_tabung)) throw new Error();
+                    const vol_t = (Math.PI * Math.pow(r_tabung, 2) * t_tabung).toFixed(2);
+                    const lp_t = (2 * Math.PI * r_tabung * (r_tabung + t_tabung)).toFixed(2);
+                    resultText = `Volume: ${vol_t}, Luas Permukaan: ${lp_t}`;
+                    break;
+                case 'kerucut':
+                    const r_kerucut = parseFloat(document.getElementById('jari2').value);
+                    const t_kerucut = parseFloat(document.getElementById('tinggi').value);
+                    if(isNaN(r_kerucut) || isNaN(t_kerucut)) throw new Error();
+                    const s_kerucut = Math.sqrt(Math.pow(r_kerucut, 2) + Math.pow(t_kerucut, 2));
+                    const vol_k = ((1/3) * Math.PI * Math.pow(r_kerucut, 2) * t_kerucut).toFixed(2);
+                    const lp_k = (Math.PI * r_kerucut * (r_kerucut + s_kerucut)).toFixed(2);
+                    resultText = `Volume: ${vol_k}, Luas Permukaan: ${lp_k}`;
+                    break;
+                case 'aritmatika-un':
+                    const a_un = parseFloat(document.getElementById('suku_a').value);
+                    const n_un = parseFloat(document.getElementById('suku_n').value);
+                    const b_un = parseFloat(document.getElementById('beda_b').value);
+                    if(isNaN(a_un) || isNaN(n_un) || isNaN(b_un)) throw new Error();
+                    resultText = `Un = ${a_un + (n_un - 1) * b_un}`;
+                    break;
+                case 'aritmatika-sn':
+                    const a_sn = parseFloat(document.getElementById('suku_a').value);
+                    const n_sn = parseFloat(document.getElementById('suku_n').value);
+                    const b_sn = parseFloat(document.getElementById('beda_b').value);
+                    if(isNaN(a_sn) || isNaN(n_sn) || isNaN(b_sn)) throw new Error();
+                    resultText = `Sn = ${(n_sn/2) * (2*a_sn + (n_sn-1)*b_sn)}`;
+                    break;
+                case 'geometri-un':
+                    const ag_un = parseFloat(document.getElementById('suku_a').value);
+                    const ng_un = parseFloat(document.getElementById('suku_n').value);
+                    const rg_un = parseFloat(document.getElementById('rasio_r').value);
+                    if(isNaN(ag_un) || isNaN(ng_un) || isNaN(rg_un)) throw new Error();
+                    resultText = `Un = ${ag_un * Math.pow(rg_un, ng_un - 1)}`;
+                    break;
+                case 'geometri-sn':
+                    const ag_sn = parseFloat(document.getElementById('suku_a').value);
+                    const ng_sn = parseFloat(document.getElementById('suku_n').value);
+                    const rg_sn = parseFloat(document.getElementById('rasio_r').value);
+                    if(isNaN(ag_sn) || isNaN(ng_sn) || isNaN(rg_sn)) throw new Error();
+                    let sn_geo;
+                    if(rg_sn > 1) sn_geo = (ag_sn * (Math.pow(rg_sn, ng_sn) - 1)) / (rg_sn - 1);
+                    else sn_geo = (ag_sn * (1 - Math.pow(rg_sn, ng_sn))) / (1 - rg_sn);
+                    resultText = `Sn = ${sn_geo.toFixed(2)}`;
+                    break;
+                case 'peluang':
+                    const na = parseFloat(document.getElementById('peluang-na').value);
+                    const ns = parseFloat(document.getElementById('peluang-ns').value);
+                    if(isNaN(na) || isNaN(ns) || ns === 0) throw new Error();
+                    resultText = `P(A) = ${(na/ns).toFixed(3)} atau ${((na/ns)*100).toFixed(1)}%`;
+                    break;
+            }
+            hasilElement.textContent = resultText;
+        } catch (error) {
+            hasilElement.textContent = 'Input tidak valid. Periksa kembali angka Anda.';
         }
-        hasilElement.textContent = resultText;
-    } catch (error) {
-        hasilElement.textContent = 'Input tidak valid. Periksa kembali angka Anda.';
-    }
+        button.classList.remove('loading');
+    }, 800);
+}
+
+function addSmoothInteractions() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+            const tabs = document.querySelectorAll('.tabs button');
+            const currentIndex = Array.from(tabs).findIndex(tab => 
+                tab.classList.contains('active-tab'));
+            
+            let newIndex;
+            if (e.key === 'ArrowRight') {
+                newIndex = (currentIndex + 1) % tabs.length;
+            } else {
+                newIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+            }
+            
+            tabs[newIndex].click();
+        }
+    });
 }
 
 document.addEventListener('click', function(e) {
@@ -579,6 +672,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('.tabs button[data-module="profile"]').classList.add('active-tab');
     showSubMtk('mtk-default');
     inisialisasiGame();
+    addSmoothInteractions();
 
     const tabButtons = document.querySelectorAll('.tabs button');
     tabButtons.forEach(button => {
