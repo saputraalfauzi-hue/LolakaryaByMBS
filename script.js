@@ -95,6 +95,90 @@ const bankSoalPython = {
     ]
 };
 
+const bankSoalTebakOutput = [
+    {
+        code: `print(5 // 2)`,
+        options: ["2", "2.5", "3", "Error"],
+        answer: "2",
+        explanation: "Operator // adalah floor division, yang membulatkan hasil ke bawah ke bilangan bulat terdekat."
+    },
+    {
+        code: `print(True and False or True)`,
+        options: ["True", "False", "Error", "None"],
+        answer: "True",
+        explanation: "Operator 'and' memiliki prioritas lebih tinggi dari 'or'. True and False = False, kemudian False or True = True."
+    },
+    {
+        code: `x = [1, 2, 3]\ny = x\ny.append(4)\nprint(x)`,
+        options: ["[1, 2, 3]", "[1, 2, 3, 4]", "[4]", "Error"],
+        answer: "[1, 2, 3, 4]",
+        explanation: "List adalah mutable object. y = x membuat referensi ke objek yang sama, jadi perubahan di y mempengaruhi x."
+    },
+    {
+        code: `print(3 * 'hi ')`,
+        options: ["hihihi", "hi hi hi ", "hihihi ", "Error"],
+        answer: "hi hi hi ",
+        explanation: "Operator * dengan string mengulang string tersebut sebanyak angka yang diberikan."
+    }
+];
+
+const bankSoalDebugging = {
+    syntax: [
+        {
+            code: `def greet(name)\n    print("Hello, " + name)\ngreet("Alice")`,
+            question: "Apa error dalam kode di atas?",
+            options: [
+                "Missing colon after function definition",
+                "Incorrect variable name", 
+                "Wrong string concatenation",
+                "No error"
+            ],
+            answer: "Missing colon after function definition",
+            explanation: "Fungsi di Python harus diakhiri dengan colon (:). Perbaikan: def greet(name):"
+        },
+        {
+            code: `x = 5\nif x = 5:\n    print("x is 5")`,
+            question: "Bagaimana memperbaiki kode ini?",
+            options: [
+                "Ganti '=' dengan '==' dalam kondisi if",
+                "Tambahkan colon setelah print",
+                "Ubah variabel x menjadi string",
+                "Kode sudah benar"
+            ],
+            answer: "Ganti '=' dengan '==' dalam kondisi if",
+            explanation: "Operator perbandingan di Python adalah '==', sedangkan '=' adalah operator assignment."
+        }
+    ],
+    indentation: [
+        {
+            code: `def calculate_sum(a, b):\nresult = a + b\nreturn result\nprint(calculate_sum(3, 4))`,
+            question: "Mengapa kode ini menghasilkan IndentationError?",
+            options: [
+                "Baris result dan return tidak di-indentasi",
+                "Nama fungsi tidak sesuai",
+                "Parameter fungsi salah",
+                "Tidak ada error"
+            ],
+            answer: "Baris result dan return tidak di-indentasi",
+            explanation: "Di Python, blok kode dalam fungsi harus di-indentasi. Perbaikan:\ndef calculate_sum(a, b):\n    result = a + b\n    return result"
+        }
+    ],
+    logic: [
+        {
+            code: `numbers = [1, 2, 3, 4, 5]\ntotal = 0\nfor i in range(len(numbers)):\n    total += i\nprint("Total:", total)`,
+            question: "Mengapa output tidak sesuai harapan?",
+            options: [
+                "Loop menggunakan index bukan nilai",
+                "Range seharusnya range(5)",
+                "Variabel total tidak direset",
+                "Output sudah benar"
+            ],
+            answer: "Loop menggunakan index bukan nilai",
+            explanation: "Kode menjumlahkan index (0,1,2,3,4) bukan nilai list. Perbaikan: total += numbers[i] atau for num in numbers: total += num"
+        }
+    ]
+};
+
 const daftarKata = [
     "print", "html", "def", "for", "in", "range", "if", "else", "while", 
     "function", "variable", "class", "object", "method", "attribute", 
@@ -106,6 +190,14 @@ const daftarKata = [
 let kataSaatIni = "";
 let soalSaatIni = null;
 let levelSaatIni = "";
+let skorDebugging = 0;
+let kesempatanDebugging = 3;
+let levelDebugging = 1;
+let soalDebuggingSaatIni = null;
+let tipeSoalDebugging = 'syntax';
+let skorTebak = 0;
+let kesempatanTebak = 3;
+let soalTebakSaatIni = null;
 
 function showModule(moduleId) {
     document.querySelectorAll('.module').forEach(section => {
@@ -150,6 +242,10 @@ function showSubGame(subGameId) {
             document.querySelectorAll('.level-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
+        } else if (subGameId === 'debugging-detective') {
+            initDebuggingGame();
+        } else if (subGameId === 'tebak-output') {
+            initTebakOutput();
         }
     }
 }
@@ -297,20 +393,129 @@ function hitungSkala() {
     }, 800);
 }
 
-function hitungPersegiPanjang() {
-    const p = parseFloat(document.getElementById('p-pp').value);
-    const l = parseFloat(document.getElementById('l-pp').value);
-    const luasElement = document.getElementById('luas-pp');
-    const kelilingElement = document.getElementById('keliling-pp');
-    if (isNaN(p) || isNaN(l) || p <= 0 || l <= 0) {
-        luasElement.textContent = "Input tidak valid.";
-        kelilingElement.textContent = "Input tidak valid.";
-        return;
-    }
-    const luas = p * l;
-    const keliling = 2 * (p + l);
-    luasElement.textContent = luas.toFixed(2);
-    kelilingElement.textContent = keliling.toFixed(2);
+function hitungKonversiSatuan() {
+    const button = document.getElementById('btn-konversi');
+    button.classList.add('loading');
+    
+    setTimeout(() => {
+        const nilai = parseFloat(document.getElementById('nilai-konversi').value);
+        const dari = document.getElementById('dari-satuan').value;
+        const ke = document.getElementById('ke-satuan').value;
+        const hasilElement = document.getElementById('hasil-konversi');
+        
+        if (isNaN(nilai)) {
+            hasilElement.textContent = "Masukkan nilai yang valid.";
+            button.classList.remove('loading');
+            return;
+        }
+        
+        let hasil;
+        
+        if ((dari.includes('byte') || dari.includes('bit')) && (ke.includes('byte') || ke.includes('bit'))) {
+            const factors = {
+                'byte': 1,
+                'kilobyte': 1024,
+                'megabyte': 1024 * 1024
+            };
+            hasil = (nilai * factors[dari]) / factors[ke];
+        } else {
+            if (dari === 'celsius') {
+                if (ke === 'fahrenheit') hasil = (nilai * 9/5) + 32;
+                else if (ke === 'kelvin') hasil = nilai + 273.15;
+                else hasil = nilai;
+            } else if (dari === 'fahrenheit') {
+                if (ke === 'celsius') hasil = (nilai - 32) * 5/9;
+                else if (ke === 'kelvin') hasil = (nilai - 32) * 5/9 + 273.15;
+                else hasil = nilai;
+            } else if (dari === 'kelvin') {
+                if (ke === 'celsius') hasil = nilai - 273.15;
+                else if (ke === 'fahrenheit') hasil = (nilai - 273.15) * 9/5 + 32;
+                else hasil = nilai;
+            }
+        }
+        
+        hasilElement.textContent = hasil.toFixed(4);
+        button.classList.remove('loading');
+    }, 800);
+}
+
+function hitungWaktuParuh() {
+    const button = document.getElementById('btn-waktu-paruh');
+    button.classList.add('loading');
+    
+    setTimeout(() => {
+        const N0 = parseFloat(document.getElementById('jumlah-awal').value);
+        const T = parseFloat(document.getElementById('waktu-paruh-input').value);
+        const t = parseFloat(document.getElementById('waktu-total').value);
+        const hasilElement = document.getElementById('hasil-waktu-paruh');
+        const waktuDisplay = document.getElementById('waktu-display');
+        
+        if (isNaN(N0) || isNaN(T) || isNaN(t) || N0 <= 0 || T <= 0 || t < 0) {
+            hasilElement.textContent = "Data tidak valid.";
+            button.classList.remove('loading');
+            return;
+        }
+        
+        const N = N0 * Math.pow(0.5, t / T);
+        hasilElement.textContent = N.toFixed(4);
+        waktuDisplay.textContent = t + " satuan waktu";
+        button.classList.remove('loading');
+    }, 800);
+}
+
+function hitungStatistik() {
+    const button = document.getElementById('btn-statistik');
+    button.classList.add('loading');
+    
+    setTimeout(() => {
+        const dataInput = document.getElementById('data-statistik').value;
+        const dataArray = dataInput.split(',').map(item => parseFloat(item.trim())).filter(item => !isNaN(item));
+        
+        if (dataArray.length === 0) {
+            document.getElementById('rata-rata').textContent = "Data tidak valid";
+            document.getElementById('median').textContent = "Data tidak valid";
+            document.getElementById('modus').textContent = "Data tidak valid";
+            document.getElementById('jangkauan').textContent = "Data tidak valid";
+            button.classList.remove('loading');
+            return;
+        }
+        
+        dataArray.sort((a, b) => a - b);
+        
+        const rataRata = dataArray.reduce((a, b) => a + b, 0) / dataArray.length;
+        
+        let median;
+        const mid = Math.floor(dataArray.length / 2);
+        if (dataArray.length % 2 === 0) {
+            median = (dataArray[mid - 1] + dataArray[mid]) / 2;
+        } else {
+            median = dataArray[mid];
+        }
+        
+        const frekuensi = {};
+        dataArray.forEach(num => {
+            frekuensi[num] = (frekuensi[num] || 0) + 1;
+        });
+        
+        let modus = [];
+        let maxFreq = 0;
+        for (const num in frekuensi) {
+            if (frekuensi[num] > maxFreq) {
+                modus = [parseFloat(num)];
+                maxFreq = frekuensi[num];
+            } else if (frekuensi[num] === maxFreq) {
+                modus.push(parseFloat(num));
+            }
+        }
+        
+        const jangkauan = dataArray[dataArray.length - 1] - dataArray[0];
+        
+        document.getElementById('rata-rata').textContent = rataRata.toFixed(2);
+        document.getElementById('median').textContent = median;
+        document.getElementById('modus').textContent = modus.length === dataArray.length ? "Tidak ada modus" : modus.join(', ');
+        document.getElementById('jangkauan').textContent = jangkauan;
+        button.classList.remove('loading');
+    }, 800);
 }
 
 function hitungBMI() {
@@ -553,6 +758,30 @@ function calculate(shape, containerId) {
                     const lp_k = (Math.PI * r_kerucut * (r_kerucut + s_kerucut)).toFixed(2);
                     resultText = `Volume: ${vol_k}, Luas Permukaan: ${lp_k}`;
                     break;
+                case 'limas-segitiga':
+                    const a_limas3 = parseFloat(document.getElementById('alas').value);
+                    const t_limas3 = parseFloat(document.getElementById('tinggi').value);
+                    const t_sisi3 = parseFloat(document.getElementById('tinggi-sisi').value);
+                    if(isNaN(a_limas3) || isNaN(t_limas3) || isNaN(t_sisi3)) throw new Error();
+                    const vol_limas3 = (1/3) * (1/2 * a_limas3 * t_limas3) * t_sisi3;
+                    const lp_limas3 = (1/2 * a_limas3 * t_limas3) + (3 * 1/2 * a_limas3 * t_sisi3);
+                    resultText = `Volume: ${vol_limas3.toFixed(2)}, Luas Permukaan: ${lp_limas3.toFixed(2)}`;
+                    break;
+                case 'limas-segiempat':
+                    const s_limas4 = parseFloat(document.getElementById('sisi').value);
+                    const t_limas4 = parseFloat(document.getElementById('tinggi').value);
+                    if(isNaN(s_limas4) || isNaN(t_limas4)) throw new Error();
+                    const vol_limas4 = (1/3) * Math.pow(s_limas4, 2) * t_limas4;
+                    const lp_limas4 = Math.pow(s_limas4, 2) + (4 * 1/2 * s_limas4 * t_limas4);
+                    resultText = `Volume: ${vol_limas4.toFixed(2)}, Luas Permukaan: ${lp_limas4.toFixed(2)}`;
+                    break;
+                case 'bola':
+                    const r_bola = parseFloat(document.getElementById('jari2').value);
+                    if(isNaN(r_bola)) throw new Error();
+                    const vol_bola = (4/3) * Math.PI * Math.pow(r_bola, 3);
+                    const lp_bola = 4 * Math.PI * Math.pow(r_bola, 2);
+                    resultText = `Volume: ${vol_bola.toFixed(2)}, Luas Permukaan: ${lp_bola.toFixed(2)}`;
+                    break;
                 case 'aritmatika-un':
                     const a_un = parseFloat(document.getElementById('suku_a').value);
                     const n_un = parseFloat(document.getElementById('suku_n').value);
@@ -597,6 +826,177 @@ function calculate(shape, containerId) {
         }
         button.classList.remove('loading');
     }, 800);
+}
+
+function generateSoalDebugging() {
+    const soalArray = bankSoalDebugging[tipeSoalDebugging];
+    const randomIndex = Math.floor(Math.random() * soalArray.length);
+    soalDebuggingSaatIni = soalArray[randomIndex];
+    
+    document.getElementById('problem-code').textContent = soalDebuggingSaatIni.code;
+    document.getElementById('debug-question').textContent = soalDebuggingSaatIni.question;
+    
+    const optionsContainer = document.getElementById('debug-options');
+    optionsContainer.innerHTML = '';
+    
+    soalDebuggingSaatIni.options.forEach(option => {
+        const button = document.createElement('button');
+        button.className = 'option-btn';
+        button.textContent = option;
+        optionsContainer.appendChild(button);
+    });
+    
+    document.getElementById('explanation-section').classList.add('hidden');
+    document.getElementById('btn-next-debug').classList.remove('hidden');
+    document.getElementById('btn-try-again').classList.add('hidden');
+}
+
+function checkDebugAnswer(selectedAnswer) {
+    const explanationSection = document.getElementById('explanation-section');
+    const explanationText = document.getElementById('debug-explanation');
+    const optionButtons = document.querySelectorAll('#debug-options .option-btn');
+    const nextButton = document.getElementById('btn-next-debug');
+    const tryAgainButton = document.getElementById('btn-try-again');
+    
+    optionButtons.forEach(btn => {
+        btn.classList.remove('correct', 'incorrect');
+        if (btn.textContent === soalDebuggingSaatIni.answer) {
+            btn.classList.add('correct');
+        }
+        if (btn.textContent === selectedAnswer && btn.textContent !== soalDebuggingSaatIni.answer) {
+            btn.classList.add('incorrect');
+        }
+    });
+    
+    if (selectedAnswer === soalDebuggingSaatIni.answer) {
+        skorDebugging += 10;
+        explanationText.textContent = "✅ Benar! " + soalDebuggingSaatIni.explanation;
+        explanationSection.classList.remove('hidden');
+        nextButton.classList.remove('hidden');
+        tryAgainButton.classList.add('hidden');
+        
+        if (skorDebugging >= 30 && levelDebugging === 1) {
+            levelDebugging = 2;
+            tipeSoalDebugging = 'indentation';
+        } else if (skorDebugging >= 60 && levelDebugging === 2) {
+            levelDebugging = 3;
+            tipeSoalDebugging = 'logic';
+        }
+        
+        document.getElementById('skor-debugging').textContent = skorDebugging;
+        document.getElementById('level-debugging').textContent = levelDebugging;
+    } else {
+        kesempatanDebugging--;
+        explanationText.textContent = "❌ Salah! " + soalDebuggingSaatIni.explanation;
+        explanationSection.classList.remove('hidden');
+        nextButton.classList.add('hidden');
+        tryAgainButton.classList.remove('hidden');
+        
+        document.getElementById('kesempatan-debugging').textContent = kesempatanDebugging;
+        
+        if (kesempatanDebugging <= 0) {
+            setTimeout(() => {
+                skorDebugging = 0;
+                kesempatanDebugging = 3;
+                levelDebugging = 1;
+                tipeSoalDebugging = 'syntax';
+                document.getElementById('skor-debugging').textContent = skorDebugging;
+                document.getElementById('kesempatan-debugging').textContent = kesempatanDebugging;
+                document.getElementById('level-debugging').textContent = levelDebugging;
+                generateSoalDebugging();
+            }, 3000);
+        }
+    }
+}
+
+function initDebuggingGame() {
+    skorDebugging = 0;
+    kesempatanDebugging = 3;
+    levelDebugging = 1;
+    tipeSoalDebugging = 'syntax';
+    
+    document.getElementById('skor-debugging').textContent = skorDebugging;
+    document.getElementById('kesempatan-debugging').textContent = kesempatanDebugging;
+    document.getElementById('level-debugging').textContent = levelDebugging;
+    
+    generateSoalDebugging();
+}
+
+function generateSoalTebak() {
+    const randomIndex = Math.floor(Math.random() * bankSoalTebakOutput.length);
+    soalTebakSaatIni = bankSoalTebakOutput[randomIndex];
+    
+    document.getElementById('tebak-code').textContent = soalTebakSaatIni.code;
+    
+    const optionsContainer = document.getElementById('tebak-options');
+    optionsContainer.innerHTML = '';
+    
+    soalTebakSaatIni.options.forEach(option => {
+        const button = document.createElement('button');
+        button.className = 'option-btn';
+        button.textContent = option;
+        optionsContainer.appendChild(button);
+    });
+    
+    document.getElementById('tebak-explanation-section').classList.add('hidden');
+    document.getElementById('btn-next-tebak').classList.remove('hidden');
+    document.getElementById('btn-try-again-tebak').classList.add('hidden');
+}
+
+function checkTebakAnswer(selectedAnswer) {
+    const explanationSection = document.getElementById('tebak-explanation-section');
+    const explanationText = document.getElementById('tebak-explanation');
+    const optionButtons = document.querySelectorAll('#tebak-options .option-btn');
+    const nextButton = document.getElementById('btn-next-tebak');
+    const tryAgainButton = document.getElementById('btn-try-again-tebak');
+    
+    optionButtons.forEach(btn => {
+        btn.classList.remove('correct', 'incorrect');
+        if (btn.textContent === soalTebakSaatIni.answer) {
+            btn.classList.add('correct');
+        }
+        if (btn.textContent === selectedAnswer && btn.textContent !== soalTebakSaatIni.answer) {
+            btn.classList.add('incorrect');
+        }
+    });
+    
+    if (selectedAnswer === soalTebakSaatIni.answer) {
+        skorTebak += 10;
+        explanationText.textContent = "✅ Benar! " + soalTebakSaatIni.explanation;
+        explanationSection.classList.remove('hidden');
+        nextButton.classList.remove('hidden');
+        tryAgainButton.classList.add('hidden');
+        
+        document.getElementById('skor-tebak').textContent = skorTebak;
+    } else {
+        kesempatanTebak--;
+        explanationText.textContent = "❌ Salah! " + soalTebakSaatIni.explanation;
+        explanationSection.classList.remove('hidden');
+        nextButton.classList.add('hidden');
+        tryAgainButton.classList.remove('hidden');
+        
+        document.getElementById('kesempatan-tebak').textContent = kesempatanTebak;
+        
+        if (kesempatanTebak <= 0) {
+            setTimeout(() => {
+                skorTebak = 0;
+                kesempatanTebak = 3;
+                document.getElementById('skor-tebak').textContent = skorTebak;
+                document.getElementById('kesempatan-tebak').textContent = kesempatanTebak;
+                generateSoalTebak();
+            }, 3000);
+        }
+    }
+}
+
+function initTebakOutput() {
+    skorTebak = 0;
+    kesempatanTebak = 3;
+    
+    document.getElementById('skor-tebak').textContent = skorTebak;
+    document.getElementById('kesempatan-tebak').textContent = kesempatanTebak;
+    
+    generateSoalTebak();
 }
 
 function addSmoothInteractions() {
@@ -664,6 +1064,16 @@ document.addEventListener('click', function(e) {
             const level = levelContent.id.replace('level-', '');
             checkPythonAnswer(level, e.target.textContent);
         }
+        
+        const debugContainer = e.target.closest('#debugging-detective');
+        if (debugContainer) {
+            checkDebugAnswer(e.target.textContent);
+        }
+        
+        const tebakContainer = e.target.closest('#tebak-output');
+        if (tebakContainer) {
+            checkTebakAnswer(e.target.textContent);
+        }
     }
 });
 
@@ -708,11 +1118,18 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('btn-kecepatan').addEventListener('click', hitungKecepatan);
     document.getElementById('btn-debit').addEventListener('click', hitungDebit);
     document.getElementById('btn-skala').addEventListener('click', hitungSkala);
+    document.getElementById('btn-konversi').addEventListener('click', hitungKonversiSatuan);
+    document.getElementById('btn-waktu-paruh').addEventListener('click', hitungWaktuParuh);
+    document.getElementById('btn-statistik').addEventListener('click', hitungStatistik);
     document.getElementById('btn-bmi').addEventListener('click', hitungBMI);
     document.getElementById('btn-broca').addEventListener('click', hitungBroca);
     document.getElementById('btn-bmr').addEventListener('click', hitungBMR);
     document.getElementById('btn-cek-jawaban').addEventListener('click', cekJawaban);
     document.getElementById('btn-peluang').addEventListener('click', () => calculate('peluang', 'peluang'));
+    document.getElementById('btn-next-debug').addEventListener('click', generateSoalDebugging);
+    document.getElementById('btn-try-again').addEventListener('click', generateSoalDebugging);
+    document.getElementById('btn-next-tebak').addEventListener('click', generateSoalTebak);
+    document.getElementById('btn-try-again-tebak').addEventListener('click', generateSoalTebak);
 
     const inputMappings = {
         'select-luas-datar': {
@@ -727,6 +1144,20 @@ document.addEventListener('DOMContentLoaded', () => {
             'balok': [{ id: 'panjang', label: 'Panjang:' }, { id: 'lebar', label: 'Lebar:' }, { id: 'tinggi', label: 'Tinggi:' }],
             'tabung': [{ id: 'jari2', label: 'Jari-jari:' }, { id: 'tinggi', label: 'Tinggi:' }],
             'kerucut': [{ id: 'jari2', label: 'Jari-jari:' }, { id: 'tinggi', label: 'Tinggi:' }]
+        },
+        'select-geometri-lanjut': {
+            'limas-segitiga': [
+                { id: 'alas', label: 'Alas Segitiga:' },
+                { id: 'tinggi', label: 'Tinggi Alas:' },
+                { id: 'tinggi-sisi', label: 'Tinggi Limas:' }
+            ],
+            'limas-segiempat': [
+                { id: 'sisi', label: 'Sisi Alas:' },
+                { id: 'tinggi', label: 'Tinggi Limas:' }
+            ],
+            'bola': [
+                { id: 'jari2', label: 'Jari-jari:' }
+            ]
         },
         'select-aritmatika': {
             'un': [{ id: 'suku_a', label: 'Suku Pertama (a):' }, { id: 'suku_n', label: 'Suku ke- (n):' }, { id: 'beda_b', label: 'Beda (b):' }],
