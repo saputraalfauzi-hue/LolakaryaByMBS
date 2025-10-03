@@ -1,7 +1,7 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #121212;
-    color: #f8f9fa; 
+    background-color: #f8f9fa;
+    color: #333;
     margin: 0;
     padding: 0;
 }
@@ -11,17 +11,17 @@ body {
     --secondary-color: #0056b3;
     --success-color: #28a745;
     --danger-color: #dc3545;
-    --dark-color: #212121; 
-    --light-color: #333333; 
-    --text-color: #f8f9fa; 
+    --dark-color: #343a40;
+    --light-color: #ffffff;
+    --text-color: #333;
 }
 
 header {
-    background: linear-gradient(135deg, #0056b3 0%, #003a75 100%); 
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
     color: white;
     padding: 20px;
     text-align: center;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    box-shadow: 0 4px 12px rgba(0,123,255,0.3);
 }
 
 .profile-header {
@@ -35,9 +35,9 @@ header {
     width: 100px;
     height: 100px;
     border-radius: 50%;
-    border: 4px solid #f8f9fa;
+    border: 4px solid white;
     object-fit: cover;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     transition: transform 0.3s ease;
 }
 
@@ -54,15 +54,15 @@ header {
 .tabs {
     display: flex;
     justify-content: center;
-    background-color: var(--dark-color); 
+    background-color: #e9ecef;
     padding: 10px 0;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     overflow-x: auto;
 }
 
 .tabs button {
     background-color: transparent;
-    color: var(--text-color); 
+    color: var(--dark-color);
     border: none;
     padding: 10px 15px;
     cursor: pointer;
@@ -72,7 +72,7 @@ header {
 }
 
 .tabs button:hover {
-    background-color: #333333;
+    background-color: #dee2e6;
     color: var(--primary-color);
 }
 
@@ -92,9 +92,10 @@ main {
 .module {
     display: none;
     padding: 20px;
-    background-color: var(--dark-color); 
+    background-color: var(--light-color);
     border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.7);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    border: 1px solid #dee2e6;
 }
 
 .module.active {
@@ -103,7 +104,7 @@ main {
 
 h2 {
     color: var(--primary-color);
-    border-bottom: 2px solid #333333;
+    border-bottom: 2px solid #adb5bd;
     padding-bottom: 10px;
     margin-top: 0;
     margin-bottom: 20px;
@@ -121,7 +122,7 @@ h2 {
 
 .profile-skills {
     flex: 1;
-    background-color: var(--light-color);
+    background-color: #f1f1f1;
     padding: 20px;
     border-radius: 8px;
     color: var(--text-color);
@@ -141,7 +142,7 @@ h2 {
 }
 
 .skill-label {
-    background-color: #555555;
+    background-color: #007bff;
     color: white;
     padding: 5px 10px;
     border-radius: 20px;
@@ -157,9 +158,9 @@ h2 {
 }
 
 .mtk-submenu button, .game-submenu button {
-    background-color: var(--light-color); 
-    color: var(--text-color); 
-    border: 1px solid #555555;
+    background-color: #e9ecef;
+    color: var(--dark-color);
+    border: 1px solid #ced4da;
     padding: 8px 15px;
     cursor: pointer;
     border-radius: 5px;
@@ -168,7 +169,7 @@ h2 {
 }
 
 .mtk-submenu button:hover, .game-submenu button:hover {
-    background-color: #444444;
+    background-color: #dee2e6;
 }
 
 .mtk-submenu button.active-submtk, .game-submenu button.active-subgame {
@@ -181,8 +182,9 @@ h2 {
 .mtk-submodule, .game-submodule {
     display: none;
     padding: 15px;
-    background-color: var(--light-color); 
+    background-color: #ffffff;
     border-radius: 8px;
+    border: 1px solid #dee2e6;
 }
 
 .mtk-submodule.active-submtk, .game-submodule.active-subgame {
@@ -192,8 +194,9 @@ h2 {
 .calculator-space, .kuis-container {
     margin-top: 15px;
     padding: 15px;
-    border: 1px solid #555555;
+    border: 1px solid #ced4da;
     border-radius: 5px;
+    background-color: #f1f1f1;
 }
 
 .calculator-space label, .calculator-space h4 {
@@ -201,18 +204,18 @@ h2 {
     margin-top: 10px;
     margin-bottom: 5px;
     font-weight: bold;
-    color: var(--text-color);
+    color: var(--dark-color);
 }
 
 .calculator-space input, #tingkat-kesulitan, #satuan-input, #select-luas-volume, #select-deret, #select-aritmatika, #select-geometri {
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
-    border: 1px solid #555555;
+    border: 1px solid #ced4da;
     border-radius: 4px;
     box-sizing: border-box;
-    background-color: #444444;
-    color: var(--text-color);
+    background-color: white;
+    color: var(--dark-color);
 }
 
 .calc-btn {
@@ -233,25 +236,26 @@ h2 {
 .hasil-perhitungan {
     margin-top: 15px;
     padding: 10px;
-    background-color: #333333; 
+    background-color: #e9f7ef;
     border-radius: 5px;
     font-weight: bold;
-    color: #4CAF50; 
+    color: var(--success-color);
+    border: 1px solid #d4edda;
 }
 
 #glosarium-search {
     width: 100%;
     padding: 12px;
     margin-bottom: 20px;
-    border: 1px solid #555555;
+    border: 1px solid #ced4da;
     border-radius: 5px;
     box-sizing: border-box;
-    background-color: #444444;
-    color: var(--text-color);
+    background-color: white;
+    color: var(--dark-color);
 }
 
 .glosarium-item {
-    background-color: #212121;
+    background-color: #f1f1f1;
     padding: 15px;
     margin-bottom: 10px;
     border-radius: 8px;
@@ -270,23 +274,23 @@ h2 {
 }
 
 .kutipan {
-    background-color: #212121;
+    background-color: #ffffff;
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     border-left: 5px solid #ffc107;
 }
 
 .isi-kutipan {
     font-style: italic;
     margin-bottom: 10px;
-    color: var(--text-color);
+    color: var(--dark-color);
 }
 
 .penulis-kutipan {
     text-align: right;
     font-weight: bold;
-    color: #ffc107; 
+    color: #ffc107;
 }
 
 .options-container {
@@ -298,9 +302,9 @@ h2 {
 
 .option-btn {
     padding: 10px;
-    background-color: #444444;
-    color: var(--text-color); 
-    border: 1px solid #555555;
+    background-color: #f1f1f1;
+    color: var(--dark-color);
+    border: 1px solid #ced4da;
     border-radius: 5px;
     cursor: pointer;
     transition: all 0.2s;
@@ -308,18 +312,18 @@ h2 {
 }
 
 .option-btn:hover:enabled {
-    background-color: #555555;
+    background-color: #e9ecef;
     border-color: var(--primary-color);
 }
 
 .option-btn.correct {
-    background-color: var(--success-color); 
+    background-color: var(--success-color);
     color: white;
     border-color: var(--success-color);
 }
 
 .option-btn.incorrect {
-    background-color: var(--danger-color); 
+    background-color: var(--danger-color);
     color: white;
     border-color: var(--danger-color);
 }
