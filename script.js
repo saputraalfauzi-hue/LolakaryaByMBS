@@ -1189,6 +1189,338 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    const userProgress = {
+    totalCalculations: 0,
+    gamesPlayed: 0,
+    correctAnswers: 0,
+    achievements: [],
+    favoriteTools: [],
+    activityHistory: [],
+    notes: [],
+    gameStats: {
+        highScore: 0,
+        totalGames: 0,
+        wins: 0
+    }
+};
+
+const achievements = [
+    { id: 'first_calc', name: 'Pertama Kali', desc: 'Selesaikan 1 perhitungan', icon: '🔢', target: 1, type: 'calculations' },
+    { id: 'math_enthusiast', name: 'Pecinta Matematika', desc: 'Selesaikan 10 perhitungan', icon: '📐', target: 10, type: 'calculations' },
+    { id: 'math_master', name: 'Master Matematika', desc: 'Selesaikan 50 perhitungan', icon: '🎯', target: 50, type: 'calculations' },
+    { id: 'game_starter', name: 'Pemula Game', desc: 'Mainkan 1 game', icon: '🎮', target: 1, type: 'games' },
+    { id: 'game_lover', name: 'Pecinta Game', desc: 'Mainkan 10 game', icon: '👾', target: 10, type: 'games' },
+    { id: 'correct_beginner', name: 'Pemula Cerdas', desc: '10 jawaban benar', icon: '⭐', target: 10, type: 'correct' },
+    { id: 'smart_thinker', name: 'Pemikir Cerdas', desc: '50 jawaban benar', icon: '🏆', target: 50, type: 'correct' },
+    { id: 'note_taker', name: 'Pencatat Ulung', desc: 'Simpan 5 catatan', icon: '📝', target: 5, type: 'notes' }
+];
+
+function loadProgress() {
+    const saved = localStorage.getItem('userProgress');
+    if (saved) {
+        Object.assign(userProgress, JSON.parse(saved));
+    }
+    updateDashboard();
+}
+
+function saveProgress() {
+    localStorage.setItem('userProgress', JSON.stringify(userProgress));
+}
+
+function updateProgress(type, value = 1) {
+    userProgress[type] += value;
+    
+    if (type === 'correctAnswers') {
+        userProgress.gameStats.wins += value;
+    }
+    
+    if (type === 'gamesPlayed') {
+        userProgress.gameStats.totalGames += value;
+    }
+    
+    checkAchievements();
+    saveProgress();
+    updateDashboard();
+}
+
+function checkAchievements() {
+    achievements.forEach(achievement => {
+        if (!userProgress.achievements.includes(achievement.id)) {
+            let progress = 0;
+            
+            switch (achievement.type) {
+                case 'calculations':
+                    progress = userProgress.totalCalculations;
+                    break;
+                case 'games':
+                    progress = userProgress.gamesPlayed;
+                    break;
+                case 'correct':
+                    progress = userProgress.correctAnswers;
+                    break;
+                case 'notes':
+                    progress = userProgress.notes.length;
+                    break;
+            }
+            
+            if (progress >= achievement.target) {
+                userProgress.achievements.push(achievement.id);
+                showAchievementNotification(achievement);
+            }
+        }
+    });
+}
+
+function showAchievementNotification(achievement) {
+    const notification = document.createElement('div');
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        z-index: 1000;
+        animation: slideIn 0.5s ease;
+        max-width: 300px;
+    `;
+    
+    notification.innerHTML = `
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="font-size: 2em;">${achievement.icon}</span>
+            <div>
+                <strong>${achievement.name}</strong>
+                <div style="font-size: 0.9em;">${achievement.desc}</div>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.remove();
+    }, 5000);
+}
+
+function updateDashboard() {
+    document.getElementById('total-calculations').textContent = userProgress.totalCalculations;
+    document.getElementById('games-played').textContent = userProgress.gamesPlayed;
+    document.getElementById('correct-answers').textContent = userProgress.correctAnswers;
+    document.getElementById('achievement-count').textContent = userProgress.achievements.length;
+    
+    document.getElementById('high-score').textContent = userProgress.gameStats.highScore;
+    document.getElementById('total-games').textContent = userProgress.gameStats.totalGames;
+    document.getElementById('win-rate').textContent = userProgress.gameStats.totalGames > 0 
+        ? Math.round((userProgress.gameStats.wins / userProgress.gameStats.totalGames) * 100) + '%'
+        : '0%';
+    
+    document.getElementById('user-score').textContent = userProgress.gameStats.highScore;
+    
+    updateAchievementsDisplay();
+    updateActivityHistory();
+    updateFavoriteTools();
+    updateNotesDisplay();
+}
+
+function updateAchievementsDisplay() {
+    const container = document.getElementById('achievements-container');
+    container.innerHTML = '';
+    
+    achievements.forEach(achievement => {
+        const isUnlocked = userProgress.achievements.includes(achievement.id);
+        const card = document.createElement('div');
+        card.className = `achievement-card ${isUnlocked ? 'unlocked' : 'locked'}`;
+        card.innerHTML = `
+            <div class="achievement-icon">${achievement.icon}</div>
+            <div class="achievement-title">${achievement.name}</div>
+            <div class="achievement-desc">${achievement.desc}</div>
+        `;
+        container.appendChild(card);
+    });
+}
+
+function updateActivityHistory() {
+    const container = document.getElementById('recent-activity');
+    
+    if (userProgress.activityHistory.length === 0) {
+        container.innerHTML = '<p>Belum ada aktivitas</p>';
+        return;
+    }
+    
+    container.innerHTML = userProgress.activityHistory
+        .slice(-5)
+        .reverse()
+        .map(activity => `
+            <div class="history-item">
+                <div class="history-operation">${activity.action}</div>
+                <div class="history-result">${activity.result}</div>
+                <div class="history-time">${new Date(activity.timestamp).toLocaleTimeString()}</div>
+            </div>
+        `).join('');
+}
+
+function updateFavoriteTools() {
+    const container = document.getElementById('favorite-tools');
+    
+    if (userProgress.favoriteTools.length === 0) {
+        container.innerHTML = '<p>Belum ada tools favorit</p>';
+        return;
+    }
+    
+    container.innerHTML = userProgress.favoriteTools
+        .map(tool => `
+            <div style="padding: 8px; background: var(--light-color); margin: 5px 0; border-radius: 5px;">
+                ${tool}
+            </div>
+        `).join('');
+}
+
+function updateNotesDisplay() {
+    const container = document.getElementById('saved-notes');
+    
+    if (userProgress.notes.length === 0) {
+        container.innerHTML = '<p>Belum ada catatan</p>';
+        return;
+    }
+    
+    container.innerHTML = userProgress.notes
+        .slice(-3)
+        .reverse()
+        .map(note => `
+            <div class="history-item">
+                <div class="history-operation">${note.text.substring(0, 50)}...</div>
+                <div class="history-time">${note.tag} • ${new Date(note.timestamp).toLocaleDateString()}</div>
+            </div>
+        `).join('');
+}
+
+function addActivity(action, result) {
+    userProgress.activityHistory.push({
+        action,
+        result,
+        timestamp: new Date().toISOString()
+    });
+    
+    if (userProgress.activityHistory.length > 20) {
+        userProgress.activityHistory = userProgress.activityHistory.slice(-20);
+    }
+    
+    saveProgress();
+    updateDashboard();
+}
+
+function saveNote() {
+    const noteText = document.getElementById('quick-note').value.trim();
+    const activeTag = document.querySelector('.note-tag.active').dataset.tag;
+    
+    if (noteText) {
+        userProgress.notes.push({
+            text: noteText,
+            tag: activeTag,
+            timestamp: new Date().toISOString()
+        });
+        
+        document.getElementById('quick-note').value = '';
+        updateProgress('notes');
+        addActivity('Membuat catatan', `Tag: ${activeTag}`);
+    }
+}
+
+function trackToolUsage(toolName) {
+    const existingIndex = userProgress.favoriteTools.indexOf(toolName);
+    
+    if (existingIndex !== -1) {
+        userProgress.favoriteTools.splice(existingIndex, 1);
+    }
+    
+    userProgress.favoriteTools.unshift(toolName);
+    
+    if (userProgress.favoriteTools.length > 5) {
+        userProgress.favoriteTools = userProgress.favoriteTools.slice(0, 5);
+    }
+    
+    saveProgress();
+    updateDashboard();
+}
+
+function updateGameStats(score) {
+    if (score > userProgress.gameStats.highScore) {
+        userProgress.gameStats.highScore = score;
+    }
+    
+    saveProgress();
+    updateDashboard();
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    loadProgress();
+    
+    document.getElementById('save-note').addEventListener('click', saveNote);
+    
+    document.querySelectorAll('.note-tag').forEach(tag => {
+        tag.addEventListener('click', function() {
+            document.querySelectorAll('.note-tag').forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+    
+    document.getElementById('quick-note').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter' && e.ctrlKey) {
+            saveNote();
+        }
+    });
+});
+
+const originalCekJawaban = cekJawaban;
+cekJawaban = function() {
+    const result = originalCekJawaban.apply(this, arguments);
+    updateProgress('gamesPlayed');
+    return result;
+};
+
+const originalCheckPythonAnswer = checkPythonAnswer;
+checkPythonAnswer = function(level, selectedAnswer) {
+    const result = originalCheckPythonAnswer.apply(this, arguments);
+    updateProgress('gamesPlayed');
+    if (selectedAnswer === soalSaatIni.answer) {
+        updateProgress('correctAnswers');
+    }
+    return result;
+};
+
+const originalCheckDebugAnswer = checkDebugAnswer;
+checkDebugAnswer = function(selectedAnswer) {
+    const result = originalCheckDebugAnswer.apply(this, arguments);
+    updateProgress('gamesPlayed');
+    if (selectedAnswer === soalDebuggingSaatIni.answer) {
+        updateProgress('correctAnswers');
+        updateGameStats(skorDebugging);
+    }
+    return result;
+};
+
+const originalCheckTebakAnswer = checkTebakAnswer;
+checkTebakAnswer = function(selectedAnswer) {
+    const result = originalCheckTebakAnswer.apply(this, arguments);
+    updateProgress('gamesPlayed');
+    if (selectedAnswer === soalTebakSaatIni.answer) {
+        updateProgress('correctAnswers');
+        updateGameStats(skorTebak);
+    }
+    return result;
+};
+
+document.querySelectorAll('.calc-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        updateProgress('totalCalculations');
+        const toolName = this.closest('.health-section, .mtk-subcontent').querySelector('h3').textContent;
+        trackToolUsage(toolName);
+        addActivity('Menggunakan kalkulator', toolName);
+    });
+});
+
     for (const selectId in inputMappings) {
         const selectElement = document.getElementById(selectId);
         const containerId = selectId.replace('select', 'calc');
