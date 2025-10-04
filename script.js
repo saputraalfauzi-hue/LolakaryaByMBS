@@ -1,5 +1,22 @@
-let skor = 0;
-let kesempatan = 3;
+let gameState = {
+    skor: 0,
+    kesempatan: 3,
+    skorDebugging: 0,
+    kesempatanDebugging: 3,
+    levelDebugging: 1,
+    skorTebak: 0,
+    kesempatanTebak: 3,
+    totalGamesPlayed: 0,
+    totalCorrectAnswers: 0,
+    highScore: 0
+};
+
+let kataSaatIni = "";
+let soalSaatIni = null;
+let levelSaatIni = "";
+let soalDebuggingSaatIni = null;
+let tipeSoalDebugging = 'syntax';
+let soalTebakSaatIni = null;
 
 const bankSoalPython = {
     pemula: [
@@ -187,17 +204,44 @@ const daftarKata = [
     "package", "exception", "lambda", "decorator", "generator", "iterator"
 ];
 
-let kataSaatIni = "";
-let soalSaatIni = null;
-let levelSaatIni = "";
-let skorDebugging = 0;
-let kesempatanDebugging = 3;
-let levelDebugging = 1;
-let soalDebuggingSaatIni = null;
-let tipeSoalDebugging = 'syntax';
-let skorTebak = 0;
-let kesempatanTebak = 3;
-let soalTebakSaatIni = null;
+function saveGameState() {
+    localStorage.setItem('gameState', JSON.stringify(gameState));
+}
+
+function loadGameState() {
+    const saved = localStorage.getItem('gameState');
+    if (saved) {
+        gameState = { ...gameState, ...JSON.parse(saved) };
+    }
+}
+
+function updateGameStats(score = 0, correct = 0) {
+    if (score > gameState.highScore) {
+        gameState.highScore = score;
+    }
+    gameState.totalGamesPlayed += 1;
+    gameState.totalCorrectAnswers += correct;
+    saveGameState();
+    updateStatistikDisplay();
+}
+
+function updateStatistikDisplay() {
+    const highScoreElement = document.getElementById('high-score');
+    const totalGamesElement = document.getElementById('total-games');
+    const winRateElement = document.getElementById('win-rate');
+    
+    if (highScoreElement) highScoreElement.textContent = gameState.highScore;
+    if (totalGamesElement) totalGamesElement.textContent = gameState.totalGamesPlayed;
+    
+    const winRate = gameState.totalGamesPlayed > 0 
+        ? Math.round((gameState.totalCorrectAnswers / gameState.totalGamesPlayed) * 100)
+        : 0;
+    if (winRateElement) winRateElement.textContent = winRate + '%';
+}
+
+function showStatistikGame() {
+    updateStatistikDisplay();
+}
 
 function validateNumberInput(value, min = 0, max = Number.MAX_SAFE_INTEGER) {
     const num = parseFloat(value);
@@ -269,6 +313,9 @@ function showSubGame(subGameId) {
             case 'tebak-output':
                 initTebakOutput();
                 break;
+            case 'statistik-game':
+                showStatistikGame();
+                break;
         }
     }
 }
@@ -330,10 +377,16 @@ function checkPythonAnswer(level, selectedAnswer) {
     if (selectedAnswer === soalSaatIni.answer) {
         resultElement.textContent = "✅ Jawaban Benar!";
         resultElement.className = "result correct";
+        updateGameStats(0, 1);
+        
+        setTimeout(() => {
+            generateSoalPython(level);
+        }, 1500);
     } else {
         resultElement.textContent = "❌ Jawaban Salah!";
         resultElement.className = "result incorrect";
     }
+    updateGameStats(0, 0);
 }
 
 function hitungLuasLingkaran() {
@@ -673,6 +726,8 @@ function acakKata(kata) {
 }
 
 function inisialisasiGame() {
+    loadGameState();
+    
     const indeksAcak = Math.floor(Math.random() * daftarKata.length);
     kataSaatIni = daftarKata[indeksAcak];
     document.getElementById('kata-acak').textContent = acakKata(kataSaatIni);
@@ -680,19 +735,21 @@ function inisialisasiGame() {
     document.getElementById('hasil-game').style.color = '#333';
     document.getElementById('jawaban').value = "";
     
-    if (kesempatan <= 0) {
-        kesempatan = 3;
-        skor = 0;
+    if (gameState.kesempatan <= 0) {
+        gameState.kesempatan = 3;
+        gameState.skor = 0;
     }
     updateGameUI();
 }
 
 function updateGameUI() {
-    const skorElement = document.getElementById('skor-game');
-    const kesempatanElement = document.getElementById('kesempatan-game');
-    
-    if (skorElement) skorElement.textContent = skor;
-    if (kesempatanElement) kesempatanElement.textContent = kesempatan;
+    document.getElementById('skor-game').textContent = gameState.skor;
+    document.getElementById('kesempatan-game').textContent = gameState.kesempatan;
+    document.getElementById('skor-debugging').textContent = gameState.skorDebugging;
+    document.getElementById('kesempatan-debugging').textContent = gameState.kesempatanDebugging;
+    document.getElementById('level-debugging').textContent = gameState.levelDebugging;
+    document.getElementById('skor-tebak').textContent = gameState.skorTebak;
+    document.getElementById('kesempatan-tebak').textContent = gameState.kesempatanTebak;
 }
 
 function cekJawaban() {
@@ -704,24 +761,27 @@ function cekJawaban() {
         const hasilGameElement = document.getElementById('hasil-game');
         
         if (jawabanUser === kataSaatIni.toLowerCase()) {
-            skor += 10;
+            gameState.skor += 10;
             hasilGameElement.innerHTML = "🎉 <strong>Selamat! Jawaban Anda Benar!</strong> (+10 poin)";
             hasilGameElement.style.color = '#28a745';
+            updateGameStats(gameState.skor, 1);
             setTimeout(inisialisasiGame, 1500);
         } else {
-            kesempatan--;
-            if (kesempatan <= 0) {
-                hasilGameElement.innerHTML = `❌ <strong>Game Over!</strong> Skor akhir: ${skor}`;
+            gameState.kesempatan--;
+            if (gameState.kesempatan <= 0) {
+                hasilGameElement.innerHTML = `❌ <strong>Game Over!</strong> Skor akhir: ${gameState.skor}`;
+                updateGameStats(gameState.skor, 0);
                 setTimeout(() => {
-                    skor = 0;
-                    kesempatan = 3;
+                    gameState.kesempatan = 3;
+                    gameState.skor = 0;
                     inisialisasiGame();
                 }, 3000);
             } else {
-                hasilGameElement.innerHTML = `❌ Salah! Kesempatan tersisa: ${kesempatan}`;
+                hasilGameElement.innerHTML = `❌ Salah! Kesempatan tersisa: ${gameState.kesempatan}`;
                 hasilGameElement.style.color = '#dc3545';
             }
         }
+        saveGameState();
         updateGameUI();
         button.classList.remove('loading');
     }, 800);
@@ -907,55 +967,58 @@ function checkDebugAnswer(selectedAnswer) {
     });
     
     if (selectedAnswer === soalDebuggingSaatIni.answer) {
-        skorDebugging += 10;
+        gameState.skorDebugging += 10;
         explanationText.textContent = "✅ Benar! " + soalDebuggingSaatIni.explanation;
         explanationSection.classList.remove('hidden');
         nextButton.classList.remove('hidden');
         tryAgainButton.classList.add('hidden');
+        updateGameStats(gameState.skorDebugging, 1);
         
-        if (skorDebugging >= 30 && levelDebugging === 1) {
-            levelDebugging = 2;
+        if (gameState.skorDebugging >= 30 && gameState.levelDebugging === 1) {
+            gameState.levelDebugging = 2;
             tipeSoalDebugging = 'indentation';
-        } else if (skorDebugging >= 60 && levelDebugging === 2) {
-            levelDebugging = 3;
+        } else if (gameState.skorDebugging >= 60 && gameState.levelDebugging === 2) {
+            gameState.levelDebugging = 3;
             tipeSoalDebugging = 'logic';
         }
         
-        document.getElementById('skor-debugging').textContent = skorDebugging;
-        document.getElementById('level-debugging').textContent = levelDebugging;
+        document.getElementById('skor-debugging').textContent = gameState.skorDebugging;
+        document.getElementById('level-debugging').textContent = gameState.levelDebugging;
     } else {
-        kesempatanDebugging--;
+        gameState.kesempatanDebugging--;
         explanationText.textContent = "❌ Salah! " + soalDebuggingSaatIni.explanation;
         explanationSection.classList.remove('hidden');
         nextButton.classList.add('hidden');
         tryAgainButton.classList.remove('hidden');
         
-        document.getElementById('kesempatan-debugging').textContent = kesempatanDebugging;
+        document.getElementById('kesempatan-debugging').textContent = gameState.kesempatanDebugging;
         
-        if (kesempatanDebugging <= 0) {
+        if (gameState.kesempatanDebugging <= 0) {
             setTimeout(() => {
-                skorDebugging = 0;
-                kesempatanDebugging = 3;
-                levelDebugging = 1;
+                gameState.skorDebugging = 0;
+                gameState.kesempatanDebugging = 3;
+                gameState.levelDebugging = 1;
                 tipeSoalDebugging = 'syntax';
-                document.getElementById('skor-debugging').textContent = skorDebugging;
-                document.getElementById('kesempatan-debugging').textContent = kesempatanDebugging;
-                document.getElementById('level-debugging').textContent = levelDebugging;
+                document.getElementById('skor-debugging').textContent = gameState.skorDebugging;
+                document.getElementById('kesempatan-debugging').textContent = gameState.kesempatanDebugging;
+                document.getElementById('level-debugging').textContent = gameState.levelDebugging;
                 generateSoalDebugging();
             }, 3000);
         }
     }
+    saveGameState();
+    updateGameUI();
 }
 
 function initDebuggingGame() {
-    skorDebugging = 0;
-    kesempatanDebugging = 3;
-    levelDebugging = 1;
+    gameState.skorDebugging = 0;
+    gameState.kesempatanDebugging = 3;
+    gameState.levelDebugging = 1;
     tipeSoalDebugging = 'syntax';
     
-    document.getElementById('skor-debugging').textContent = skorDebugging;
-    document.getElementById('kesempatan-debugging').textContent = kesempatanDebugging;
-    document.getElementById('level-debugging').textContent = levelDebugging;
+    document.getElementById('skor-debugging').textContent = gameState.skorDebugging;
+    document.getElementById('kesempatan-debugging').textContent = gameState.kesempatanDebugging;
+    document.getElementById('level-debugging').textContent = gameState.levelDebugging;
     
     generateSoalDebugging();
 }
@@ -999,49 +1062,55 @@ function checkTebakAnswer(selectedAnswer) {
     });
     
     if (selectedAnswer === soalTebakSaatIni.answer) {
-        skorTebak += 10;
+        gameState.skorTebak += 10;
         explanationText.textContent = "✅ Benar! " + soalTebakSaatIni.explanation;
         explanationSection.classList.remove('hidden');
         nextButton.classList.remove('hidden');
         tryAgainButton.classList.add('hidden');
+        updateGameStats(gameState.skorTebak, 1);
         
-        document.getElementById('skor-tebak').textContent = skorTebak;
+        document.getElementById('skor-tebak').textContent = gameState.skorTebak;
     } else {
-        kesempatanTebak--;
+        gameState.kesempatanTebak--;
         explanationText.textContent = "❌ Salah! " + soalTebakSaatIni.explanation;
         explanationSection.classList.remove('hidden');
         nextButton.classList.add('hidden');
         tryAgainButton.classList.remove('hidden');
         
-        document.getElementById('kesempatan-tebak').textContent = kesempatanTebak;
+        document.getElementById('kesempatan-tebak').textContent = gameState.kesempatanTebak;
         
-        if (kesempatanTebak <= 0) {
+        if (gameState.kesempatanTebak <= 0) {
             setTimeout(() => {
-                skorTebak = 0;
-                kesempatanTebak = 3;
-                document.getElementById('skor-tebak').textContent = skorTebak;
-                document.getElementById('kesempatan-tebak').textContent = kesempatanTebak;
+                gameState.skorTebak = 0;
+                gameState.kesempatanTebak = 3;
+                document.getElementById('skor-tebak').textContent = gameState.skorTebak;
+                document.getElementById('kesempatan-tebak').textContent = gameState.kesempatanTebak;
                 generateSoalTebak();
             }, 3000);
         }
     }
+    saveGameState();
+    updateGameUI();
 }
 
 function initTebakOutput() {
-    skorTebak = 0;
-    kesempatanTebak = 3;
+    gameState.skorTebak = 0;
+    gameState.kesempatanTebak = 3;
     
-    document.getElementById('skor-tebak').textContent = skorTebak;
-    document.getElementById('kesempatan-tebak').textContent = kesempatanTebak;
+    document.getElementById('skor-tebak').textContent = gameState.skorTebak;
+    document.getElementById('kesempatan-tebak').textContent = gameState.kesempatanTebak;
     
     generateSoalTebak();
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    loadGameState();
+    
     showModule('profile');
     document.querySelector('.vertical-tabs button[data-module="profile"]').classList.add('active-tab');
     showSubMtk('mtk-default');
     inisialisasiGame();
+    updateStatistikDisplay();
 
     const tabButtons = document.querySelectorAll('.vertical-tabs button');
     tabButtons.forEach(button => {
