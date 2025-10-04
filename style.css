@@ -7,12 +7,13 @@ body {
 }
 
 :root {
-    --primary-color: #007bff;
-    --secondary-color: #0056b3;
-    --success-color: #28a745;
-    --danger-color: #dc3545;
-    --dark-color: #343a40;
-    --light-color: #f8f9fa;
+    --primary-color: #2563eb;
+    --secondary-color: #059669;
+    --success-color: #10b981;
+    --danger-color: #ef4444;
+    --warning-color: #f59e0b;
+    --dark-color: #1f2937;
+    --light-color: #f8fafc;
 }
 
 header {
@@ -20,7 +21,7 @@ header {
     color: white;
     padding: 20px;
     text-align: center;
-    box-shadow: 0 4px 12px rgba(0,123,255,0.3);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
 }
 
 .profile-header {
@@ -59,7 +60,7 @@ header {
     display: flex;
     flex-direction: column;
     width: 200px;
-    background: linear-gradient(to bottom, var(--dark-color), #495057);
+    background: linear-gradient(to bottom, var(--dark-color), #374151);
     padding: 10px 0;
     box-shadow: 2px 0 8px rgba(0,0,0,0.1);
 }
@@ -167,7 +168,7 @@ input[type="number"], input[type="text"], select {
 
 input[type="number"]:focus, input[type="text"]:focus, select:focus {
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(0,123,255,0.1);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
     outline: none;
 }
 
@@ -194,7 +195,7 @@ button:not(.vertical-tabs button) {
 
 button:not(.vertical-tabs button):hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(40,167,69,0.3);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
 }
 
 button:not(.vertical-tabs button):active {
