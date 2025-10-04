@@ -1,3 +1,4 @@
+// script.js
 let skor = 0;
 let kesempatan = 3;
 
@@ -1399,12 +1400,13 @@ function updateGameStats(score) {
     if (score > userProgress.gameStats.highScore) {
         userProgress.gameStats.highScore = score;
     }
-    
+    userProgress.gameStats.totalGames++;
     saveProgress();
     updateDashboard();
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Initialize with profile active
     showModule('profile');
     document.querySelector('.tabs button[data-module="profile"]').classList.add('active-tab');
     showSubMtk('mtk-default');
@@ -1412,6 +1414,7 @@ document.addEventListener('DOMContentLoaded', () => {
     addSmoothInteractions();
     loadProgress();
 
+    // Tab switching
     const tabButtons = document.querySelectorAll('.tabs button');
     tabButtons.forEach(button => {
         button.addEventListener('click', () => {
@@ -1422,6 +1425,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // MTK sub-menu switching
     const subMtkButtons = document.querySelectorAll('.mtk-submenu button');
     subMtkButtons.forEach(button => {
         button.addEventListener('click', () => {
@@ -1432,6 +1436,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Game sub-menu switching
     const subGameButtons = document.querySelectorAll('.game-submenu button');
     subGameButtons.forEach(button => {
         button.addEventListener('click', () => {
@@ -1442,6 +1447,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Event listeners for all calculators
     document.getElementById('btn-luas-lingkaran').addEventListener('click', hitungLuasLingkaran);
     document.getElementById('btn-kecepatan').addEventListener('click', hitungKecepatan);
     document.getElementById('btn-debit').addEventListener('click', hitungDebit);
@@ -1450,19 +1456,23 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('btn-waktu-paruh').addEventListener('click', hitungWaktuParuh);
     document.getElementById('btn-statistik').addEventListener('click', hitungStatistik);
     
+    // Health calculators
     document.getElementById('btn-bmi').addEventListener('click', hitungBMI);
     document.getElementById('btn-broca').addEventListener('click', hitungBroca);
     document.getElementById('btn-bmr').addEventListener('click', hitungBMR);
     document.getElementById('btn-mhr').addEventListener('click', hitungMHR);
     
+    // Game event listeners
     document.getElementById('btn-cek-jawaban').addEventListener('click', cekJawaban);
     document.getElementById('btn-next-debug').addEventListener('click', generateSoalDebugging);
     document.getElementById('btn-try-again').addEventListener('click', generateSoalDebugging);
     document.getElementById('btn-next-tebak').addEventListener('click', generateSoalTebak);
     document.getElementById('btn-try-again-tebak').addEventListener('click', generateSoalTebak);
 
+    // Note saving
     document.getElementById('save-note').addEventListener('click', saveNote);
     
+    // Note tag selection
     document.querySelectorAll('.note-tag').forEach(tag => {
         tag.addEventListener('click', function() {
             document.querySelectorAll('.note-tag').forEach(t => t.classList.remove('active'));
@@ -1470,12 +1480,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
     
+    // Save note with Ctrl+Enter
     document.getElementById('quick-note').addEventListener('keypress', function(e) {
         if (e.key === 'Enter' && e.ctrlKey) {
             saveNote();
         }
     });
 
+    // Calculator input handling
     const inputMappings = {
         'select-luas-datar': {
             'persegi': [{ id: 'sisi', label: 'Sisi:' }],
@@ -1529,23 +1541,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Event delegation for calculator buttons
     document.addEventListener('click', function(e) {
-        if (e.target.id.startsWith('btn-calc-')) {
-            const containerId = e.target.id.replace('btn-calc-', '');
-            const selectId = containerId.replace('calc-', 'select-');
-            const selectElement = document.getElementById(selectId);
-            
-            if (selectElement) {
-                const selectedValue = selectElement.value;
-                let calcId = selectedValue;
-                
-                if(containerId.includes('aritmatika')) calcId = `aritmatika-${selectedValue}`;
-                if(containerId.includes('geometri')) calcId = `geometri-${selectedValue}`;
-                
-                calculate(calcId, containerId);
-            }
-        }
-        
+        // Handle level buttons
         if (e.target.classList.contains('level-btn')) {
             document.querySelectorAll('.level-btn').forEach(btn => {
                 btn.classList.remove('active');
@@ -1556,6 +1554,7 @@ document.addEventListener('DOMContentLoaded', () => {
             showLevel(`level-${level}`);
         }
         
+        // Handle option buttons (for game answers)
         if (e.target.classList.contains('option-btn')) {
             const levelContent = e.target.closest('.level-content');
             if (levelContent) {
@@ -1573,50 +1572,45 @@ document.addEventListener('DOMContentLoaded', () => {
                 checkTebakAnswer(e.target.textContent);
             }
         }
-
+        
+        // Handle calculator buttons
+        if (e.target.id.startsWith('btn-calc-')) {
+            const containerId = e.target.id.replace('btn-calc-', '');
+            const selectId = containerId.replace('calc-', 'select-');
+            const selectElement = document.getElementById(selectId);
+            
+            if (selectElement) {
+                const selectedValue = selectElement.value;
+                let calcId = selectedValue;
+                
+                if(containerId.includes('aritmatika')) calcId = `aritmatika-${selectedValue}`;
+                if(containerId.includes('geometri')) calcId = `geometri-${selectedValue}`;
+                
+                calculate(calcId, containerId);
+            }
+        }
+        
+        // Handle health calculator buttons
         if (e.target.classList.contains('calc-btn')) {
             const toolName = e.target.closest('.health-section, .mtk-subcontent').querySelector('h3').textContent;
             trackToolUsage(toolName);
             addActivity('Menggunakan kalkulator', toolName);
         }
-        function updateGameStats(score) {
-    if (score > userProgress.gameStats.highScore) {
-        userProgress.gameStats.highScore = score;
-    }
-    userProgress.gameStats.totalGames++;
-    saveProgress();
-    updateDashboard();
-}
-
-document.getElementById('btn-peluang').addEventListener('click', function() {
-    const na = parseFloat(document.getElementById('peluang-na').value);
-    const ns = parseFloat(document.getElementById('peluang-ns').value);
-    const hasilElement = document.getElementById('hasil-peluang');
+    });
     
-    if (isNaN(na) || isNaN(ns) || ns === 0) {
-        hasilElement.textContent = "Masukkan nilai yang valid (n(S) tidak boleh 0)";
-        return;
-    }
-    
-    const peluang = na / ns;
-    hasilElement.textContent = `${peluang.toFixed(3)} atau ${(peluang * 100).toFixed(1)}%`;
-    updateProgress('totalCalculations');
-});
-
-document.getElementById('btn-next-debug').addEventListener('click', function() {
-    generateSoalDebugging();
-});
-
-document.getElementById('btn-try-again').addEventListener('click', function() {
-    generateSoalDebugging();
-});
-
-document.getElementById('btn-next-tebak').addEventListener('click', function() {
-    generateSoalTebak();
-});
-
-document.getElementById('btn-try-again-tebak').addEventListener('click', function() {
-    generateSoalTebak();
-});
+    // Peluang calculator
+    document.getElementById('btn-peluang').addEventListener('click', function() {
+        const na = parseFloat(document.getElementById('peluang-na').value);
+        const ns = parseFloat(document.getElementById('peluang-ns').value);
+        const hasilElement = document.getElementById('hasil-peluang');
+        
+        if (isNaN(na) || isNaN(ns) || ns === 0) {
+            hasilElement.textContent = "Masukkan nilai yang valid (n(S) tidak boleh 0)";
+            return;
+        }
+        
+        const peluang = na / ns;
+        hasilElement.textContent = `${peluang.toFixed(3)} atau ${(peluang * 100).toFixed(1)}%`;
+        updateProgress('totalCalculations');
     });
 });
