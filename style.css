@@ -1282,3 +1282,44 @@ button:disabled {
         grid-template-columns: repeat(2, 1fr);
     }
         }
+.active {
+    display: block !important;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.active-tab {
+    background-color: var(--primary-color) !important;
+    color: white !important;
+}
+
+.active-submtk, .active-subgame {
+    background-color: var(--primary-color) !important;
+    color: white !important;
+    font-weight: bold !important;
+}
+
+.hasil-perhitungan {
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.calc-btn {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+}
+
+.calc-btn:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+}
