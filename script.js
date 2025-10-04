@@ -1,4 +1,3 @@
-// script.js
 let skor = 0;
 let kesempatan = 3;
 
@@ -200,32 +199,6 @@ let skorTebak = 0;
 let kesempatanTebak = 3;
 let soalTebakSaatIni = null;
 
-const userProgress = {
-    totalCalculations: 0,
-    gamesPlayed: 0,
-    correctAnswers: 0,
-    achievements: [],
-    favoriteTools: [],
-    activityHistory: [],
-    notes: [],
-    gameStats: {
-        highScore: 0,
-        totalGames: 0,
-        wins: 0
-    }
-};
-
-const achievements = [
-    { id: 'first_calc', name: 'Pertama Kali', desc: 'Selesaikan 1 perhitungan', icon: '🔢', target: 1, type: 'calculations' },
-    { id: 'math_enthusiast', name: 'Pecinta Matematika', desc: 'Selesaikan 10 perhitungan', icon: '📐', target: 10, type: 'calculations' },
-    { id: 'math_master', name: 'Master Matematika', desc: 'Selesaikan 50 perhitungan', icon: '🎯', target: 50, type: 'calculations' },
-    { id: 'game_starter', name: 'Pemula Game', desc: 'Mainkan 1 game', icon: '🎮', target: 1, type: 'games' },
-    { id: 'game_lover', name: 'Pecinta Game', desc: 'Mainkan 10 game', icon: '👾', target: 10, type: 'games' },
-    { id: 'correct_beginner', name: 'Pemula Cerdas', desc: '10 jawaban benar', icon: '⭐', target: 10, type: 'correct' },
-    { id: 'smart_thinker', name: 'Pemikir Cerdas', desc: '50 jawaban benar', icon: '🏆', target: 50, type: 'correct' },
-    { id: 'note_taker', name: 'Pencatat Ulung', desc: 'Simpan 5 catatan', icon: '📝', target: 5, type: 'notes' }
-];
-
 function validateNumberInput(value, min = 0, max = Number.MAX_SAFE_INTEGER) {
     const num = parseFloat(value);
     return !isNaN(num) && num >= min && num <= max;
@@ -357,16 +330,10 @@ function checkPythonAnswer(level, selectedAnswer) {
     if (selectedAnswer === soalSaatIni.answer) {
         resultElement.textContent = "✅ Jawaban Benar!";
         resultElement.className = "result correct";
-        updateProgress('correctAnswers');
-        
-        setTimeout(() => {
-            generateSoalPython(level);
-        }, 1500);
     } else {
         resultElement.textContent = "❌ Jawaban Salah!";
         resultElement.className = "result incorrect";
     }
-    updateProgress('gamesPlayed');
 }
 
 function hitungLuasLingkaran() {
@@ -384,7 +351,6 @@ function hitungLuasLingkaran() {
         const Luas = Math.PI * Math.pow(r, 2);
         hasilElement.textContent = Luas.toFixed(2);
         button.classList.remove('loading');
-        updateProgress('totalCalculations');
     }, 800);
 }
 
@@ -404,7 +370,6 @@ function hitungKecepatan() {
         const v = s / t;
         hasilElement.textContent = v.toFixed(2);
         button.classList.remove('loading');
-        updateProgress('totalCalculations');
     }, 800);
 }
 
@@ -424,7 +389,6 @@ function hitungDebit() {
         const Q = v / t;
         hasilElement.textContent = Q.toFixed(2);
         button.classList.remove('loading');
-        updateProgress('totalCalculations');
     }, 800);
 }
 
@@ -445,7 +409,6 @@ function hitungSkala() {
         const skala = js_cm / jp;
         hasilElement.textContent = Math.round(skala).toLocaleString('id-ID');
         button.classList.remove('loading');
-        updateProgress('totalCalculations');
     }, 800);
 }
 
@@ -492,7 +455,6 @@ function hitungKonversiSatuan() {
         
         hasilElement.textContent = hasil.toFixed(4);
         button.classList.remove('loading');
-        updateProgress('totalCalculations');
     }, 800);
 }
 
@@ -517,7 +479,6 @@ function hitungWaktuParuh() {
         hasilElement.textContent = N.toFixed(4);
         waktuDisplay.textContent = t + " satuan waktu";
         button.classList.remove('loading');
-        updateProgress('totalCalculations');
     }, 800);
 }
 
@@ -573,7 +534,6 @@ function hitungStatistik() {
         document.getElementById('modus').textContent = modus.length === dataArray.length ? "Tidak ada modus" : modus.join(', ');
         document.getElementById('jangkauan').textContent = jangkauan;
         button.classList.remove('loading');
-        updateProgress('totalCalculations');
     }, 800);
 }
 
@@ -610,7 +570,6 @@ function hitungBMI() {
 
     hasilElement.textContent = `BMI Anda: ${bmi.toFixed(2)} (${kategori})`;
     hasilElement.style.color = 'var(--success-color)';
-    updateProgress('totalCalculations');
 }
 
 function hitungBMR() {
@@ -641,7 +600,6 @@ function hitungBMR() {
 
     hasilElement.textContent = `BMR Anda (Kebutuhan Kalori Dasar): ${bmr.toFixed(0)} Kalori/hari`;
     hasilElement.style.color = 'var(--success-color)';
-    updateProgress('totalCalculations');
 }
 
 function hitungBroca() {
@@ -678,7 +636,6 @@ function hitungBroca() {
         <p><strong>Rentang Sehat:</strong> ${rentangBawah} kg - ${rentangAtas} kg</p>
     `;
     hasilElement.style.color = 'var(--success-color)';
-    updateProgress('totalCalculations');
 }
 
 function hitungMHR() {
@@ -709,7 +666,6 @@ function hitungMHR() {
         <p>Zona Kardio (70-85%): ${zonaKardio[0]} - ${zonaKardio[1]} bpm</p>
     `;
     hasilElement.style.color = 'var(--success-color)';
-    updateProgress('totalCalculations');
 }
 
 function acakKata(kata) {
@@ -751,7 +707,6 @@ function cekJawaban() {
             skor += 10;
             hasilGameElement.innerHTML = "🎉 <strong>Selamat! Jawaban Anda Benar!</strong> (+10 poin)";
             hasilGameElement.style.color = '#28a745';
-            updateProgress('correctAnswers');
             setTimeout(inisialisasiGame, 1500);
         } else {
             kesempatan--;
@@ -768,7 +723,6 @@ function cekJawaban() {
             }
         }
         updateGameUI();
-        updateProgress('gamesPlayed');
         button.classList.remove('loading');
     }, 800);
 }
@@ -866,30 +820,6 @@ function calculate(shape, containerId) {
                     const lp_k = (Math.PI * r_kerucut * (r_kerucut + s_kerucut)).toFixed(2);
                     resultText = `Volume: ${vol_k}, Luas Permukaan: ${lp_k}`;
                     break;
-                case 'limas-segitiga':
-                    const a_limas3 = parseFloat(document.getElementById('alas').value);
-                    const t_limas3 = parseFloat(document.getElementById('tinggi').value);
-                    const t_sisi3 = parseFloat(document.getElementById('tinggi-sisi').value);
-                    if(isNaN(a_limas3) || isNaN(t_limas3) || isNaN(t_sisi3)) throw new Error();
-                    const vol_limas3 = (1/3) * (1/2 * a_limas3 * t_limas3) * t_sisi3;
-                    const lp_limas3 = (1/2 * a_limas3 * t_limas3) + (3 * 1/2 * a_limas3 * t_sisi3);
-                    resultText = `Volume: ${vol_limas3.toFixed(2)}, Luas Permukaan: ${lp_limas3.toFixed(2)}`;
-                    break;
-                case 'limas-segiempat':
-                    const s_limas4 = parseFloat(document.getElementById('sisi').value);
-                    const t_limas4 = parseFloat(document.getElementById('tinggi').value);
-                    if(isNaN(s_limas4) || isNaN(t_limas4)) throw new Error();
-                    const vol_limas4 = (1/3) * Math.pow(s_limas4, 2) * t_limas4;
-                    const lp_limas4 = Math.pow(s_limas4, 2) + (4 * 1/2 * s_limas4 * t_limas4);
-                    resultText = `Volume: ${vol_limas4.toFixed(2)}, Luas Permukaan: ${lp_limas4.toFixed(2)}`;
-                    break;
-                case 'bola':
-                    const r_bola = parseFloat(document.getElementById('jari2').value);
-                    if(isNaN(r_bola)) throw new Error();
-                    const vol_bola = (4/3) * Math.PI * Math.pow(r_bola, 3);
-                    const lp_bola = 4 * Math.PI * Math.pow(r_bola, 2);
-                    resultText = `Volume: ${vol_bola.toFixed(2)}, Luas Permukaan: ${lp_bola.toFixed(2)}`;
-                    break;
                 case 'aritmatika-un':
                     const a_un = parseFloat(document.getElementById('suku_a').value);
                     const n_un = parseFloat(document.getElementById('suku_n').value);
@@ -929,7 +859,6 @@ function calculate(shape, containerId) {
                     break;
             }
             hasilElement.textContent = resultText;
-            updateProgress('totalCalculations');
         } catch (error) {
             hasilElement.textContent = 'Input tidak valid. Periksa kembali angka Anda.';
         }
@@ -983,8 +912,6 @@ function checkDebugAnswer(selectedAnswer) {
         explanationSection.classList.remove('hidden');
         nextButton.classList.remove('hidden');
         tryAgainButton.classList.add('hidden');
-        updateProgress('correctAnswers');
-        updateGameStats(skorDebugging);
         
         if (skorDebugging >= 30 && levelDebugging === 1) {
             levelDebugging = 2;
@@ -1018,7 +945,6 @@ function checkDebugAnswer(selectedAnswer) {
             }, 3000);
         }
     }
-    updateProgress('gamesPlayed');
 }
 
 function initDebuggingGame() {
@@ -1078,8 +1004,6 @@ function checkTebakAnswer(selectedAnswer) {
         explanationSection.classList.remove('hidden');
         nextButton.classList.remove('hidden');
         tryAgainButton.classList.add('hidden');
-        updateProgress('correctAnswers');
-        updateGameStats(skorTebak);
         
         document.getElementById('skor-tebak').textContent = skorTebak;
     } else {
@@ -1101,7 +1025,6 @@ function checkTebakAnswer(selectedAnswer) {
             }, 3000);
         }
     }
-    updateProgress('gamesPlayed');
 }
 
 function initTebakOutput() {
@@ -1114,308 +1037,13 @@ function initTebakOutput() {
     generateSoalTebak();
 }
 
-function addSmoothInteractions() {
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
-    });
-
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
-            const tabs = document.querySelectorAll('.tabs button');
-            const currentIndex = Array.from(tabs).findIndex(tab => 
-                tab.classList.contains('active-tab'));
-            
-            let newIndex;
-            if (e.key === 'ArrowRight') {
-                newIndex = (currentIndex + 1) % tabs.length;
-            } else {
-                newIndex = (currentIndex - 1 + tabs.length) % tabs.length;
-            }
-            
-            tabs[newIndex].click();
-        }
-    });
-}
-
-function loadProgress() {
-    try {
-        const saved = localStorage.getItem('userProgress');
-        if (saved) {
-            const parsed = JSON.parse(saved);
-            userProgress.totalCalculations = parsed.totalCalculations || 0;
-            userProgress.gamesPlayed = parsed.gamesPlayed || 0;
-            userProgress.correctAnswers = parsed.correctAnswers || 0;
-            userProgress.achievements = parsed.achievements || [];
-            userProgress.favoriteTools = parsed.favoriteTools || [];
-            userProgress.activityHistory = parsed.activityHistory || [];
-            userProgress.notes = parsed.notes || [];
-            userProgress.gameStats = parsed.gameStats || {
-                highScore: 0,
-                totalGames: 0,
-                wins: 0
-            };
-        }
-    } catch (error) {
-        console.warn('Gagal memuat progress dari localStorage:', error);
-    }
-    updateDashboard();
-}
-
-function saveProgress() {
-    try {
-        localStorage.setItem('userProgress', JSON.stringify(userProgress));
-    } catch (error) {
-        console.warn('Gagal menyimpan progress ke localStorage:', error);
-    }
-}
-
-function updateProgress(type, value = 1) {
-    userProgress[type] += value;
-    
-    if (type === 'correctAnswers') {
-        userProgress.gameStats.wins += value;
-    }
-    
-    if (type === 'gamesPlayed') {
-        userProgress.gameStats.totalGames += value;
-    }
-    
-    checkAchievements();
-    saveProgress();
-    updateDashboard();
-}
-
-function checkAchievements() {
-    achievements.forEach(achievement => {
-        if (!userProgress.achievements.includes(achievement.id)) {
-            let progress = 0;
-            
-            switch (achievement.type) {
-                case 'calculations':
-                    progress = userProgress.totalCalculations;
-                    break;
-                case 'games':
-                    progress = userProgress.gamesPlayed;
-                    break;
-                case 'correct':
-                    progress = userProgress.correctAnswers;
-                    break;
-                case 'notes':
-                    progress = userProgress.notes.length;
-                    break;
-            }
-            
-            if (progress >= achievement.target) {
-                userProgress.achievements.push(achievement.id);
-                showAchievementNotification(achievement);
-            }
-        }
-    });
-}
-
-function showAchievementNotification(achievement) {
-    const notification = document.createElement('div');
-    notification.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        padding: 15px;
-        border-radius: 10px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        z-index: 1000;
-        animation: slideIn 0.5s ease;
-        max-width: 300px;
-    `;
-    
-    notification.innerHTML = `
-        <div style="display: flex; align-items: center; gap: 10px;">
-            <span style="font-size: 2em;">${achievement.icon}</span>
-            <div>
-                <strong>${achievement.name}</strong>
-                <div style="font-size: 0.9em;">${achievement.desc}</div>
-            </div>
-        </div>
-    `;
-    
-    document.body.appendChild(notification);
-    
-    setTimeout(() => {
-        notification.remove();
-    }, 5000);
-}
-
-function updateDashboard() {
-    document.getElementById('total-calculations').textContent = userProgress.totalCalculations;
-    document.getElementById('games-played').textContent = userProgress.gamesPlayed;
-    document.getElementById('correct-answers').textContent = userProgress.correctAnswers;
-    document.getElementById('achievement-count').textContent = userProgress.achievements.length;
-    
-    document.getElementById('high-score').textContent = userProgress.gameStats.highScore;
-    document.getElementById('total-games').textContent = userProgress.gameStats.totalGames;
-    document.getElementById('win-rate').textContent = userProgress.gameStats.totalGames > 0 
-        ? Math.round((userProgress.gameStats.wins / userProgress.gameStats.totalGames) * 100) + '%'
-        : '0%';
-    
-    document.getElementById('user-score').textContent = userProgress.gameStats.highScore;
-    
-    updateAchievementsDisplay();
-    updateActivityHistory();
-    updateFavoriteTools();
-    updateNotesDisplay();
-}
-
-function updateAchievementsDisplay() {
-    const container = document.getElementById('achievements-container');
-    container.innerHTML = '';
-    
-    achievements.forEach(achievement => {
-        const isUnlocked = userProgress.achievements.includes(achievement.id);
-        const card = document.createElement('div');
-        card.className = `achievement-card ${isUnlocked ? 'unlocked' : 'locked'}`;
-        card.innerHTML = `
-            <div class="achievement-icon">${achievement.icon}</div>
-            <div class="achievement-title">${achievement.name}</div>
-            <div class="achievement-desc">${achievement.desc}</div>
-        `;
-        container.appendChild(card);
-    });
-}
-
-function updateActivityHistory() {
-    const container = document.getElementById('recent-activity');
-    
-    if (userProgress.activityHistory.length === 0) {
-        container.innerHTML = '<p>Belum ada aktivitas</p>';
-        return;
-    }
-    
-    container.innerHTML = userProgress.activityHistory
-        .slice(-5)
-        .reverse()
-        .map(activity => `
-            <div class="history-item">
-                <div class="history-operation">${activity.action}</div>
-                <div class="history-result">${activity.result}</div>
-                <div class="history-time">${new Date(activity.timestamp).toLocaleTimeString()}</div>
-            </div>
-        `).join('');
-}
-
-function updateFavoriteTools() {
-    const container = document.getElementById('favorite-tools');
-    
-    if (userProgress.favoriteTools.length === 0) {
-        container.innerHTML = '<p>Belum ada tools favorit</p>';
-        return;
-    }
-    
-    container.innerHTML = userProgress.favoriteTools
-        .map(tool => `
-            <div style="padding: 8px; background: var(--light-color); margin: 5px 0; border-radius: 5px;">
-                ${tool}
-            </div>
-        `).join('');
-}
-
-function updateNotesDisplay() {
-    const container = document.getElementById('saved-notes');
-    
-    if (userProgress.notes.length === 0) {
-        container.innerHTML = '<p>Belum ada catatan</p>';
-        return;
-    }
-    
-    container.innerHTML = userProgress.notes
-        .slice(-3)
-        .reverse()
-        .map(note => `
-            <div class="history-item">
-                <div class="history-operation">${note.text.substring(0, 50)}...</div>
-                <div class="history-time">${note.tag} • ${new Date(note.timestamp).toLocaleDateString()}</div>
-            </div>
-        `).join('');
-}
-
-function addActivity(action, result) {
-    userProgress.activityHistory.push({
-        action,
-        result,
-        timestamp: new Date().toISOString()
-    });
-    
-    if (userProgress.activityHistory.length > 20) {
-        userProgress.activityHistory = userProgress.activityHistory.slice(-20);
-    }
-    
-    saveProgress();
-    updateDashboard();
-}
-
-function saveNote() {
-    const noteText = document.getElementById('quick-note').value.trim();
-    const activeTag = document.querySelector('.note-tag.active').dataset.tag;
-    
-    if (noteText) {
-        userProgress.notes.push({
-            text: noteText,
-            tag: activeTag,
-            timestamp: new Date().toISOString()
-        });
-        
-        document.getElementById('quick-note').value = '';
-        updateProgress('notes');
-        addActivity('Membuat catatan', `Tag: ${activeTag}`);
-    }
-}
-
-function trackToolUsage(toolName) {
-    const existingIndex = userProgress.favoriteTools.indexOf(toolName);
-    
-    if (existingIndex !== -1) {
-        userProgress.favoriteTools.splice(existingIndex, 1);
-    }
-    
-    userProgress.favoriteTools.unshift(toolName);
-    
-    if (userProgress.favoriteTools.length > 5) {
-        userProgress.favoriteTools = userProgress.favoriteTools.slice(0, 5);
-    }
-    
-    saveProgress();
-    updateDashboard();
-}
-
-function updateGameStats(score) {
-    if (score > userProgress.gameStats.highScore) {
-        userProgress.gameStats.highScore = score;
-    }
-    userProgress.gameStats.totalGames++;
-    saveProgress();
-    updateDashboard();
-}
-
 document.addEventListener('DOMContentLoaded', () => {
-    // Initialize with profile active
     showModule('profile');
-    document.querySelector('.tabs button[data-module="profile"]').classList.add('active-tab');
+    document.querySelector('.vertical-tabs button[data-module="profile"]').classList.add('active-tab');
     showSubMtk('mtk-default');
     inisialisasiGame();
-    addSmoothInteractions();
-    loadProgress();
 
-    // Tab switching
-    const tabButtons = document.querySelectorAll('.tabs button');
+    const tabButtons = document.querySelectorAll('.vertical-tabs button');
     tabButtons.forEach(button => {
         button.addEventListener('click', () => {
             tabButtons.forEach(btn => btn.classList.remove('active-tab'));
@@ -1425,8 +1053,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // MTK sub-menu switching
-    const subMtkButtons = document.querySelectorAll('.mtk-submenu button');
+    const subMtkButtons = document.querySelectorAll('.horizontal-submenu button[data-submtk]');
     subMtkButtons.forEach(button => {
         button.addEventListener('click', () => {
             subMtkButtons.forEach(btn => btn.classList.remove('active-submtk'));
@@ -1436,8 +1063,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Game sub-menu switching
-    const subGameButtons = document.querySelectorAll('.game-submenu button');
+    const subGameButtons = document.querySelectorAll('.horizontal-submenu button[data-subgame]');
     subGameButtons.forEach(button => {
         button.addEventListener('click', () => {
             subGameButtons.forEach(btn => btn.classList.remove('active-subgame'));
@@ -1447,7 +1073,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Event listeners for all calculators
     document.getElementById('btn-luas-lingkaran').addEventListener('click', hitungLuasLingkaran);
     document.getElementById('btn-kecepatan').addEventListener('click', hitungKecepatan);
     document.getElementById('btn-debit').addEventListener('click', hitungDebit);
@@ -1456,38 +1081,17 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('btn-waktu-paruh').addEventListener('click', hitungWaktuParuh);
     document.getElementById('btn-statistik').addEventListener('click', hitungStatistik);
     
-    // Health calculators
     document.getElementById('btn-bmi').addEventListener('click', hitungBMI);
     document.getElementById('btn-broca').addEventListener('click', hitungBroca);
     document.getElementById('btn-bmr').addEventListener('click', hitungBMR);
     document.getElementById('btn-mhr').addEventListener('click', hitungMHR);
     
-    // Game event listeners
     document.getElementById('btn-cek-jawaban').addEventListener('click', cekJawaban);
     document.getElementById('btn-next-debug').addEventListener('click', generateSoalDebugging);
     document.getElementById('btn-try-again').addEventListener('click', generateSoalDebugging);
     document.getElementById('btn-next-tebak').addEventListener('click', generateSoalTebak);
     document.getElementById('btn-try-again-tebak').addEventListener('click', generateSoalTebak);
 
-    // Note saving
-    document.getElementById('save-note').addEventListener('click', saveNote);
-    
-    // Note tag selection
-    document.querySelectorAll('.note-tag').forEach(tag => {
-        tag.addEventListener('click', function() {
-            document.querySelectorAll('.note-tag').forEach(t => t.classList.remove('active'));
-            this.classList.add('active');
-        });
-    });
-    
-    // Save note with Ctrl+Enter
-    document.getElementById('quick-note').addEventListener('keypress', function(e) {
-        if (e.key === 'Enter' && e.ctrlKey) {
-            saveNote();
-        }
-    });
-
-    // Calculator input handling
     const inputMappings = {
         'select-luas-datar': {
             'persegi': [{ id: 'sisi', label: 'Sisi:' }],
@@ -1501,20 +1105,6 @@ document.addEventListener('DOMContentLoaded', () => {
             'balok': [{ id: 'panjang', label: 'Panjang:' }, { id: 'lebar', label: 'Lebar:' }, { id: 'tinggi', label: 'Tinggi:' }],
             'tabung': [{ id: 'jari2', label: 'Jari-jari:' }, { id: 'tinggi', label: 'Tinggi:' }],
             'kerucut': [{ id: 'jari2', label: 'Jari-jari:' }, { id: 'tinggi', label: 'Tinggi:' }]
-        },
-        'select-geometri-lanjut': {
-            'limas-segitiga': [
-                { id: 'alas', label: 'Alas Segitiga:' },
-                { id: 'tinggi', label: 'Tinggi Alas:' },
-                { id: 'tinggi-sisi', label: 'Tinggi Limas:' }
-            ],
-            'limas-segiempat': [
-                { id: 'sisi', label: 'Sisi Alas:' },
-                { id: 'tinggi', label: 'Tinggi Limas:' }
-            ],
-            'bola': [
-                { id: 'jari2', label: 'Jari-jari:' }
-            ]
         },
         'select-aritmatika': {
             'un': [{ id: 'suku_a', label: 'Suku Pertama (a):' }, { id: 'suku_n', label: 'Suku ke- (n):' }, { id: 'beda_b', label: 'Beda (b):' }],
@@ -1541,9 +1131,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Event delegation for calculator buttons
     document.addEventListener('click', function(e) {
-        // Handle level buttons
         if (e.target.classList.contains('level-btn')) {
             document.querySelectorAll('.level-btn').forEach(btn => {
                 btn.classList.remove('active');
@@ -1554,7 +1142,6 @@ document.addEventListener('DOMContentLoaded', () => {
             showLevel(`level-${level}`);
         }
         
-        // Handle option buttons (for game answers)
         if (e.target.classList.contains('option-btn')) {
             const levelContent = e.target.closest('.level-content');
             if (levelContent) {
@@ -1573,7 +1160,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
         
-        // Handle calculator buttons
         if (e.target.id.startsWith('btn-calc-')) {
             const containerId = e.target.id.replace('btn-calc-', '');
             const selectId = containerId.replace('calc-', 'select-');
@@ -1589,16 +1175,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 calculate(calcId, containerId);
             }
         }
-        
-        // Handle health calculator buttons
-        if (e.target.classList.contains('calc-btn')) {
-            const toolName = e.target.closest('.health-section, .mtk-subcontent').querySelector('h3').textContent;
-            trackToolUsage(toolName);
-            addActivity('Menggunakan kalkulator', toolName);
-        }
     });
     
-    // Peluang calculator
     document.getElementById('btn-peluang').addEventListener('click', function() {
         const na = parseFloat(document.getElementById('peluang-na').value);
         const ns = parseFloat(document.getElementById('peluang-ns').value);
@@ -1611,6 +1189,5 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const peluang = na / ns;
         hasilElement.textContent = `${peluang.toFixed(3)} atau ${(peluang * 100).toFixed(1)}%`;
-        updateProgress('totalCalculations');
     });
 });
