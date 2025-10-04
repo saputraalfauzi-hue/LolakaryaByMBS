@@ -24,11 +24,12 @@
 
     <nav class="tabs">
         <button data-module="profile">Profile Development</button>
+        <button data-module="motivasi">Gudang Motivasi</button>
         <button data-module="mtk">Matematika & Fisika</button>
         <button data-module="kesehatan">Kesehatan & Kebugaran</button>
         <button data-module="glosarium">Glosarium Coding & AI</button>
         <button data-module="game">Minigame</button>
-        <button data-module="motivasi">Gudang Motivasi</button>
+        <button data-module="dashboard">Dashboard & Progress</button>
     </nav>
 
     <main id="content-container">
@@ -604,6 +605,106 @@
             <div class="kutipan">
                 <p class="isi-kutipan">kita boleh mengharapkan semua urusan berjalan lancar, tetapi jauh lebih baik bila kita siap mental dan berani menghadapi semua masalah yang mungkin datang kepada kita</p>
                 <p class="penulis-kutipan">~Jim Carrey (Aktor/Filosof Modern) 🎭~</p>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="dashboard" class="module hidden">
+    <h2>Dashboard & Progress</h2>
+    
+    <div class="progress-container">
+        <h3>📊 Progress Pembelajaran</h3>
+        <div class="progress-stats">
+            <div class="progress-stat">
+                <div class="progress-number" id="total-calculations">0</div>
+                <div class="progress-label">Perhitungan</div>
+            </div>
+            <div class="progress-stat">
+                <div class="progress-number" id="games-played">0</div>
+                <div class="progress-label">Game Dimainkan</div>
+            </div>
+            <div class="progress-stat">
+                <div class="progress-number" id="correct-answers">0</div>
+                <div class="progress-label">Jawaban Benar</div>
+            </div>
+            <div class="progress-stat">
+                <div class="progress-number" id="achievement-count">0</div>
+                <div class="progress-label">Achievement</div>
+            </div>
+        </div>
+        
+        <h4>🎯 Achievement</h4>
+        <div class="achievements-grid" id="achievements-container">
+        </div>
+    </div>
+
+    <div class="dashboard-grid">
+        <div class="dashboard-card">
+            <h3>🛠️ Tools Favorit</h3>
+            <div id="favorite-tools">
+                <p>Belum ada tools favorit</p>
+            </div>
+        </div>
+        
+        <div class="dashboard-card">
+            <h3>📈 Aktivitas Terbaru</h3>
+            <div class="history-section" id="recent-activity">
+                <p>Belum ada aktivitas</p>
+            </div>
+        </div>
+        
+        <div class="dashboard-card">
+            <h3>🎮 Statistik Game</h3>
+            <div class="quick-stats">
+                <div class="stat-item">
+                    <div class="stat-value" id="high-score">0</div>
+                    <div class="stat-label">High Score</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="total-games">0</div>
+                    <div class="stat-label">Total Game</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="win-rate">0%</div>
+                    <div class="stat-label">Win Rate</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="dashboard-card">
+        <h3>📝 Catatan Cepat</h3>
+        <div class="note-editor">
+            <textarea id="quick-note" placeholder="Tulis catatan atau ide belajar di sini..."></textarea>
+            <div class="note-tags">
+                <span class="note-tag active" data-tag="math">Matematika</span>
+                <span class="note-tag" data-tag="coding">Coding</span>
+                <span class="note-tag" data-tag="health">Kesehatan</span>
+                <span class="note-tag" data-tag="idea">Ide</span>
+            </div>
+            <button id="save-note" class="calc-btn">💾 Simpan Catatan</button>
+        </div>
+        <div id="saved-notes" class="history-section">
+        </div>
+    </div>
+
+    <div class="dashboard-card">
+        <h3>🏆 Leaderboard</h3>
+        <div class="leaderboard">
+            <div class="leaderboard-item">
+                <div class="leaderboard-rank">1</div>
+                <div class="leaderboard-name">Player 1</div>
+                <div class="leaderboard-score">1250</div>
+            </div>
+            <div class="leaderboard-item">
+                <div class="leaderboard-rank">2</div>
+                <div class="leaderboard-name">Player 2</div>
+                <div class="leaderboard-score">980</div>
+            </div>
+            <div class="leaderboard-item">
+                <div class="leaderboard-rank">3</div>
+                <div class="leaderboard-name">Anda</div>
+                <div class="leaderboard-score" id="user-score">0</div>
             </div>
         </div>
     </div>
