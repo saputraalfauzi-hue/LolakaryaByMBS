@@ -1579,5 +1579,44 @@ document.addEventListener('DOMContentLoaded', () => {
             trackToolUsage(toolName);
             addActivity('Menggunakan kalkulator', toolName);
         }
+        function updateGameStats(score) {
+    if (score > userProgress.gameStats.highScore) {
+        userProgress.gameStats.highScore = score;
+    }
+    userProgress.gameStats.totalGames++;
+    saveProgress();
+    updateDashboard();
+}
+
+document.getElementById('btn-peluang').addEventListener('click', function() {
+    const na = parseFloat(document.getElementById('peluang-na').value);
+    const ns = parseFloat(document.getElementById('peluang-ns').value);
+    const hasilElement = document.getElementById('hasil-peluang');
+    
+    if (isNaN(na) || isNaN(ns) || ns === 0) {
+        hasilElement.textContent = "Masukkan nilai yang valid (n(S) tidak boleh 0)";
+        return;
+    }
+    
+    const peluang = na / ns;
+    hasilElement.textContent = `${peluang.toFixed(3)} atau ${(peluang * 100).toFixed(1)}%`;
+    updateProgress('totalCalculations');
+});
+
+document.getElementById('btn-next-debug').addEventListener('click', function() {
+    generateSoalDebugging();
+});
+
+document.getElementById('btn-try-again').addEventListener('click', function() {
+    generateSoalDebugging();
+});
+
+document.getElementById('btn-next-tebak').addEventListener('click', function() {
+    generateSoalTebak();
+});
+
+document.getElementById('btn-try-again-tebak').addEventListener('click', function() {
+    generateSoalTebak();
+});
     });
 });
