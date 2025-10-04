@@ -199,15 +199,58 @@ let skorTebak = 0;
 let kesempatanTebak = 3;
 let soalTebakSaatIni = null;
 
+const userProgress = {
+    totalCalculations: 0,
+    gamesPlayed: 0,
+    correctAnswers: 0,
+    achievements: [],
+    favoriteTools: [],
+    activityHistory: [],
+    notes: [],
+    gameStats: {
+        highScore: 0,
+        totalGames: 0,
+        wins: 0
+    }
+};
+
+const achievements = [
+    { id: 'first_calc', name: 'Pertama Kali', desc: 'Selesaikan 1 perhitungan', icon: '🔢', target: 1, type: 'calculations' },
+    { id: 'math_enthusiast', name: 'Pecinta Matematika', desc: 'Selesaikan 10 perhitungan', icon: '📐', target: 10, type: 'calculations' },
+    { id: 'math_master', name: 'Master Matematika', desc: 'Selesaikan 50 perhitungan', icon: '🎯', target: 50, type: 'calculations' },
+    { id: 'game_starter', name: 'Pemula Game', desc: 'Mainkan 1 game', icon: '🎮', target: 1, type: 'games' },
+    { id: 'game_lover', name: 'Pecinta Game', desc: 'Mainkan 10 game', icon: '👾', target: 10, type: 'games' },
+    { id: 'correct_beginner', name: 'Pemula Cerdas', desc: '10 jawaban benar', icon: '⭐', target: 10, type: 'correct' },
+    { id: 'smart_thinker', name: 'Pemikir Cerdas', desc: '50 jawaban benar', icon: '🏆', target: 50, type: 'correct' },
+    { id: 'note_taker', name: 'Pencatat Ulung', desc: 'Simpan 5 catatan', icon: '📝', target: 5, type: 'notes' }
+];
+
+function validateNumberInput(value, min = 0, max = Number.MAX_SAFE_INTEGER) {
+    const num = parseFloat(value);
+    return !isNaN(num) && num >= min && num <= max;
+}
+
+function validateRequiredInput(value) {
+    return value && value.trim().length > 0;
+}
+
 function showModule(moduleId) {
     document.querySelectorAll('.module').forEach(section => {
         section.classList.add('hidden');
         section.classList.remove('active');
     });
+    
     const activeModule = document.getElementById(moduleId);
     if (activeModule) {
         activeModule.classList.remove('hidden');
         activeModule.classList.add('active');
+    }
+    
+    if (moduleId === 'mtk') {
+        showSubMtk('mtk-default');
+    }
+    if (moduleId === 'game') {
+        showSubGame('game-default');
     }
 }
 
@@ -228,24 +271,30 @@ function showSubGame(subGameId) {
         content.classList.add('hidden');
         content.classList.remove('active');
     });
+    
     const activeSubGame = document.getElementById(subGameId);
     if (activeSubGame) {
         activeSubGame.classList.remove('hidden');
         activeSubGame.classList.add('active');
         
-        if (subGameId === 'bahasa') {
-            inisialisasiGame();
-        } else if (subGameId === 'pahlawan-kode') {
-            document.querySelectorAll('.level-content').forEach(content => {
-                content.classList.add('hidden');
-            });
-            document.querySelectorAll('.level-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-        } else if (subGameId === 'debugging-detective') {
-            initDebuggingGame();
-        } else if (subGameId === 'tebak-output') {
-            initTebakOutput();
+        switch(subGameId) {
+            case 'bahasa':
+                inisialisasiGame();
+                break;
+            case 'pahlawan-kode':
+                document.querySelectorAll('.level-content').forEach(content => {
+                    content.classList.add('hidden');
+                });
+                document.querySelectorAll('.level-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                break;
+            case 'debugging-detective':
+                initDebuggingGame();
+                break;
+            case 'tebak-output':
+                initTebakOutput();
+                break;
         }
     }
 }
@@ -307,6 +356,7 @@ function checkPythonAnswer(level, selectedAnswer) {
     if (selectedAnswer === soalSaatIni.answer) {
         resultElement.textContent = "✅ Jawaban Benar!";
         resultElement.className = "result correct";
+        updateProgress('correctAnswers');
         
         setTimeout(() => {
             generateSoalPython(level);
@@ -315,6 +365,7 @@ function checkPythonAnswer(level, selectedAnswer) {
         resultElement.textContent = "❌ Jawaban Salah!";
         resultElement.className = "result incorrect";
     }
+    updateProgress('gamesPlayed');
 }
 
 function hitungLuasLingkaran() {
@@ -332,6 +383,7 @@ function hitungLuasLingkaran() {
         const Luas = Math.PI * Math.pow(r, 2);
         hasilElement.textContent = Luas.toFixed(2);
         button.classList.remove('loading');
+        updateProgress('totalCalculations');
     }, 800);
 }
 
@@ -351,6 +403,7 @@ function hitungKecepatan() {
         const v = s / t;
         hasilElement.textContent = v.toFixed(2);
         button.classList.remove('loading');
+        updateProgress('totalCalculations');
     }, 800);
 }
 
@@ -370,6 +423,7 @@ function hitungDebit() {
         const Q = v / t;
         hasilElement.textContent = Q.toFixed(2);
         button.classList.remove('loading');
+        updateProgress('totalCalculations');
     }, 800);
 }
 
@@ -390,6 +444,7 @@ function hitungSkala() {
         const skala = js_cm / jp;
         hasilElement.textContent = Math.round(skala).toLocaleString('id-ID');
         button.classList.remove('loading');
+        updateProgress('totalCalculations');
     }, 800);
 }
 
@@ -436,6 +491,7 @@ function hitungKonversiSatuan() {
         
         hasilElement.textContent = hasil.toFixed(4);
         button.classList.remove('loading');
+        updateProgress('totalCalculations');
     }, 800);
 }
 
@@ -460,6 +516,7 @@ function hitungWaktuParuh() {
         hasilElement.textContent = N.toFixed(4);
         waktuDisplay.textContent = t + " satuan waktu";
         button.classList.remove('loading');
+        updateProgress('totalCalculations');
     }, 800);
 }
 
@@ -515,22 +572,29 @@ function hitungStatistik() {
         document.getElementById('modus').textContent = modus.length === dataArray.length ? "Tidak ada modus" : modus.join(', ');
         document.getElementById('jangkauan').textContent = jangkauan;
         button.classList.remove('loading');
+        updateProgress('totalCalculations');
     }, 800);
 }
 
-// FUNGSI KESEHATAN BARU (DARI WEBSITE 2)
 function hitungBMI() {
-    const berat = parseFloat(document.getElementById('berat').value);
-    const tinggiCm = parseFloat(document.getElementById('tinggi').value);
+    const berat = document.getElementById('berat').value;
+    const tinggiCm = document.getElementById('tinggi').value;
     const hasilElement = document.getElementById('hasil-bmi');
 
-    if (isNaN(berat) || isNaN(tinggiCm) || berat <= 0 || tinggiCm <= 0) {
-        hasilElement.textContent = "Masukkan berat dan tinggi badan yang valid.";
+    if (!validateRequiredInput(berat) || !validateRequiredInput(tinggiCm)) {
+        hasilElement.textContent = "Harap isi semua field yang diperlukan.";
+        hasilElement.style.color = 'var(--danger-color)';
         return;
     }
 
-    const tinggiM = tinggiCm / 100;
-    const bmi = berat / (tinggiM * tinggiM);
+    if (!validateNumberInput(berat, 1, 500) || !validateNumberInput(tinggiCm, 50, 300)) {
+        hasilElement.textContent = "Masukkan berat (1-500kg) dan tinggi (50-300cm) yang valid.";
+        hasilElement.style.color = 'var(--danger-color)';
+        return;
+    }
+
+    const tinggiM = parseFloat(tinggiCm) / 100;
+    const bmi = parseFloat(berat) / (tinggiM * tinggiM);
     let kategori = '';
 
     if (bmi < 18.5) {
@@ -544,50 +608,67 @@ function hitungBMI() {
     }
 
     hasilElement.textContent = `BMI Anda: ${bmi.toFixed(2)} (${kategori})`;
+    hasilElement.style.color = 'var(--success-color)';
+    updateProgress('totalCalculations');
 }
 
 function hitungBMR() {
-    const berat = parseFloat(document.getElementById('berat-bmr').value);
-    const tinggi = parseFloat(document.getElementById('tinggi-bmr').value);
-    const usia = parseFloat(document.getElementById('usia-bmr').value);
+    const berat = document.getElementById('berat-bmr').value;
+    const tinggi = document.getElementById('tinggi-bmr').value;
+    const usia = document.getElementById('usia-bmr').value;
     const gender = document.getElementById('gender-bmr').value;
     const hasilElement = document.getElementById('hasil-bmr');
     let bmr = 0;
 
-    if (isNaN(berat) || isNaN(tinggi) || isNaN(usia) || berat <= 0 || tinggi <= 0 || usia <= 0) {
-        hasilElement.textContent = "Masukkan Berat, Tinggi, dan Usia yang valid.";
+    if (!validateRequiredInput(berat) || !validateRequiredInput(tinggi) || !validateRequiredInput(usia)) {
+        hasilElement.textContent = "Harap isi semua field yang diperlukan.";
+        hasilElement.style.color = 'var(--danger-color)';
+        return;
+    }
+
+    if (!validateNumberInput(berat, 1, 500) || !validateNumberInput(tinggi, 50, 300) || !validateNumberInput(usia, 1, 120)) {
+        hasilElement.textContent = "Masukkan data yang valid.";
+        hasilElement.style.color = 'var(--danger-color)';
         return;
     }
 
     if (gender === 'pria') {
-        bmr = 88.362 + (13.397 * berat) + (4.799 * tinggi) - (5.677 * usia);
+        bmr = 88.362 + (13.397 * parseFloat(berat)) + (4.799 * parseFloat(tinggi)) - (5.677 * parseFloat(usia));
     } else if (gender === 'wanita') {
-        bmr = 447.593 + (9.247 * berat) + (3.098 * tinggi) - (4.330 * usia);
+        bmr = 447.593 + (9.247 * parseFloat(berat)) + (3.098 * parseFloat(tinggi)) - (4.330 * parseFloat(usia));
     }
 
     hasilElement.textContent = `BMR Anda (Kebutuhan Kalori Dasar): ${bmr.toFixed(0)} Kalori/hari`;
+    hasilElement.style.color = 'var(--success-color)';
+    updateProgress('totalCalculations');
 }
 
 function hitungBroca() {
-    const tinggi = parseFloat(document.getElementById('tinggi-broca').value);
+    const tinggi = document.getElementById('tinggi-broca').value;
     const gender = document.getElementById('gender-broca').value;
     const hasilElement = document.getElementById('hasil-broca');
     
-    if (isNaN(tinggi) || tinggi <= 0) {
-        hasilElement.textContent = "Masukkan tinggi badan yang valid.";
+    if (!validateRequiredInput(tinggi)) {
+        hasilElement.textContent = "Harap isi tinggi badan.";
+        hasilElement.style.color = 'var(--danger-color)';
+        return;
+    }
+    
+    if (!validateNumberInput(tinggi, 50, 300)) {
+        hasilElement.textContent = "Masukkan tinggi badan yang valid (50-300cm).";
+        hasilElement.style.color = 'var(--danger-color)';
         return;
     }
     
     let beratIdeal;
-    const dasar = tinggi - 100;
+    const dasar = parseFloat(tinggi) - 100;
     
     if (gender === 'pria') {
-        beratIdeal = dasar - (0.10 * dasar); // 10% pengurangan untuk pria
+        beratIdeal = dasar - (0.10 * dasar);
     } else {
-        beratIdeal = dasar - (0.15 * dasar); // 15% pengurangan untuk wanita
+        beratIdeal = dasar - (0.15 * dasar);
     }
     
-    // Hitung rentang berat ideal (±5%)
     const rentangBawah = (beratIdeal * 0.95).toFixed(1);
     const rentangAtas = (beratIdeal * 1.05).toFixed(1);
     
@@ -595,19 +676,28 @@ function hitungBroca() {
         <p><strong>Berat Badan Ideal:</strong> ${beratIdeal.toFixed(1)} kg</p>
         <p><strong>Rentang Sehat:</strong> ${rentangBawah} kg - ${rentangAtas} kg</p>
     `;
+    hasilElement.style.color = 'var(--success-color)';
+    updateProgress('totalCalculations');
 }
 
 function hitungMHR() {
-    const usia = parseFloat(document.getElementById('usia-mhr').value);
+    const usia = document.getElementById('usia-mhr').value;
     const hasilElement = document.getElementById('hasil-mhr');
     let mhr = 0;
 
-    if (isNaN(usia) || usia <= 0) {
-        hasilElement.textContent = "Masukkan Usia yang valid.";
+    if (!validateRequiredInput(usia)) {
+        hasilElement.textContent = "Harap isi usia.";
+        hasilElement.style.color = 'var(--danger-color)';
         return;
     }
 
-    mhr = 220 - usia;
+    if (!validateNumberInput(usia, 1, 120)) {
+        hasilElement.textContent = "Masukkan usia yang valid (1-120 tahun).";
+        hasilElement.style.color = 'var(--danger-color)';
+        return;
+    }
+
+    mhr = 220 - parseFloat(usia);
 
     let zonaPembakaranLemak = [mhr * 0.6, mhr * 0.7].map(n => n.toFixed(0));
     let zonaKardio = [mhr * 0.7, mhr * 0.85].map(n => n.toFixed(0));
@@ -617,10 +707,9 @@ function hitungMHR() {
         <p>Zona Pembakaran Lemak (60-70%): ${zonaPembakaranLemak[0]} - ${zonaPembakaranLemak[1]} bpm</p>
         <p>Zona Kardio (70-85%): ${zonaKardio[0]} - ${zonaKardio[1]} bpm</p>
     `;
+    hasilElement.style.color = 'var(--success-color)';
+    updateProgress('totalCalculations');
 }
-
-// HAPUS FUNGSI KESEHATAN LAMA (BMI, Broca, BMR lama)
-// Fungsi hitungBMI(), hitungBroca(), hitungBMR() yang lama sudah dihapus
 
 function acakKata(kata) {
     return kata.split('').sort(() => 0.5 - Math.random()).join('');
@@ -661,6 +750,7 @@ function cekJawaban() {
             skor += 10;
             hasilGameElement.innerHTML = "🎉 <strong>Selamat! Jawaban Anda Benar!</strong> (+10 poin)";
             hasilGameElement.style.color = '#28a745';
+            updateProgress('correctAnswers');
             setTimeout(inisialisasiGame, 1500);
         } else {
             kesempatan--;
@@ -677,6 +767,7 @@ function cekJawaban() {
             }
         }
         updateGameUI();
+        updateProgress('gamesPlayed');
         button.classList.remove('loading');
     }, 800);
 }
@@ -837,6 +928,7 @@ function calculate(shape, containerId) {
                     break;
             }
             hasilElement.textContent = resultText;
+            updateProgress('totalCalculations');
         } catch (error) {
             hasilElement.textContent = 'Input tidak valid. Periksa kembali angka Anda.';
         }
@@ -890,6 +982,8 @@ function checkDebugAnswer(selectedAnswer) {
         explanationSection.classList.remove('hidden');
         nextButton.classList.remove('hidden');
         tryAgainButton.classList.add('hidden');
+        updateProgress('correctAnswers');
+        updateGameStats(skorDebugging);
         
         if (skorDebugging >= 30 && levelDebugging === 1) {
             levelDebugging = 2;
@@ -923,6 +1017,7 @@ function checkDebugAnswer(selectedAnswer) {
             }, 3000);
         }
     }
+    updateProgress('gamesPlayed');
 }
 
 function initDebuggingGame() {
@@ -982,6 +1077,8 @@ function checkTebakAnswer(selectedAnswer) {
         explanationSection.classList.remove('hidden');
         nextButton.classList.remove('hidden');
         tryAgainButton.classList.add('hidden');
+        updateProgress('correctAnswers');
+        updateGameStats(skorTebak);
         
         document.getElementById('skor-tebak').textContent = skorTebak;
     } else {
@@ -1003,6 +1100,7 @@ function checkTebakAnswer(selectedAnswer) {
             }, 3000);
         }
     }
+    updateProgress('gamesPlayed');
 }
 
 function initTebakOutput() {
@@ -1047,184 +1145,36 @@ function addSmoothInteractions() {
     });
 }
 
-document.addEventListener('click', function(e) {
-    if (e.target.id.startsWith('btn-calc-')) {
-        const containerId = e.target.id.replace('btn-calc-', '');
-        const selectId = containerId.replace('calc-', 'select-');
-        const selectElement = document.getElementById(selectId);
-        
-        if (selectElement) {
-            const selectedValue = selectElement.value;
-            let calcId = selectedValue;
-            
-            if(containerId.includes('aritmatika')) calcId = `aritmatika-${selectedValue}`;
-            if(containerId.includes('geometri')) calcId = `geometri-${selectedValue}`;
-            
-            calculate(calcId, containerId);
-        }
-    }
-    
-    if (e.target.classList.contains('level-btn')) {
-        document.querySelectorAll('.level-btn').forEach(btn => {
-            btn.classList.remove('active');
-        });
-        e.target.classList.add('active');
-        
-        const level = e.target.dataset.level;
-        showLevel(`level-${level}`);
-    }
-    
-    if (e.target.classList.contains('option-btn')) {
-        const levelContent = e.target.closest('.level-content');
-        if (levelContent) {
-            const level = levelContent.id.replace('level-', '');
-            checkPythonAnswer(level, e.target.textContent);
-        }
-        
-        const debugContainer = e.target.closest('#debugging-detective');
-        if (debugContainer) {
-            checkDebugAnswer(e.target.textContent);
-        }
-        
-        const tebakContainer = e.target.closest('#tebak-output');
-        if (tebakContainer) {
-            checkTebakAnswer(e.target.textContent);
-        }
-    }
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    showModule('profile');
-    document.querySelector('.tabs button[data-module="profile"]').classList.add('active-tab');
-    showSubMtk('mtk-default');
-    inisialisasiGame();
-    addSmoothInteractions();
-
-    const tabButtons = document.querySelectorAll('.tabs button');
-    tabButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            tabButtons.forEach(btn => btn.classList.remove('active-tab'));
-            button.classList.add('active-tab');
-            const moduleId = button.dataset.module;
-            showModule(moduleId);
-        });
-    });
-
-    const subMtkButtons = document.querySelectorAll('.mtk-submenu button');
-    subMtkButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            subMtkButtons.forEach(btn => btn.classList.remove('active-submtk'));
-            button.classList.add('active-submtk');
-            const subMtkId = button.dataset.submtk;
-            showSubMtk(subMtkId);
-        });
-    });
-
-    const subGameButtons = document.querySelectorAll('.game-submenu button');
-    subGameButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            subGameButtons.forEach(btn => btn.classList.remove('active-subgame'));
-            button.classList.add('active-subgame');
-            const subGameId = button.dataset.subgame;
-            showSubGame(subGameId);
-        });
-    });
-
-    document.getElementById('btn-luas-lingkaran').addEventListener('click', hitungLuasLingkaran);
-    document.getElementById('btn-kecepatan').addEventListener('click', hitungKecepatan);
-    document.getElementById('btn-debit').addEventListener('click', hitungDebit);
-    document.getElementById('btn-skala').addEventListener('click', hitungSkala);
-    document.getElementById('btn-konversi').addEventListener('click', hitungKonversiSatuan);
-    document.getElementById('btn-waktu-paruh').addEventListener('click', hitungWaktuParuh);
-    document.getElementById('btn-statistik').addEventListener('click', hitungStatistik);
-    
-    // EVENT LISTENERS KESEHATAN BARU
-    document.getElementById('btn-bmi').addEventListener('click', hitungBMI);
-    document.getElementById('btn-broca').addEventListener('click', hitungBroca);
-    document.getElementById('btn-bmr').addEventListener('click', hitungBMR);
-    document.getElementById('btn-mhr').addEventListener('click', hitungMHR);
-    
-    document.getElementById('btn-cek-jawaban').addEventListener('click', cekJawaban);
-    document.getElementById('btn-peluang').addEventListener('click', () => calculate('peluang', 'peluang'));
-    document.getElementById('btn-next-debug').addEventListener('click', generateSoalDebugging);
-    document.getElementById('btn-try-again').addEventListener('click', generateSoalDebugging);
-    document.getElementById('btn-next-tebak').addEventListener('click', generateSoalTebak);
-    document.getElementById('btn-try-again-tebak').addEventListener('click', generateSoalTebak);
-
-    const inputMappings = {
-        'select-luas-datar': {
-            'persegi': [{ id: 'sisi', label: 'Sisi:' }],
-            'persegi-panjang': [{ id: 'panjang', label: 'Panjang:' }, { id: 'lebar', label: 'Lebar:' }],
-            'segitiga': [{ id: 'alas', label: 'Alas:' }, { id: 'tinggi', label: 'Tinggi:' }],
-            'lingkaran': [{ id: 'jari2', label: 'Jari-jari:' }],
-            'jajar-genjang': [{ id: 'alas', label: 'Alas:' }, { id: 'tinggi', label: 'Tinggi:' }]
-        },
-        'select-luas-ruang': {
-            'kubus': [{ id: 'rusuk', label: 'Rusuk:' }],
-            'balok': [{ id: 'panjang', label: 'Panjang:' }, { id: 'lebar', label: 'Lebar:' }, { id: 'tinggi', label: 'Tinggi:' }],
-            'tabung': [{ id: 'jari2', label: 'Jari-jari:' }, { id: 'tinggi', label: 'Tinggi:' }],
-            'kerucut': [{ id: 'jari2', label: 'Jari-jari:' }, { id: 'tinggi', label: 'Tinggi:' }]
-        },
-        'select-geometri-lanjut': {
-            'limas-segitiga': [
-                { id: 'alas', label: 'Alas Segitiga:' },
-                { id: 'tinggi', label: 'Tinggi Alas:' },
-                { id: 'tinggi-sisi', label: 'Tinggi Limas:' }
-            ],
-            'limas-segiempat': [
-                { id: 'sisi', label: 'Sisi Alas:' },
-                { id: 'tinggi', label: 'Tinggi Limas:' }
-            ],
-            'bola': [
-                { id: 'jari2', label: 'Jari-jari:' }
-            ]
-        },
-        'select-aritmatika': {
-            'un': [{ id: 'suku_a', label: 'Suku Pertama (a):' }, { id: 'suku_n', label: 'Suku ke- (n):' }, { id: 'beda_b', label: 'Beda (b):' }],
-            'sn': [{ id: 'suku_a', label: 'Suku Pertama (a):' }, { id: 'suku_n', label: 'Jumlah Suku (n):' }, { id: 'beda_b', label: 'Beda (b):' }]
-        },
-        'select-geometri': {
-            'un': [{ id: 'suku_a', label: 'Suku Pertama (a):' }, { id: 'suku_n', label: 'Suku ke- (n):' }, { id: 'rasio_r', label: 'Rasio (r):' }],
-            'sn': [{ id: 'suku_a', label: 'Suku Pertama (a):' }, { id: 'suku_n', label: 'Jumlah Suku (n):' }, { id: 'rasio_r', label: 'Rasio (r):' }]
-        }
-    };
-
-    const userProgress = {
-    totalCalculations: 0,
-    gamesPlayed: 0,
-    correctAnswers: 0,
-    achievements: [],
-    favoriteTools: [],
-    activityHistory: [],
-    notes: [],
-    gameStats: {
-        highScore: 0,
-        totalGames: 0,
-        wins: 0
-    }
-};
-
-const achievements = [
-    { id: 'first_calc', name: 'Pertama Kali', desc: 'Selesaikan 1 perhitungan', icon: '🔢', target: 1, type: 'calculations' },
-    { id: 'math_enthusiast', name: 'Pecinta Matematika', desc: 'Selesaikan 10 perhitungan', icon: '📐', target: 10, type: 'calculations' },
-    { id: 'math_master', name: 'Master Matematika', desc: 'Selesaikan 50 perhitungan', icon: '🎯', target: 50, type: 'calculations' },
-    { id: 'game_starter', name: 'Pemula Game', desc: 'Mainkan 1 game', icon: '🎮', target: 1, type: 'games' },
-    { id: 'game_lover', name: 'Pecinta Game', desc: 'Mainkan 10 game', icon: '👾', target: 10, type: 'games' },
-    { id: 'correct_beginner', name: 'Pemula Cerdas', desc: '10 jawaban benar', icon: '⭐', target: 10, type: 'correct' },
-    { id: 'smart_thinker', name: 'Pemikir Cerdas', desc: '50 jawaban benar', icon: '🏆', target: 50, type: 'correct' },
-    { id: 'note_taker', name: 'Pencatat Ulung', desc: 'Simpan 5 catatan', icon: '📝', target: 5, type: 'notes' }
-];
-
 function loadProgress() {
-    const saved = localStorage.getItem('userProgress');
-    if (saved) {
-        Object.assign(userProgress, JSON.parse(saved));
+    try {
+        const saved = localStorage.getItem('userProgress');
+        if (saved) {
+            const parsed = JSON.parse(saved);
+            userProgress.totalCalculations = parsed.totalCalculations || 0;
+            userProgress.gamesPlayed = parsed.gamesPlayed || 0;
+            userProgress.correctAnswers = parsed.correctAnswers || 0;
+            userProgress.achievements = parsed.achievements || [];
+            userProgress.favoriteTools = parsed.favoriteTools || [];
+            userProgress.activityHistory = parsed.activityHistory || [];
+            userProgress.notes = parsed.notes || [];
+            userProgress.gameStats = parsed.gameStats || {
+                highScore: 0,
+                totalGames: 0,
+                wins: 0
+            };
+        }
+    } catch (error) {
+        console.warn('Gagal memuat progress dari localStorage:', error);
     }
     updateDashboard();
 }
 
 function saveProgress() {
-    localStorage.setItem('userProgress', JSON.stringify(userProgress));
+    try {
+        localStorage.setItem('userProgress', JSON.stringify(userProgress));
+    } catch (error) {
+        console.warn('Gagal menyimpan progress ke localStorage:', error);
+    }
 }
 
 function updateProgress(type, value = 1) {
@@ -1454,9 +1404,63 @@ function updateGameStats(score) {
     updateDashboard();
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', () => {
+    showModule('profile');
+    document.querySelector('.tabs button[data-module="profile"]').classList.add('active-tab');
+    showSubMtk('mtk-default');
+    inisialisasiGame();
+    addSmoothInteractions();
     loadProgress();
+
+    const tabButtons = document.querySelectorAll('.tabs button');
+    tabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            tabButtons.forEach(btn => btn.classList.remove('active-tab'));
+            button.classList.add('active-tab');
+            const moduleId = button.dataset.module;
+            showModule(moduleId);
+        });
+    });
+
+    const subMtkButtons = document.querySelectorAll('.mtk-submenu button');
+    subMtkButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            subMtkButtons.forEach(btn => btn.classList.remove('active-submtk'));
+            button.classList.add('active-submtk');
+            const subMtkId = button.dataset.submtk;
+            showSubMtk(subMtkId);
+        });
+    });
+
+    const subGameButtons = document.querySelectorAll('.game-submenu button');
+    subGameButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            subGameButtons.forEach(btn => btn.classList.remove('active-subgame'));
+            button.classList.add('active-subgame');
+            const subGameId = button.dataset.subgame;
+            showSubGame(subGameId);
+        });
+    });
+
+    document.getElementById('btn-luas-lingkaran').addEventListener('click', hitungLuasLingkaran);
+    document.getElementById('btn-kecepatan').addEventListener('click', hitungKecepatan);
+    document.getElementById('btn-debit').addEventListener('click', hitungDebit);
+    document.getElementById('btn-skala').addEventListener('click', hitungSkala);
+    document.getElementById('btn-konversi').addEventListener('click', hitungKonversiSatuan);
+    document.getElementById('btn-waktu-paruh').addEventListener('click', hitungWaktuParuh);
+    document.getElementById('btn-statistik').addEventListener('click', hitungStatistik);
     
+    document.getElementById('btn-bmi').addEventListener('click', hitungBMI);
+    document.getElementById('btn-broca').addEventListener('click', hitungBroca);
+    document.getElementById('btn-bmr').addEventListener('click', hitungBMR);
+    document.getElementById('btn-mhr').addEventListener('click', hitungMHR);
+    
+    document.getElementById('btn-cek-jawaban').addEventListener('click', cekJawaban);
+    document.getElementById('btn-next-debug').addEventListener('click', generateSoalDebugging);
+    document.getElementById('btn-try-again').addEventListener('click', generateSoalDebugging);
+    document.getElementById('btn-next-tebak').addEventListener('click', generateSoalTebak);
+    document.getElementById('btn-try-again-tebak').addEventListener('click', generateSoalTebak);
+
     document.getElementById('save-note').addEventListener('click', saveNote);
     
     document.querySelectorAll('.note-tag').forEach(tag => {
@@ -1471,55 +1475,44 @@ document.addEventListener('DOMContentLoaded', function() {
             saveNote();
         }
     });
-});
 
-const originalCekJawaban = cekJawaban;
-cekJawaban = function() {
-    const result = originalCekJawaban.apply(this, arguments);
-    updateProgress('gamesPlayed');
-    return result;
-};
-
-const originalCheckPythonAnswer = checkPythonAnswer;
-checkPythonAnswer = function(level, selectedAnswer) {
-    const result = originalCheckPythonAnswer.apply(this, arguments);
-    updateProgress('gamesPlayed');
-    if (selectedAnswer === soalSaatIni.answer) {
-        updateProgress('correctAnswers');
-    }
-    return result;
-};
-
-const originalCheckDebugAnswer = checkDebugAnswer;
-checkDebugAnswer = function(selectedAnswer) {
-    const result = originalCheckDebugAnswer.apply(this, arguments);
-    updateProgress('gamesPlayed');
-    if (selectedAnswer === soalDebuggingSaatIni.answer) {
-        updateProgress('correctAnswers');
-        updateGameStats(skorDebugging);
-    }
-    return result;
-};
-
-const originalCheckTebakAnswer = checkTebakAnswer;
-checkTebakAnswer = function(selectedAnswer) {
-    const result = originalCheckTebakAnswer.apply(this, arguments);
-    updateProgress('gamesPlayed');
-    if (selectedAnswer === soalTebakSaatIni.answer) {
-        updateProgress('correctAnswers');
-        updateGameStats(skorTebak);
-    }
-    return result;
-};
-
-document.querySelectorAll('.calc-btn').forEach(btn => {
-    btn.addEventListener('click', function() {
-        updateProgress('totalCalculations');
-        const toolName = this.closest('.health-section, .mtk-subcontent').querySelector('h3').textContent;
-        trackToolUsage(toolName);
-        addActivity('Menggunakan kalkulator', toolName);
-    });
-});
+    const inputMappings = {
+        'select-luas-datar': {
+            'persegi': [{ id: 'sisi', label: 'Sisi:' }],
+            'persegi-panjang': [{ id: 'panjang', label: 'Panjang:' }, { id: 'lebar', label: 'Lebar:' }],
+            'segitiga': [{ id: 'alas', label: 'Alas:' }, { id: 'tinggi', label: 'Tinggi:' }],
+            'lingkaran': [{ id: 'jari2', label: 'Jari-jari:' }],
+            'jajar-genjang': [{ id: 'alas', label: 'Alas:' }, { id: 'tinggi', label: 'Tinggi:' }]
+        },
+        'select-luas-ruang': {
+            'kubus': [{ id: 'rusuk', label: 'Rusuk:' }],
+            'balok': [{ id: 'panjang', label: 'Panjang:' }, { id: 'lebar', label: 'Lebar:' }, { id: 'tinggi', label: 'Tinggi:' }],
+            'tabung': [{ id: 'jari2', label: 'Jari-jari:' }, { id: 'tinggi', label: 'Tinggi:' }],
+            'kerucut': [{ id: 'jari2', label: 'Jari-jari:' }, { id: 'tinggi', label: 'Tinggi:' }]
+        },
+        'select-geometri-lanjut': {
+            'limas-segitiga': [
+                { id: 'alas', label: 'Alas Segitiga:' },
+                { id: 'tinggi', label: 'Tinggi Alas:' },
+                { id: 'tinggi-sisi', label: 'Tinggi Limas:' }
+            ],
+            'limas-segiempat': [
+                { id: 'sisi', label: 'Sisi Alas:' },
+                { id: 'tinggi', label: 'Tinggi Limas:' }
+            ],
+            'bola': [
+                { id: 'jari2', label: 'Jari-jari:' }
+            ]
+        },
+        'select-aritmatika': {
+            'un': [{ id: 'suku_a', label: 'Suku Pertama (a):' }, { id: 'suku_n', label: 'Suku ke- (n):' }, { id: 'beda_b', label: 'Beda (b):' }],
+            'sn': [{ id: 'suku_a', label: 'Suku Pertama (a):' }, { id: 'suku_n', label: 'Jumlah Suku (n):' }, { id: 'beda_b', label: 'Beda (b):' }]
+        },
+        'select-geometri': {
+            'un': [{ id: 'suku_a', label: 'Suku Pertama (a):' }, { id: 'suku_n', label: 'Suku ke- (n):' }, { id: 'rasio_r', label: 'Rasio (r):' }],
+            'sn': [{ id: 'suku_a', label: 'Suku Pertama (a):' }, { id: 'suku_n', label: 'Jumlah Suku (n):' }, { id: 'rasio_r', label: 'Rasio (r):' }]
+        }
+    };
 
     for (const selectId in inputMappings) {
         const selectElement = document.getElementById(selectId);
@@ -1535,4 +1528,56 @@ document.querySelectorAll('.calc-btn').forEach(btn => {
             }
         });
     }
+
+    document.addEventListener('click', function(e) {
+        if (e.target.id.startsWith('btn-calc-')) {
+            const containerId = e.target.id.replace('btn-calc-', '');
+            const selectId = containerId.replace('calc-', 'select-');
+            const selectElement = document.getElementById(selectId);
+            
+            if (selectElement) {
+                const selectedValue = selectElement.value;
+                let calcId = selectedValue;
+                
+                if(containerId.includes('aritmatika')) calcId = `aritmatika-${selectedValue}`;
+                if(containerId.includes('geometri')) calcId = `geometri-${selectedValue}`;
+                
+                calculate(calcId, containerId);
+            }
+        }
+        
+        if (e.target.classList.contains('level-btn')) {
+            document.querySelectorAll('.level-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            e.target.classList.add('active');
+            
+            const level = e.target.dataset.level;
+            showLevel(`level-${level}`);
+        }
+        
+        if (e.target.classList.contains('option-btn')) {
+            const levelContent = e.target.closest('.level-content');
+            if (levelContent) {
+                const level = levelContent.id.replace('level-', '');
+                checkPythonAnswer(level, e.target.textContent);
+            }
+            
+            const debugContainer = e.target.closest('#debugging-detective');
+            if (debugContainer) {
+                checkDebugAnswer(e.target.textContent);
+            }
+            
+            const tebakContainer = e.target.closest('#tebak-output');
+            if (tebakContainer) {
+                checkTebakAnswer(e.target.textContent);
+            }
+        }
+
+        if (e.target.classList.contains('calc-btn')) {
+            const toolName = e.target.closest('.health-section, .mtk-subcontent').querySelector('h3').textContent;
+            trackToolUsage(toolName);
+            addActivity('Menggunakan kalkulator', toolName);
+        }
+    });
 });
