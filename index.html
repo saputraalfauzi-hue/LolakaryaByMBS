@@ -30,6 +30,7 @@
             <button data-module="kesehatan">Kesehatan & Kebugaran</button>
             <button data-module="glosarium">Glosarium Coding & AI</button>
             <button data-module="game">Minigame</button>
+            <button data-module="zero-to-hero">Zero To Hero</button>
         </nav>
 
         <main id="content-container">
@@ -659,6 +660,173 @@
                         <div class="kutipan">
                             <p class="isi-kutipan">kita boleh mengharapkan semua urusan berjalan lancar, tetapi jauh lebih baik bila kita siap mental dan berani menghadapi semua masalah yang mungkin datang kepada kita</p>
                             <p class="penulis-kutipan">~Jim Carrey (Aktor/Filosof Modern) 🎭~</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="zero-to-hero" class="module hidden">
+                <div class="horizontal-submenu">
+                    <button data-subzero="dasar-ai">Dasar AI</button>
+                    <button data-subzero="dasar-python">Dasar Python</button>
+                    <button data-subzero="fullstack-dev">Full-Stack Dev</button>
+                </div>
+
+                <div class="zero-content">
+                    <div id="dasar-ai" class="zero-subcontent active">
+                        <h3>Dasar Artificial Intelligence</h3>
+                        <div class="materi-item">
+                            <h4>Pengertian AI</h4>
+                            <p>Artificial Intelligence (AI) adalah cabang ilmu komputer yang berfokus pada pembuatan mesin yang dapat melakukan tugas-tugas yang biasanya memerlukan kecerdasan manusia.</p>
+                        </div>
+                        <div class="materi-item">
+                            <h4>Jenis-jenis AI</h4>
+                            <ul>
+                                <li><strong>AI Lemah (Weak AI):</strong> Dirancang untuk tugas spesifik (contoh: asisten virtual)</li>
+                                <li><strong>AI Kuat (Strong AI):</strong> Memiliki kemampuan kognitif setara manusia</li>
+                                <li><strong>Superintelligence:</strong> Melebihi kecerdasan manusia dalam semua bidang</li>
+                            </ul>
+                        </div>
+                        <div class="materi-item">
+                            <h4>Tips Prompt Engineering</h4>
+                            <ul>
+                                <li><strong>Spesifik dan Jelas:</strong> "Buatkan kode Python untuk menghitung luas persegi panjang"</li>
+                                <li><strong>Berikan Konteks:</strong> "Sebagai seorang pemula dalam programming, jelaskan konsep variabel"</li>
+                                <li><strong>Gunakan Contoh:</strong> "Beri 3 contoh implementasi loop dalam JavaScript"</li>
+                                <li><strong>Tentukan Format:</strong> "Jelaskan dalam bentuk poin-poin singkat"</li>
+                                <li><strong>Iteratif:</strong> "Perbaiki kode tersebut dengan menambahkan error handling"</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div id="dasar-python" class="zero-subcontent hidden">
+                        <h3>Dasar Pemrograman Python</h3>
+                        <div class="materi-item">
+                            <h4>Pengenalan Python</h4>
+                            <p>Python adalah bahasa pemrograman tingkat tinggi yang mudah dipelajari dengan sintaks yang readable.</p>
+                            <pre><code>print("Hello, World!")</code></pre>
+                        </div>
+                        <div class="materi-item">
+                            <h4>Variabel dan Tipe Data</h4>
+                            <pre><code>nama = "Budi"          # string
+umur = 20             # integer
+tinggi = 170.5        # float
+is_student = True     # boolean</code></pre>
+                        </div>
+                        <div class="materi-item">
+                            <h4>Operator</h4>
+                            <pre><code># Aritmatika
+hasil = 10 + 5        # Penjumlahan
+hasil = 10 * 2        # Perkalian
+
+# Perbandingan
+is_sama = (5 == 5)    # True
+is_lebih_besar = (10 > 5)  # True</code></pre>
+                        </div>
+                        <div class="materi-item">
+                            <h4>Struktur Kontrol</h4>
+                            <pre><code># If-else
+if umur >= 18:
+    print("Dewasa")
+else:
+    print("Anak-anak")
+
+# Loop
+for i in range(5):
+    print(i)</code></pre>
+                        </div>
+                        <div class="materi-item">
+                            <h4>Fungsi</h4>
+                            <pre><code>def sapa(nama):
+    return f"Halo, {nama}!"
+
+print(sapa("Alice"))</code></pre>
+                        </div>
+                        <div class="materi-item">
+                            <h4>List dan Dictionary</h4>
+                            <pre><code># List
+buah = ["apel", "jeruk", "mangga"]
+print(buah[0])  # apel
+
+# Dictionary
+mahasiswa = {
+    "nama": "Budi",
+    "nim": "12345",
+    "prodi": "Informatika"
+}
+print(mahasiswa["nama"])  # Budi</code></pre>
+                        </div>
+                    </div>
+
+                    <div id="fullstack-dev" class="zero-subcontent hidden">
+                        <h3>Full-Stack Development</h3>
+                        <div class="materi-item">
+                            <h4>HTML (Struktur)</h4>
+                            <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Halaman Saya&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Selamat Datang&lt;/h1&gt;
+    &lt;p&gt;Ini paragraf pertama.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                        </div>
+                        <div class="materi-item">
+                            <h4>CSS (Styling)</h4>
+                            <pre><code>body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}
+
+h1 {
+    color: blue;
+    text-align: center;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+}</code></pre>
+                        </div>
+                        <div class="materi-item">
+                            <h4>JavaScript (Interaktivitas)</h4>
+                            <pre><code>// Variabel dan fungsi
+let nama = "World";
+function sapa() {
+    alert("Halo, " + nama + "!");
+}
+
+// Event handling
+document.getElementById("myButton")
+    .addEventListener("click", sapa);
+
+// DOM Manipulation
+document.getElementById("judul")
+    .textContent = "Selamat Datang!";</code></pre>
+                        </div>
+                        <div class="materi-item">
+                            <h4>Contoh Integrasi</h4>
+                            <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;style&gt;
+        .btn { padding: 10px; background: blue; color: white; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;button class="btn" onclick="tampilkanPesan()"&gt;
+        Klik Saya
+    &lt;/button&gt;
+    
+    &lt;script&gt;
+        function tampilkanPesan() {
+            alert("Tombol diklik!");
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
                         </div>
                     </div>
                 </div>
