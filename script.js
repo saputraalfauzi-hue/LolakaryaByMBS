@@ -21,6 +21,11 @@ function showSubZero(subZeroId) {
         activeSubZero.classList.remove('hidden');
         activeSubZero.classList.add('active');
     }
+    
+    document.querySelectorAll('.horizontal-submenu button[data-subzero]').forEach(btn => {
+        btn.classList.remove('active-subzero');
+    });
+    document.querySelector(`button[data-subzero="${subZeroId}"]`).classList.add('active-subzero');
 }
 
 let kataSaatIni = "";
