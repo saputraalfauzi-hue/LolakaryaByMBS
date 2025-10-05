@@ -11,6 +11,18 @@ let gameState = {
     highScore: 0
 };
 
+function showSubZero(subZeroId) {
+    document.querySelectorAll('.zero-subcontent').forEach(content => {
+        content.classList.add('hidden');
+        content.classList.remove('active');
+    });
+    const activeSubZero = document.getElementById(subZeroId);
+    if (activeSubZero) {
+        activeSubZero.classList.remove('hidden');
+        activeSubZero.classList.add('active');
+    }
+}
+
 let kataSaatIni = "";
 let soalSaatIni = null;
 let levelSaatIni = "";
@@ -269,6 +281,9 @@ function showModule(moduleId) {
     }
     if (moduleId === 'game') {
         showSubGame('game-default');
+    }
+    if (moduleId === 'zero-to-hero') {
+        showSubZero('dasar-ai');
     }
 }
 
@@ -1140,6 +1155,16 @@ document.addEventListener('DOMContentLoaded', () => {
             const subGameId = button.dataset.subgame;
             showSubGame(subGameId);
         });
+    });
+
+    const subZeroButtons = document.querySelectorAll('.horizontal-submenu button[data-subzero]');
+    subZeroButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            subZeroButtons.forEach(btn => btn.classList.remove('active-subzero'));
+            button.classList.add('active-subzero');
+            const subZeroId = button.dataset.subzero;
+            showSubZero(subZeroId);
+       });
     });
 
     document.getElementById('btn-luas-lingkaran').addEventListener('click', hitungLuasLingkaran);
