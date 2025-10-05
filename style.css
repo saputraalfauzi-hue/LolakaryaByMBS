@@ -1114,3 +1114,18 @@ button:disabled {
     color: white;
     border-color: var(--primary-color);
 }
+
+.zero-subcontent.active {
+    display: block !important;
+}
+
+.zero-subcontent.hidden {
+    display: none !important;
+}
+
+.horizontal-submenu button.active-subzero {
+    background-color: var(--primary-color) !important;
+    color: white !important;
+    border-color: var(--primary-color) !important;
+    font-weight: bold;
+}
