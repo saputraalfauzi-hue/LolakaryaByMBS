@@ -11,6 +11,12 @@ let gameState = {
     highScore: 0
 };
 
+const progressData = {
+    'dasar-ai': 0,
+    'dasar-python': 0,
+    'fullstack-dev': 0
+};
+
 function showSubZero(subZeroId) {
     document.querySelectorAll('.zero-subcontent').forEach(content => {
         content.classList.add('hidden');
@@ -221,6 +227,234 @@ const daftarKata = [
     "package", "exception", "lambda", "decorator", "generator", "iterator"
 ];
 
+function sanitizeInput(input) {
+    if (typeof input !== 'string') return input;
+    const div = document.createElement('div');
+    div.textContent = input;
+    return div.innerHTML;
+}
+
+function validateEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(String(email).toLowerCase());
+}
+
+function showNotification(message, type = 'info', duration = 5000) {
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.textContent = message;
+    notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 15px 20px;
+        border-radius: 8px;
+        color: white;
+        z-index: 10000;
+        animation: slideInRight 0.3s ease;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        max-width: 400px;
+    `;
+    
+    const backgrounds = {
+        info: 'linear-gradient(135deg, #2563eb 0%, #1e40af 100%)',
+        error: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
+        success: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+        warning: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)'
+    };
+    
+    notification.style.background = backgrounds[type] || backgrounds.info;
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.style.animation = 'slideOutRight 0.3s ease forwards';
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.parentNode.removeChild(notification);
+            }
+        }, 300);
+    }, duration);
+    
+    notification.addEventListener('click', () => {
+        notification.style.animation = 'slideOutRight 0.3s ease forwards';
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.parentNode.removeChild(notification);
+            }
+        }, 300);
+    });
+}
+
+function updateProgress(section, progress) {
+    if (progress >= 0 && progress <= 100) {
+        progressData[section] = progress;
+        localStorage.setItem('learningProgress', JSON.stringify(progressData));
+        updateProgressUI();
+        showNotification(`Progress ${section}: ${progress}% selesai`, 'success', 3000);
+    }
+}
+
+function updateProgressUI() {
+    Object.keys(progressData).forEach(section => {
+        const progressElement = document.querySelector(`#${section} .progress-fill`);
+        const percentageElement = document.querySelector(`#${section} .progress-percentage`);
+        
+        if (progressElement) {
+            progressElement.style.width = `${progressData[section]}%`;
+        }
+        if (percentageElement) {
+            percentageElement.textContent = `${progressData[section]}%`;
+        }
+    });
+}
+
+function markSectionComplete(section) {
+    updateProgress(section, 100);
+}
+
+function markSectionInProgress(section, percentage) {
+    updateProgress(section, percentage);
+}
+
+function initGlosariumSearch() {
+    const glosariumContainer = document.querySelector('.glosarium-container');
+    if (!glosariumContainer) return;
+    
+    let searchContainer = glosariumContainer.querySelector('.search-container');
+    if (!searchContainer) {
+        searchContainer = document.createElement('div');
+        searchContainer.className = 'search-container';
+        searchContainer.innerHTML = `
+            <input type="text" class="search-input" placeholder="🔍 Cari istilah coding & AI...">
+            <div class="search-stats" style="margin-top: 10px; font-size: 0.9em; color: #666;"></div>
+        `;
+        glosariumContainer.insertBefore(searchContainer, glosariumContainer.firstChild);
+    }
+    
+    const searchInput = searchContainer.querySelector('.search-input');
+    const searchStats = searchContainer.querySelector('.search-stats');
+    const items = document.querySelectorAll('.istilah-item');
+    
+    function performSearch() {
+        const searchTerm = searchInput.value.toLowerCase().trim();
+        let visibleCount = 0;
+        
+        items.forEach(item => {
+            const title = item.querySelector('h3').textContent.toLowerCase();
+            const description = item.querySelector('p').textContent.toLowerCase();
+            const isVisible = title.includes(searchTerm) || description.includes(searchTerm);
+            
+            item.style.display = isVisible ? 'block' : 'none';
+            if (isVisible) visibleCount++;
+        });
+        
+        const totalCount = items.length;
+        searchStats.textContent = searchTerm ? 
+            `Menampilkan ${visibleCount} dari ${totalCount} istilah` : 
+            `Total ${totalCount} istilah`;
+    }
+    
+    searchInput.addEventListener('input', performSearch);
+    performSearch();
+}
+
+function makeCodeInteractive() {
+    document.querySelectorAll('pre code').forEach(codeBlock => {
+        const pre = codeBlock.parentElement;
+        const copyButton = document.createElement('button');
+        copyButton.textContent = '📋 Copy';
+        copyButton.className = 'copy-code-btn';
+        copyButton.style.cssText = `
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        `;
+        
+        copyButton.addEventListener('mouseenter', () => {
+            copyButton.style.background = 'rgba(255,255,255,0.3)';
+        });
+        
+        copyButton.addEventListener('mouseleave', () => {
+            copyButton.style.background = 'rgba(255,255,255,0.2)';
+        });
+        
+        copyButton.addEventListener('click', async () => {
+            try {
+                await navigator.clipboard.writeText(codeBlock.textContent);
+                copyButton.textContent = '✅ Copied!';
+                setTimeout(() => {
+                    copyButton.textContent = '📋 Copy';
+                }, 2000);
+            } catch (err) {
+                copyButton.textContent = '❌ Error';
+                setTimeout(() => {
+                    copyButton.textContent = '📋 Copy';
+                }, 2000);
+            }
+        });
+        
+        pre.style.position = 'relative';
+        pre.appendChild(copyButton);
+    });
+}
+
+function addProgressTrackers() {
+    const sections = ['dasar-ai', 'dasar-python', 'fullstack-dev'];
+    
+    sections.forEach(section => {
+        const sectionElement = document.getElementById(section);
+        if (sectionElement) {
+            let progressContainer = sectionElement.querySelector('.progress-container');
+            if (!progressContainer) {
+                progressContainer = document.createElement('div');
+                progressContainer.className = 'progress-container';
+                progressContainer.innerHTML = `
+                    <div class="progress-header">
+                        <h4>Learning Progress</h4>
+                        <span class="progress-percentage">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 0%"></div>
+                    </div>
+                    <div class="progress-labels">
+                        <span>0%</span>
+                        <span>50%</span>
+                        <span>100%</span>
+                    </div>
+                    <div class="progress-actions" style="margin-top: 15px; display: flex; gap: 10px;">
+                        <button class="mark-in-progress-btn" style="padding: 8px 15px; background: #f59e0b; color: white; border: none; border-radius: 4px; cursor: pointer;">Mark 50%</button>
+                        <button class="mark-complete-btn" style="padding: 8px 15px; background: #10b981; color: white; border: none; border-radius: 4px; cursor: pointer;">Mark Complete</button>
+                    </div>
+                `;
+                
+                const firstH3 = sectionElement.querySelector('h3');
+                if (firstH3) {
+                    firstH3.parentNode.insertBefore(progressContainer, firstH3.nextSibling);
+                }
+                
+                const inProgressBtn = progressContainer.querySelector('.mark-in-progress-btn');
+                const completeBtn = progressContainer.querySelector('.mark-complete-btn');
+                
+                inProgressBtn.addEventListener('click', () => {
+                    markSectionInProgress(section, 50);
+                });
+                
+                completeBtn.addEventListener('click', () => {
+                    markSectionComplete(section);
+                });
+            }
+        }
+    });
+}
+
 function saveGameState() {
     localStorage.setItem('gameState', JSON.stringify(gameState));
 }
@@ -290,6 +524,18 @@ function showModule(moduleId) {
     if (moduleId === 'zero-to-hero') {
         showSubZero('dasar-ai');
     }
+    
+    setTimeout(() => {
+        if (moduleId === 'glosarium') {
+            initGlosariumSearch();
+        }
+        
+        if (moduleId === 'zero-to-hero') {
+            makeCodeInteractive();
+            addProgressTrackers();
+            updateProgressUI();
+        }
+    }, 100);
 }
 
 function showSubMtk(subMtkId) {
@@ -1126,6 +1372,62 @@ function initTebakOutput() {
 document.addEventListener('DOMContentLoaded', () => {
     loadGameState();
     
+    const savedProgress = localStorage.getItem('learningProgress');
+    if (savedProgress) {
+        try {
+            Object.assign(progressData, JSON.parse(savedProgress));
+        } catch (e) {
+            console.error('Error loading progress data:', e);
+        }
+    }
+    
+    makeCodeInteractive();
+    addProgressTrackers();
+    updateProgressUI();
+    
+    setTimeout(() => {
+        showNotification('Selamat belajar di Lolakarya! 🚀', 'info', 4000);
+    }, 1000);
+    
+    document.addEventListener('keydown', function(e) {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+            e.preventDefault();
+            const activeModule = document.querySelector('.module.active');
+            if (activeModule && activeModule.id === 'glosarium') {
+                const searchInput = document.querySelector('.search-input');
+                if (searchInput) {
+                    searchInput.focus();
+                }
+            }
+        }
+        
+        if (e.key === 'Escape') {
+            const searchInput = document.querySelector('.search-input');
+            if (searchInput && document.activeElement === searchInput) {
+                searchInput.value = '';
+                searchInput.dispatchEvent(new Event('input'));
+                searchInput.blur();
+            }
+        }
+    });
+    
+    document.querySelectorAll('input[type="email"]').forEach(input => {
+        input.addEventListener('blur', function() {
+            if (this.value && !validateEmail(this.value)) {
+                this.style.borderColor = 'var(--danger-color)';
+                showNotification('Format email tidak valid', 'error', 3000);
+            } else {
+                this.style.borderColor = '';
+            }
+        });
+    });
+    
+    document.querySelectorAll('input[type="text"], input[type="number"], textarea').forEach(input => {
+        input.addEventListener('blur', function() {
+            this.value = sanitizeInput(this.value);
+        });
+    });
+    
     showModule('profile');
     document.querySelector('.vertical-tabs button[data-module="profile"]').classList.add('active-tab');
     showSubMtk('mtk-default');
@@ -1289,4 +1591,21 @@ document.addEventListener('DOMContentLoaded', () => {
         const peluang = na / ns;
         hasilElement.textContent = `${peluang.toFixed(3)} atau ${(peluang * 100).toFixed(1)}%`;
     });
+});
+
+window.Lolakarya = {
+    showNotification,
+    updateProgress,
+    validateEmail,
+    sanitizeInput
+};
+
+window.addEventListener('error', function(e) {
+    console.error('Global error occurred:', e.error);
+    showNotification('Terjadi kesalahan, silakan refresh halaman', 'error');
+});
+
+window.addEventListener('unhandledrejection', function(e) {
+    console.error('Unhandled promise rejection:', e.reason);
+    showNotification('Terjadi kesalahan sistem', 'error');
 });
