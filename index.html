@@ -698,6 +698,113 @@
                             </ul>
                         </div>
                     </div>
+                    <!-- Tambahkan di section id="dasar-ai" -->
+<div class="materi-item">
+    <h4>Sejarah Perkembangan AI</h4>
+    <p>Artificial Intelligence telah berkembang melalui beberapa tahap penting:</p>
+    <ul>
+        <li><strong>1950-an:</strong> Konsep AI pertama oleh Alan Turing dengan Turing Test - mengajukan pertanyaan "Can machines think?"</li>
+        <li><strong>1956:</strong> Istilah "Artificial Intelligence" pertama kali digunakan di Dartmouth Conference oleh John McCarthy</li>
+        <li><strong>1980-an:</strong> Sistem pakar dan symbolic AI berkembang, komputer bisa meniru kepakaran manusia</li>
+        <li><strong>1997:</strong> Deep Blue mengalahkan juara catur dunia Garry Kasparov</li>
+        <li><strong>2010-sekarang:</strong> Kebangkitan deep learning dan neural networks dengan big data</li>
+        <li><strong>2020+:</strong> Transformers dan Large Language Models (GPT, BERT) merevolusi NLP</li>
+    </ul>
+</div>
+
+<div class="materi-item">
+    <h4>Machine Learning vs Deep Learning</h4>
+    <div class="comparison-table-container">
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>Aspek</th>
+                    <th>Machine Learning</th>
+                    <th>Deep Learning</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Kebutuhan Data</td>
+                    <td>Bisa bekerja dengan data kecil hingga menengah</td>
+                    <td>Membutuhkan data dalam jumlah sangat besar</td>
+                </tr>
+                <tr>
+                    <td>Feature Engineering</td>
+                    <td>Manual diperlukan (domain knowledge)</td>
+                    <td>Otomatis melalui neural networks</td>
+                </tr>
+                <tr>
+                    <td>Kebutuhan Komputasi</td>
+                    <td>CPU cukup untuk sebagian besar kasus</td>
+                    <td>GPU/TPU diperlukan untuk training</td>
+                </tr>
+                <tr>
+                    <td>Interpretability</td>
+                    <td>Relatif mudah diinterpretasi</td>
+                    <td>Sulit diinterpretasi (black box)</td>
+                </tr>
+                <tr>
+                    <td>Contoh Algoritma</td>
+                    <td>Decision Trees, SVM, Random Forest</td>
+                    <td>CNN, RNN, Transformers</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="materi-item">
+    <h4>Ethical AI Principles</h4>
+    <div class="ethics-principles">
+        <div class="principle">
+            <h5>🔒 Fairness & Inclusiveness</h5>
+            <p>AI harus adil dan tidak diskriminatif terhadap semua kelompok. Contoh bias AI: sistem perekrutan yang tidak adil terhadap gender tertentu.</p>
+        </div>
+        <div class="principle">
+            <h5>📖 Transparency & Explainability</h5>
+            <p>Proses pengambilan keputusan AI harus dapat dijelaskan dan dipahami oleh manusia (Explainable AI/XAI).</p>
+        </div>
+        <div class="principle">
+            <h5>🛡️ Privacy & Security</h5>
+            <p>Data pengguna harus dilindungi dengan enkripsi dan teknik privacy-preserving seperti federated learning.</p>
+        </div>
+        <div class="principle">
+            <h5>🎯 Human-centered Design</h5>
+            <p>AI harus dirancang untuk memperkuat kemampuan manusia, bukan menggantikannya sepenuhnya.</p>
+        </div>
+    </div>
+</div>
+
+<div class="materi-item">
+    <h4>Real-world AI Applications</h4>
+    <div class="ai-applications">
+        <div class="application-card">
+            <h5>🏥 Healthcare</h5>
+            <ul>
+                <li>Diagnosis penyakit dari gambar medis</li>
+                <li>Prediksi outbreak penyakit</li>
+                <li>Personalized medicine</li>
+            </ul>
+        </div>
+        <div class="application-card">
+            <h5>🚗 Autonomous Vehicles</h5>
+            <ul>
+                <li>Computer vision untuk deteksi objek</li>
+                <li>Reinforcement learning untuk navigasi</li>
+                <li>Sensor fusion dari LiDAR, camera, radar</li>
+            </ul>
+        </div>
+        <div class="application-card">
+            <h5>💬 Natural Language Processing</h5>
+            <ul>
+                <li>Chatbots dan virtual assistants</li>
+                <li>Terjemahan bahasa real-time</li>
+                <li>Analisis sentiment di social media</li>
+            </ul>
+        </div>
+    </div>
+</div>
 
                     <div id="dasar-python" class="zero-subcontent hidden">
                         <h3>Dasar Pemrograman Python</h3>
@@ -757,6 +864,231 @@ mahasiswa = {
 print(mahasiswa["nama"])  # Budi</code></pre>
                         </div>
                     </div>
+                    <!-- Tambahkan di section id="dasar-python" -->
+<div class="materi-item">
+    <h4>Struktur Data Lanjutan Python</h4>
+    
+    <h5>Set - Kumpulan Unik</h5>
+    <pre><code># Set - kumpulan unik dan tidak berurutan
+buah_set = {"apel", "jeruk", "mangga", "apel"}  # Duplikat otomatis dihapus
+print(buah_set)  # Output: {'apel', 'jeruk', 'mangga'}
+
+# Operasi set yang umum
+set_a = {1, 2, 3, 4, 5}
+set_b = {4, 5, 6, 7, 8}
+
+print(set_a.union(set_b))        # {1, 2, 3, 4, 5, 6, 7, 8}
+print(set_a.intersection(set_b)) # {4, 5}
+print(set_a.difference(set_b))   # {1, 2, 3}
+print(set_a.symmetric_difference(set_b)) # {1, 2, 3, 6, 7, 8}
+
+# Set comprehension
+kuadrat_set = {x**2 for x in range(1, 6)}  # {1, 4, 9, 16, 25}</code></pre>
+
+    <h5>Tuple - Immutable Sequences</h5>
+    <pre><code># Tuple - immutable (tidak bisa diubah setelah dibuat)
+koordinat = (10, 20)
+warna_rgb = (255, 0, 0)
+point_3d = (1.5, 2.8, 3.2)
+
+# Tuple unpacking (membongkar nilai)
+x, y = koordinat
+print(f"X: {x}, Y: {y}")  # X: 10, Y: 20
+
+# Tuple dengan satu elemen butuh koma
+single_tuple = (42,)  # Bukan (42) karena itu integer
+print(type(single_tuple))  # <class 'tuple'>
+
+# Named tuples (Python 3.6+)
+from collections import namedtuple
+Person = namedtuple('Person', ['name', 'age', 'city'])
+person1 = Person('Alice', 25, 'Jakarta')
+print(person1.name)  # Alice</code></pre>
+
+    <h5>Dictionary Methods Lanjutan</h5>
+    <pre><code># Dictionary operations
+student = {'name': 'Budi', 'age': 20, 'major': 'Computer Science'}
+
+# get() dengan default value
+print(student.get('grade', 'N/A'))  # N/A (tidak error)
+
+# setdefault() - set jika key tidak ada
+student.setdefault('grade', 'A')
+print(student)  # {'name': 'Budi', 'age': 20, 'major': 'Computer Science', 'grade': 'A'}
+
+# update() multiple items
+student.update({'age': 21, 'city': 'Bandung'})
+print(student)
+
+# Dictionary comprehension
+square_dict = {x: x**2 for x in range(1, 6)}
+print(square_dict)  # {1: 1, 2: 4, 3: 9, 4: 16, 5: 25}</code></pre>
+</div>
+
+<div class="materi-item">
+    <h4>File Handling dan Context Managers</h4>
+    <pre><code># Membaca file dengan context manager (auto close)
+try:
+    with open('data.txt', 'r', encoding='utf-8') as file:
+        content = file.read()
+        print("File content:", content)
+except FileNotFoundError:
+    print("File tidak ditemukan!")
+except IOError:
+    print("Error membaca file!")
+
+# Menulis file
+with open('output.txt', 'w') as file:
+    file.write("Baris pertama\n")
+    file.write("Baris kedua\n")
+
+# Menambahkan ke file (append mode)
+with open('log.txt', 'a') as file:
+    import datetime
+    timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    file.write(f"[{timestamp}] Aksi pengguna tercatat\n")
+
+# Reading line by line (efisien untuk file besar)
+with open('big_file.txt', 'r') as file:
+    for line_number, line in enumerate(file, 1):
+        print(f"Line {line_number}: {line.strip()}")</code></pre>
+</div>
+
+<div class="materi-item">
+    <h4>Comprehensive Error Handling</h4>
+    <pre><code># Multi-exception handling
+def safe_divide(a, b):
+    try:
+        result = a / b
+    except ZeroDivisionError:
+        return "Error: Pembagian dengan nol!"
+    except TypeError:
+        return "Error: Input harus angka!"
+    except Exception as e:
+        return f"Error tak terduga: {e}"
+    else:
+        return f"Hasil: {result}"
+    finally:
+        print("Blok finally selalu dijalankan")
+
+print(safe_divide(10, 2))   # Hasil: 5.0
+print(safe_divide(10, 0))   # Error: Pembagian dengan nol!
+print(safe_divide(10, 'a')) # Error: Input harus angka!
+
+# Custom exceptions
+class NilaiTerlaluTinggiError(Exception):
+    def __init__(self, nilai, maksimum):
+        self.nilai = nilai
+        self.maksimum = maksimum
+        super().__init__(f"Nilai {nilai} melebihi batas maksimum {maksimum}")
+
+def validasi_nilai(nilai):
+    if nilai > 100:
+        raise NilaiTerlaluTinggiError(nilai, 100)
+    return "Nilai valid"
+
+try:
+    print(validasi_nilai(150))
+except NilaiTerlaluTinggiError as e:
+    print(f"Error: {e}")</code></pre>
+</div>
+
+<div class="materi-item">
+    <h4>Advanced Comprehensions dan Generators</h4>
+    <pre><code># List comprehensions dengan kondisi kompleks
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+# Hanya bilangan genap yang kuadratnya > 20
+result = [x**2 for x in numbers if x % 2 == 0 and x**2 > 20]
+print(result)  # [36, 64, 100]
+
+# Nested list comprehension
+matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+flattened = [num for row in matrix for num in row]
+print(flattened)  # [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+# Dictionary comprehension dengan kondisi
+students = {'Alice': 85, 'Bob': 92, 'Charlie': 78, 'Diana': 95}
+top_students = {name: score for name, score in students.items() if score >= 90}
+print(top_students)  # {'Bob': 92, 'Diana': 95}
+
+# Generator expressions (memory efficient)
+# Gunakan () bukan []
+big_data = (x**2 for x in range(1000000))  # Tidak langsung menghitung semua
+print(next(big_data))  # 0
+print(next(big_data))  # 1
+
+# Generator function dengan yield
+def fibonacci_generator(limit):
+    a, b = 0, 1
+    count = 0
+    while count < limit:
+        yield a
+        a, b = b, a + b
+        count += 1
+
+# Menggunakan generator
+fib_gen = fibonacci_generator(10)
+for num in fib_gen:
+    print(num, end=' ')  # 0 1 1 2 3 5 8 13 21 34</code></pre>
+</div>
+
+<div class="materi-item">
+    <h4>Object-Oriented Programming (OOP) Lanjutan</h4>
+    <pre><code># Inheritance dan Polymorphism
+class Animal:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+    
+    def speak(self):
+        raise NotImplementedError("Subclass harus implement method ini")
+    
+    def info(self):
+        return f"{self.name} ({self.age} years)"
+
+class Dog(Animal):
+    def __init__(self, name, age, breed):
+        super().__init__(name, age)
+        self.breed = breed
+    
+    def speak(self):
+        return "Woof!"
+    
+    def info(self):
+        return f"{super().info()} - Breed: {self.breed}"
+
+class Cat(Animal):
+    def speak(self):
+        return "Meow!"
+
+# Penggunaan
+animals = [Dog("Buddy", 3, "Golden Retriever"), Cat("Whiskers", 2)]
+for animal in animals:
+    print(f"{animal.info()} says: {animal.speak()}")
+
+# Property decorators
+class Circle:
+    def __init__(self, radius):
+        self._radius = radius
+    
+    @property
+    def radius(self):
+        return self._radius
+    
+    @radius.setter
+    def radius(self, value):
+        if value <= 0:
+            raise ValueError("Radius harus positif")
+        self._radius = value
+    
+    @property
+    def area(self):
+        return 3.14159 * self._radius ** 2
+
+circle = Circle(5)
+print(f"Radius: {circle.radius}, Area: {circle.area:.2f}")</code></pre>
+</div>
 
                     <div id="fullstack-dev" class="zero-subcontent hidden">
                         <h3>Full-Stack Development</h3>
@@ -829,7 +1161,326 @@ document.getElementById("judul")
 &lt;/html&gt;</code></pre>
                         </div>
                     </div>
-                </div>
+                    <!-- Tambahkan di section id="fullstack-dev" -->
+<div class="materi-item">
+    <h4>Arsitektur Full-Stack Modern</h4>
+    <div class="architecture-diagram">
+        <div class="layer frontend">
+            <h5>🎨 Frontend (Client-side)</h5>
+            <ul>
+                <li><strong>HTML5</strong> - Semantic structure & accessibility</li>
+                <li><strong>CSS3</strong> - Flexbox, Grid, Animations, Variables</li>
+                <li><strong>JavaScript ES6+</strong> - Modern syntax, async/await</li>
+                <li><strong>Frontend Frameworks:</strong> React, Vue, Angular, Svelte</li>
+                <li><strong>State Management:</strong> Redux, Vuex, Context API</li>
+                <li><strong>Build Tools:</strong> Webpack, Vite, Parcel</li>
+            </ul>
+        </div>
+        
+        <div class="layer backend">
+            <h5>⚙️ Backend (Server-side)</h5>
+            <ul>
+                <li><strong>Server Runtime:</strong> Node.js, Python, Java, Go</li>
+                <li><strong>Web Frameworks:</strong> Express.js, Django, Spring, Laravel</li>
+                <li><strong>Database:</strong> MySQL, PostgreSQL, MongoDB, Redis</li>
+                <li><strong>APIs:</strong> REST, GraphQL, WebSocket, gRPC</li>
+                <li><strong>Authentication:</strong> JWT, OAuth2, Session-based</li>
+                <li><strong>Caching:</strong> Redis, Memcached, CDN</li>
+            </ul>
+        </div>
+        
+        <div class="layer devops">
+            <h5>🚀 DevOps & Infrastructure</h5>
+            <ul>
+                <li><strong>Containerization:</strong> Docker, Kubernetes</li>
+                <li><strong>Cloud Platforms:</strong> AWS, GCP, Azure, Vercel</li>
+                <li><strong>CI/CD:</strong> GitHub Actions, GitLab CI, Jenkins</li>
+                <li><strong>Monitoring:</strong> Prometheus, Grafana, New Relic</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="materi-item">
+    <h4>REST API Design Best Practices</h4>
+    
+    <h5>API Endpoint Structure</h5>
+    <pre><code>// RESTful Resource Naming Convention
+GET    /api/users                 // List all users
+GET    /api/users/123            // Get user by ID
+POST   /api/users                // Create new user
+PUT    /api/users/123            // Update user (full replace)
+PATCH  /api/users/123            // Partial update
+DELETE /api/users/123            // Delete user
+
+// Nested resources
+GET    /api/users/123/posts      // Get user's posts
+POST   /api/users/123/posts      // Create post for user
+
+// Filtering, Sorting, Pagination
+GET    /api/users?page=2&limit=10&sort=name&role=admin</code></pre>
+
+    <h5>HTTP Status Codes Meaning</h5>
+    <div class="status-codes">
+        <div class="status-group success">
+            <h6>2xx - Success</h6>
+            <ul>
+                <li><strong>200 OK</strong> - Request berhasil</li>
+                <li><strong>201 Created</strong> - Resource berhasil dibuat</li>
+                <li><strong>204 No Content</strong> - Success tanpa response body</li>
+            </ul>
+        </div>
+        <div class="status-group client-error">
+            <h6>4xx - Client Errors</h6>
+            <ul>
+                <li><strong>400 Bad Request</strong> - Request syntax invalid</li>
+                <li><strong>401 Unauthorized</strong> - Butuh authentication</li>
+                <li><strong>403 Forbidden</strong> - Tidak punya akses</li>
+                <li><strong>404 Not Found</strong> - Resource tidak ditemukan</li>
+                <li><strong>429 Too Many Requests</strong> - Rate limiting</li>
+            </ul>
+        </div>
+        <div class="status-group server-error">
+            <h6>5xx - Server Errors</h6>
+            <ul>
+                <li><strong>500 Internal Server Error</strong> - Generic server error</li>
+                <li><strong>502 Bad Gateway</strong> - Invalid response dari upstream</li>
+                <li><strong>503 Service Unavailable</strong> - Server overload/maintenance</li>
+            </ul>
+        </div>
+    </div>
+
+    <h5>API Response Format Standard</h5>
+    <pre><code>// Success Response
+{
+  "status": "success",
+  "data": {
+    "user": {
+      "id": 123,
+      "name": "John Doe",
+      "email": "john@example.com"
+    }
+  },
+  "message": "User retrieved successfully"
+}
+
+// Error Response
+{
+  "status": "error",
+  "error": {
+    "code": "VALIDATION_ERROR",
+    "message": "Email is required",
+    "details": [
+      {
+        "field": "email",
+        "message": "Email cannot be empty"
+      }
+    ]
+  },
+  "timestamp": "2024-01-15T10:30:00Z"
+}</code></pre>
+</div>
+
+<div class="materi-item">
+    <h4>Database Design & Optimization</h4>
+    
+    <h5>SQL vs NoSQL Comparison</h5>
+    <table class="db-comparison">
+        <thead>
+            <tr>
+                <th>Feature</th>
+                <th>SQL (Relational)</th>
+                <th>NoSQL (Non-relational)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Schema</td>
+                <td>Fixed, predefined schema</td>
+                <td>Dynamic, flexible schema</td>
+            </tr>
+            <tr>
+                <td>Data Structure</td>
+                <td>Tables with rows and columns</td>
+                <td>Documents, key-value, graph, column-family</td>
+            </tr>
+            <tr>
+                <td>Scalability</td>
+                <td>Vertical scaling</td>
+                <td>Horizontal scaling</td>
+            </tr>
+            <tr>
+                <td>ACID Properties</td>
+                <td>Strong consistency</td>
+                <td>Eventual consistency (BASE)</td>
+            </tr>
+            <tr>
+                <td>Use Cases</td>
+                <td>Complex queries, transactions</td>
+                <td>Big data, real-time web apps</td>
+            </tr>
+            <tr>
+                <td>Examples</td>
+                <td>MySQL, PostgreSQL, SQL Server</td>
+                <td>MongoDB, Redis, Cassandra, Neo4j</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h5>Database Normalization Principles</h5>
+    <pre><code>-- Contoh Normalized Database Schema
+-- Users Table
+CREATE TABLE users (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- Posts Table dengan foreign key
+CREATE TABLE posts (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT NOT NULL,
+    title VARCHAR(200) NOT NULL,
+    content TEXT,
+    status ENUM('draft', 'published', 'archived') DEFAULT 'draft',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    INDEX idx_user_id (user_id),
+    INDEX idx_created_at (created_at)
+);
+
+-- Tags Table (Many-to-Many relationship)
+CREATE TABLE tags (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50) UNIQUE NOT NULL
+);
+
+-- Junction table untuk posts dan tags
+CREATE TABLE post_tags (
+    post_id INT,
+    tag_id INT,
+    PRIMARY KEY (post_id, tag_id),
+    FOREIGN KEY (post_id) REFERENCES posts(id) ON DELETE CASCADE,
+    FOREIGN KEY (tag_id) REFERENCES tags(id) ON DELETE CASCADE
+);</code></pre>
+
+    <h5>SQL Query Optimization Tips</h5>
+    <pre><code>-- 1. Gunakan EXPLAIN untuk menganalisis query
+EXPLAIN SELECT * FROM users WHERE email = 'test@example.com';
+
+-- 2. Hindari SELECT * (pilih kolom yang diperlukan)
+SELECT id, username, email FROM users; -- Bukan SELECT *
+
+-- 3. Gunakan JOIN dengan kondisi yang tepat
+SELECT u.username, p.title 
+FROM users u 
+INNER JOIN posts p ON u.id = p.user_id 
+WHERE u.status = 'active';
+
+-- 4. Index kolom yang sering di-query
+CREATE INDEX idx_user_email ON users(email);
+CREATE INDEX idx_post_user_status ON posts(user_id, status);
+
+-- 5. Batasi hasil dengan LIMIT untuk pagination
+SELECT * FROM posts 
+WHERE status = 'published' 
+ORDER BY created_at DESC 
+LIMIT 10 OFFSET 0; -- Page 1
+
+-- 6. Gunakan prepared statements untuk keamanan
+-- (Dalam application code)
+PREPARE user_query FROM 'SELECT * FROM users WHERE id = ?';
+SET @user_id = 123;
+EXECUTE user_query USING @user_id;</code></pre>
+</div>
+
+<div class="materi-item">
+    <h4>Modern Development Workflow & Tools</h4>
+    
+    <h5>Git Version Control Mastery</h5>
+    <pre><code># Git Workflow yang Efektif
+git init                            # Inisialisasi repository baru
+git add .                           # Stage semua perubahan
+git commit -m "feat: add user authentication"  # Commit dengan convention
+git push origin main               # Push ke remote
+
+# Branch strategy (Git Flow)
+git branch feature/user-profile     # Buat feature branch
+git checkout feature/user-profile   # Switch ke branch
+git merge feature/user-profile      # Merge ke main setelah review
+
+# Git conventions untuk commit messages
+# feat:     New feature
+# fix:      Bug fix
+# docs:     Documentation changes
+# style:    Formatting, missing semi-colons, etc
+# refactor: Code refactoring
+# test:     Adding tests
+# chore:    Maintenance tasks
+
+# Contoh commit messages yang baik:
+# feat(auth): implement JWT authentication
+# fix(api): resolve user validation issue
+# docs(readme): update installation guide</code></pre>
+
+    <h5>Package Management Ecosystem</h5>
+    <div class="package-managers">
+        <div class="package-manager">
+            <h6>📦 npm (Node.js)</h6>
+            <pre><code>npm init                    # Initialize project
+npm install express         # Install package
+npm install -D jest         # Install dev dependency
+npm run build              # Run script</code></pre>
+        </div>
+        <div class="package-manager">
+            <h6>🐍 pip (Python)</h6>
+            <pre><code>pip install django          # Install package
+pip install -r requirements.txt  # Install from file
+pip freeze > requirements.txt    # Generate requirements</code></pre>
+        </div>
+        <div class="package-manager">
+            <h6>📚 Composer (PHP)</h6>
+            <pre><code>composer init               # Initialize project
+composer require laravel/laravel  # Install package
+composer update            # Update dependencies</code></pre>
+        </div>
+    </div>
+
+    <h5>Environment Configuration & Security</h5>
+    <pre><code>// .env file (JANGAN commit ke version control!)
+DATABASE_URL=mysql://username:password@localhost:3306/dbname
+JWT_SECRET=your-super-secret-key-here
+API_KEY=your-api-key
+NODE_ENV=production
+
+// config.js - Load environment variables
+require('dotenv').config();
+
+const config = {
+    database: {
+        url: process.env.DATABASE_URL,
+        pool: {
+            max: 10,
+            min: 2,
+            acquire: 30000,
+            idle: 10000
+        }
+    },
+    jwt: {
+        secret: process.env.JWT_SECRET,
+        expiresIn: '24h'
+    },
+    api: {
+        port: process.env.PORT || 3000,
+        corsOrigin: process.env.CORS_ORIGIN || 'http://localhost:3000'
+    }
+};
+
+module.exports = config;</code></pre>
+</div>
             </section>
         </main>
     </div>
