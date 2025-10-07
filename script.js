@@ -1386,7 +1386,7 @@ document.addEventListener('DOMContentLoaded', () => {
     updateProgressUI();
     
     setTimeout(() => {
-        showNotification('Selamat belajar di Lolakarya! 🚀', 'info', 4000);
+        showNotification('Selamat belajar! 🚀', 'info', 4000);
     }, 1000);
     
     document.addEventListener('keydown', function(e) {
