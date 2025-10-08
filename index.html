@@ -803,280 +803,929 @@
                     </div>
 
                     <div id="dasar-python" class="zero-subcontent hidden">
-                        <h3>Dasar Pemrograman Python</h3>
-                        <div class="materi-item">
-                            <h4>Pengenalan Python</h4>
-                            <p>Python adalah bahasa pemrograman tingkat tinggi yang mudah dipelajari dengan sintaks yang readable.</p>
-                            <pre><code>print("Hello, World!")</code></pre>
-                        </div>
-                        <div class="materi-item">
-                            <h4>Variabel dan Tipe Data</h4>
-                            <pre><code>nama = "Budi"          # string
-umur = 20             # integer
-tinggi = 170.5        # float
-is_student = True     # boolean</code></pre>
-                        </div>
-                        <div class="materi-item">
-                            <h4>Operator</h4>
-                            <pre><code># Aritmatika
-hasil = 10 + 5        # Penjumlahan
-hasil = 10 * 2        # Perkalian
+                        <h3>🐍 Python Dasar hingga Tingkat Lanjut</h3>
 
-# Perbandingan
-is_sama = (5 == 5)    # True
-is_lebih_besar = (10 > 5)  # True</code></pre>
-                        </div>
                         <div class="materi-item">
-                            <h4>Struktur Kontrol</h4>
-                            <pre><code># If-else
-if umur >= 18:
-    print("Dewasa")
+                            <h4>Fundamental Python</h4>
+                            <h5>Variabel & Tipe Data</h5>
+                            <p>Penjelasan: Variabel adalah tempat menyimpan data dalam memori. Python menggunakan dynamic typing, artinya tipe data ditentukan otomatis berdasarkan nilai yang diberikan.</p>
+                            <pre><code># Tipe Data Dasar
+nama = "Alice"              # str - untuk teks
+usia = 25                   # int - bilangan bulat
+tinggi = 165.5              # float - bilangan desimal
+is_active = True            # bool - True atau False
+
+# Tipe Data Koleksi
+buah = ["apel", "pisang"]   # list - urutan yang bisa diubah
+koordinat = (10, 20)        # tuple - urutan yang tidak bisa diubah
+warna = {"merah", "hijau"}  # set - kumpulan unik tidak berurutan
+person = {"nama": "Alice"}  # dict - pasangan key-value</code></pre>
+                            <p>Konsep Penting:</p>
+                            <ul>
+                                <li>Mutable vs Immutable: List bisa diubah, Tuple tidak bisa diubah</li>
+                                <li>Dynamic Typing: Tidak perlu deklarasi tipe data</li>
+                                <li>Case Sensitive: nama dan Nama adalah variabel berbeda</li>
+                            </ul>
+
+                            <h5>Operator</h5>
+                            <p>Penjelasan: Operator adalah simbol untuk melakukan operasi pada variabel dan nilai.</p>
+                            <pre><code># Aritmetika
+print(10 + 3)   # 13 - penambahan
+print(10 - 3)   # 7 - pengurangan  
+print(10 * 3)   # 30 - perkalian
+print(10 / 3)   # 3.333 - pembagian
+print(10 ** 3)  # 1000 - pangkat
+print(10 // 3)  # 3 - pembagian bulat
+print(10 % 3)   # 1 - modulus/sisa
+
+# Perbandingan (return boolean)
+print(5 > 3)    # True - lebih besar
+print(5 == 3)   # False - sama dengan
+print(5 != 3)   # True - tidak sama dengan
+
+# Logika
+print(True and False)  # False - DAN
+print(True or False)   # True - ATAU
+print(not True)        # False - BUKAN</code></pre>
+                            <p>Konsep Penting:</p>
+                            <ul>
+                                <li>Operator Aritmetika untuk perhitungan matematika</li>
+                                <li>Operator Perbandingan menghasilkan nilai boolean</li>
+                                <li>Operator Logika untuk menggabungkan kondisi</li>
+                            </ul>
+
+                            <h5>Control Flow</h5>
+                            <p>Penjelasan: Control flow mengatur alur eksekusi program berdasarkan kondisi dan perulangan.</p>
+                            <pre><code># Kondisional - membuat keputusan
+usia = 18
+if usia >= 18:
+    print("Dewasa")        # dieksekusi jika kondisi True
+elif usia > 13:
+    print("Remaja")        # dieksekusi jika kondisi if False
 else:
-    print("Anak-anak")
+    print("Anak-anak")     # dieksekusi jika semua kondisi False
 
-# Loop
-for i in range(5):
-    print(i)</code></pre>
+# Perulangan for - untuk iterasi sequence
+for i in range(5):         # range(5) = [0, 1, 2, 3, 4]
+    print(i)               # mencetak 0, 1, 2, 3, 4
+
+# Perulangan while - selama kondisi True
+count = 0
+while count < 5:           # ulangi selama count < 5
+    print(count)
+    count += 1             # increment count</code></pre>
+                            <p>Konsep Penting:</p>
+                            <ul>
+                                <li>If-elif-else untuk pengambilan keputusan</li>
+                                <li>For loop untuk iterasi yang diketahui jumlahnya</li>
+                                <li>While loop untuk iterasi selama kondisi terpenuhi</li>
+                                <li>range() menghasilkan sequence angka</li>
+                            </ul>
                         </div>
+
                         <div class="materi-item">
-                            <h4>Fungsi</h4>
+                            <h4>Fungsi dan Modularitas</h4>
+                            <h5>Fungsi Dasar</h5>
+                            <p>Penjelasan: Fungsi adalah blok kode yang dapat digunakan berulang kali. Membantu dalam modularitas dan menghindari duplikasi kode.</p>
                             <pre><code>def sapa(nama):
+    """
+    Fungsi untuk menyapa pengguna.
+    
+    Parameter:
+    nama (str): Nama orang yang disapa
+    
+    Returns:
+    str: Salam dengan nama
+    """
     return f"Halo, {nama}!"
 
-print(sapa("Alice"))</code></pre>
-                        </div>
-                        <div class="materi-item">
-                            <h4>List dan Dictionary</h4>
-                            <pre><code># List
-buah = ["apel", "jeruk", "mangga"]
-print(buah[0])  # apel
+# Pemanggilan fungsi
+print(sapa("Budi"))  # Output: Halo, Budi!
 
-# Dictionary
+# Fungsi dengan parameter default
+def sapa(nama="Pengguna"):
+    return f"Halo, {nama}!"
+
+print(sapa())  # Output: Halo, Pengguna!</code></pre>
+                            <p>Konsep Penting:</p>
+                            <ul>
+                                <li>def keyword untuk mendefinisikan fungsi</li>
+                                <li>Parameter adalah input fungsi</li>
+                                <li>Return mengembalikan nilai</li>
+                                <li>Docstring untuk dokumentasi</li>
+                            </ul>
+
+                            <h5>Fungsi Lanjutan</h5>
+                            <p>Penjelasan: Python mendukung fungsi tingkat lanjut seperti lambda, args, kwargs untuk fleksibilitas.</p>
+                            <pre><code># Lambda Function - fungsi anonim satu baris
+tambah = lambda x, y: x + y
+print(tambah(5, 3))  # Output: 8
+
+# Fungsi dengan *args - menerima banyak argument posisional
+def tampilkan_args(*args):
+    for arg in args:
+        print(arg)
+
+tampilkan_args(1, 2, 3)  # Output: 1, 2, 3
+
+# Fungsi dengan **kwargs - menerima banyak argument keyword
+def tampilkan_kwargs(**kwargs):
+    for key, value in kwargs.items():
+        print(f"{key}: {value}")
+
+tampilkan_kwargs(nama="Alice", usia=25)
+
+# Fungsi Bawaan Penting
+panjang = len([1, 2, 3])        # menghitung panjang
+tipe = type(10)                 # mengecek tipe data
+jumlah = sum([1, 2, 3])         # menjumlahkan</code></pre>
+                            <p>Konsep Penting:</p>
+                            <ul>
+                                <li>Lambda untuk fungsi sederhana</li>
+                                <li>*args untuk parameter dinamis posisional</li>
+                                <li>**kwargs untuk parameter dinamis keyword</li>
+                                <li>Fungsi bawaan menyediakan utilitas umum</li>
+                            </ul>
+                        </div>
+
+                        <div class="materi-item">
+                            <h4>Struktur Data</h4>
+                            <h5>List - Ordered & Mutable</h5>
+                            <p>Penjelasan: List adalah struktur data ordered yang dapat diubah. Sangat fleksibel untuk menyimpan koleksi data.</p>
+                            <pre><code># Membuat list
+angka = [1, 2, 3, 4, 5]
+nama = ["Alice", "Bob", "Charlie"]
+
+# Operasi dasar
+angka.append(6)        # menambah di akhir → [1, 2, 3, 4, 5, 6]
+angka.insert(0, 0)     # menyisipkan di index 0 → [0, 1, 2, 3, 4, 5, 6]
+angka.pop()            # menghapus dari akhir → [0, 1, 2, 3, 4, 5]
+angka.remove(3)        # menghapus nilai 3 → [0, 1, 2, 4, 5]
+
+# Akses elemen
+print(angka[0])        # akses index 0 → 0
+print(angka[-1])       # akses dari belakang → 5
+
+# Slicing
+print(angka[1:4])      # dari index 1 sampai 3 → [1, 2, 4]</code></pre>
+                            <p>Konsep Penting:</p>
+                            <ul>
+                                <li>Mutable - bisa diubah setelah dibuat</li>
+                                <li>Ordered - urutan elemen terjaga</li>
+                                <li>Indexing - akses elemen dengan index</li>
+                                <li>Slicing - mengambil subset list</li>
+                            </ul>
+
+                            <h5>Tuple - Ordered & Immutable</h5>
+                            <p>Penjelasan: Tuple seperti list tetapi tidak bisa diubah setelah dibuat. Lebih cepat dan aman untuk data yang tetap.</p>
+                            <pre><code># Membuat tuple
+warna = ("merah", "hijau", "biru")
+koordinat = (10.5, 20.3)
+
+# Operasi
+print(warna[0])        # akses → "merah"
+print(len(warna))      # panjang → 3
+
+# Tidak bisa diubah
+# warna[0] = "kuning"  # ❌ Error: 'tuple' object does not support item assignment
+
+# Packing dan unpacking
+point = (x, y, z) = (1, 2, 3)  # packing dan unpacking
+print(x)  # 1</code></pre>
+                            <p>Konsep Penting:</p>
+                            <ul>
+                                <li>Immutable - tidak bisa diubah setelah dibuat</li>
+                                <li>Lebih cepat dari list untuk akses</li>
+                                <li>Aman untuk data konstan</li>
+                                <li>Bisa sebagai key dalam dictionary</li>
+                            </ul>
+
+                            <h5>Set - Unordered & Unique</h5>
+                            <p>Penjelasan: Set adalah kumpulan unik tidak berurutan. Berguna untuk operasi himpunan dan menghapus duplikat.</p>
+                            <pre><code># Membuat set
+angka = {1, 2, 3, 2, 1}        # otomatis menghapus duplikat → {1, 2, 3}
+warna = set(["merah", "hijau"]) # dari list
+
+# Operasi
+angka.add(4)           # menambah elemen → {1, 2, 3, 4}
+angka.remove(2)        # menghapus elemen → {1, 3, 4}
+
+# Operasi himpunan
+A = {1, 2, 3}
+B = {3, 4, 5}
+
+print(A.union(B))          # gabungan → {1, 2, 3, 4, 5}
+print(A.intersection(B))   # irisan → {3}
+print(A.difference(B))     # selisih → {1, 2}</code></pre>
+                            <p>Konsep Penting:</p>
+                            <ul>
+                                <li>Unordered - tidak ada urutan tertentu</li>
+                                <li>Unique - tidak ada elemen duplikat</li>
+                                <li>Fast membership testing - in operation sangat cepat</li>
+                                <li>Operasi himpunan - union, intersection, difference</li>
+                            </ul>
+
+                            <h5>Dictionary - Key-Value Pairs</h5>
+                            <p>Penjelasan: Dictionary menyimpan data sebagai pasangan key-value. Sangat efisien untuk pencarian berdasarkan key.</p>
+                            <pre><code># Membuat dictionary
 mahasiswa = {
-    "nama": "Budi",
-    "nim": "12345",
-    "prodi": "Informatika"
+    "nama": "Alice",
+    "usia": 20,
+    "jurusan": "Informatika"
 }
-print(mahasiswa["nama"])  # Budi</code></pre>
+
+# Akses data
+print(mahasiswa["nama"])        # akses dengan key → "Alice"
+print(mahasiswa.get("alamat", "Tidak ada"))  # akses aman → "Tidak ada"
+
+# Operasi
+mahasiswa["alamat"] = "Jakarta"  # menambah key-value baru
+del mahasiswa["jurusan"]         # menghapus key
+
+# Method penting
+print(mahasiswa.keys())          # semua keys
+print(mahasiswa.values())        # semua values  
+print(mahasiswa.items())         # semua key-value pairs</code></pre>
+                            <p>Konsep Penting:</p>
+                            <ul>
+                                <li>Key-value pairs - data disimpan sebagai pasangan</li>
+                                <li>Fast lookup - pencarian berdasarkan key sangat cepat</li>
+                                <li>Keys must be hashable - biasanya string atau angka</li>
+                                <li>Unordered (sebelum Python 3.7), ordered (Python 3.7+)</li>
+                            </ul>
+
+                            <h5>String Operations</h5>
+                            <p>Penjelasan: String adalah sequence karakter. Python menyediakan banyak method untuk memanipulasi string.</p>
+                            <pre><code>teks = " Hello Python World "
+
+# Method dasar
+print(teks.strip())              # menghapus spasi di kedua ujung → "Hello Python World"
+print(teks.lower())              # huruf kecil → " hello python world "
+print(teks.upper())              # huruf besar → " HELLO PYTHON WORLD "
+print(teks.replace("H", "J"))    # mengganti substring → " Jello Python World "
+
+# Pencarian dan pengecekan
+print(teks.find("Python"))       # mencari index → 7
+print(teks.startswith(" Hello")) # cek awalan → True
+print(teks.endswith("World "))   # cek akhiran → True
+
+# Split dan join
+kata = teks.strip().split(" ")   # memisah menjadi list → ['Hello', 'Python', 'World']
+gabung = "-".join(kata)          # menggabungkan dengan separator → "Hello-Python-World"</code></pre>
+                            <p>Konsep Penting:</p>
+                            <ul>
+                                <li>Immutable - string tidak bisa diubah</li>
+                                <li>Sequence operations - indexing, slicing</li>
+                                <li>Rich method set - banyak method built-in</li>
+                                <li>String formatting - f-string, format()</li>
+                            </ul>
                         </div>
+
                         <div class="materi-item">
-                            <h4>Struktur Data Lanjutan Python</h4>
-                            <h5>Set - Kumpulan Unik</h5>
-                            <pre><code># Set - kumpulan unik dan tidak berurutan
-buah_set = {"apel", "jeruk", "mangga", "apel"}  # Duplikat otomatis dihapus
-print(buah_set)  # Output: {'apel', 'jeruk', 'mangga'}
+                            <h4>Control Flow Lanjutan</h4>
+                            <h5>Python Keywords</h5>
+                            <p>Penjelasan: Keywords adalah kata-kata yang dicadangkan Python dan tidak bisa digunakan sebagai nama variabel.</p>
+                            <pre><code>import keyword
 
-# Operasi set yang umum
-set_a = {1, 2, 3, 4, 5}
-set_b = {4, 5, 6, 7, 8}
+# Melihat semua keyword Python
+print(keyword.kwlist)
 
-print(set_a.union(set_b))        # {1, 2, 3, 4, 5, 6, 7, 8}
-print(set_a.intersection(set_b)) # {4, 5}
-print(set_a.difference(set_b))   # {1, 2, 3}
-print(set_a.symmetric_difference(set_b)) # {1, 2, 3, 6, 7, 8}
+# Keyword penting:
+# - Control flow: if, elif, else, for, while, break, continue
+# - Function: def, return, lambda  
+# - OOP: class, self
+# - Modules: import, from, as
+# - Error handling: try, except, finally, raise
+# - Logic: and, or, not, in, is
+
+# Contoh penggunaan keyword
+for i in range(3):
+    if i == 1:
+        continue  # skip iterasi ini
+    print(i)  # Output: 0, 2</code></pre>
+                            <p>Konsep Penting:</p>
+                            <ul>
+                                <li>Reserved words - tidak bisa digunakan sebagai identifier</li>
+                                <li>Specific purposes - setiap keyword punya fungsi khusus</li>
+                                <li>Case sensitive - semua keyword lowercase</li>
+                            </ul>
+
+                            <h5>List Comprehension</h5>
+                            <p>Penjelasan: Cara ringkas dan Pythonic untuk membuat list berdasarkan list yang ada.</p>
+                            <pre><code># Basic comprehension
+kuadrat = [x**2 for x in range(5)]  # [0, 1, 4, 9, 16]
+
+# Dengan kondisi
+genap = [x for x in range(10) if x % 2 == 0]  # [0, 2, 4, 6, 8]
+
+# Dengan if-else
+label = ['Genap' if x % 2 == 0 else 'Ganjil' for x in range(5)]  
+# ['Genap', 'Ganjil', 'Genap', 'Ganjil', 'Genap']
+
+# Nested comprehension
+matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+flat = [num for row in matrix for num in row]  # [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 # Set comprehension
-kuadrat_set = {x**2 for x in range(1, 6)}  # {1, 4, 9, 16, 25}</code></pre>
+unik = {x for x in [1, 2, 2, 3, 3, 4]}  # {1, 2, 3, 4}
 
-                            <h5>Tuple - Immutable Sequences</h5>
-                            <pre><code># Tuple - immutable (tidak bisa diubah setelah dibuat)
-koordinat = (10, 20)
-warna_rgb = (255, 0, 0)
-point_3d = (1.5, 2.8, 3.2)
-
-# Tuple unpacking (membongkar nilai)
-x, y = koordinat
-print(f"X: {x}, Y: {y}")  # X: 10, Y: 20
-
-# Tuple dengan satu elemen butuh koma
-single_tuple = (42,)  # Bukan (42) karena itu integer
-print(type(single_tuple))  # <class 'tuple'>
-
-# Named tuples (Python 3.6+)
-from collections import namedtuple
-Person = namedtuple('Person', ['name', 'age', 'city'])
-person1 = Person('Alice', 25, 'Jakarta')
-print(person1.name)  # Alice</code></pre>
-
-                            <h5>Dictionary Methods Lanjutan</h5>
-                            <pre><code># Dictionary operations
-student = {'name': 'Budi', 'age': 20, 'major': 'Computer Science'}
-
-# get() dengan default value
-print(student.get('grade', 'N/A'))  # N/A (tidak error)
-
-# setdefault() - set jika key tidak ada
-student.setdefault('grade', 'A')
-print(student)  # {'name': 'Budi', 'age': 20, 'major': 'Computer Science', 'grade': 'A'}
-
-# update() multiple items
-student.update({'age': 21, 'city': 'Bandung'})
-print(student)
-
-# Dictionary comprehension
-square_dict = {x: x**2 for x in range(1, 6)}
-print(square_dict)  # {1: 1, 2: 4, 3: 9, 4: 16, 5: 25}</code></pre>
+# Dict comprehension
+kuadrat_dict = {x: x**2 for x in range(5)}  # {0: 0, 1: 1, 2: 4, 3: 9, 4: 16}</code></pre>
+                            <p>Konsep Penting:</p>
+                            <ul>
+                                <li>Concise - lebih ringkas dari loop biasa</li>
+                                <li>Readable - mudah dibaca setelah terbiasa</li>
+                                <li>Efficient - sering lebih cepat dari loop</li>
+                                <li>Versatile - bisa untuk list, set, dict</li>
+                            </ul>
                         </div>
+
                         <div class="materi-item">
-                            <h4>File Handling dan Context Managers</h4>
-                            <pre><code># Membaca file dengan context manager (auto close)
+                            <h4>Pemrograman Berorientasi Objek (OOP)</h4>
+                            <h5>Class & Objects</h5>
+                            <p>Penjelasan: Class adalah blueprint untuk membuat objek. Objek adalah instance dari class yang memiliki atribut dan method.</p>
+                            <pre><code>class Mobil:
+    # Class variable - dibagi semua instance
+    roda = 4
+    
+    def __init__(self, merek, model, tahun):
+        # Instance variables - unik untuk setiap objek
+        self.merek = merek
+        self.model = model 
+        self.tahun = tahun
+        self.kecepatan = 0
+    
+    # Method - perilaku objek
+    def info(self):
+        return f"{self.merek} {self.model} ({self.tahun})"
+    
+    def percepat(self, tambahan):
+        self.kecepatan += tambahan
+        return f"Kecepatan sekarang: {self.kecepatan} km/jam"
+
+# Membuat objek
+mobil1 = Mobil("Toyota", "Camry", 2020)
+print(mobil1.info())  # Toyota Camry (2020)
+print(mobil1.percepat(50))  # Kecepatan sekarang: 50 km/jam</code></pre>
+                            <p>Konsep Penting:</p>
+                            <ul>
+                                <li>Class template/blueprint</li>
+                                <li>Object instance dari class</li>
+                                <li>init constructor method</li>
+                                <li>self referensi ke instance saat ini</li>
+                                <li>Methods fungsi dalam class</li>
+                            </ul>
+
+                            <h5>Inheritance</h5>
+                            <p>Penjelasan: Inheritance memungkinkan class mewarisi atribut dan method dari class lain. Mendukung code reuse.</p>
+                            <pre><code>class Animal:  # Parent class
+    def __init__(self, nama, spesies):
+        self.nama = nama
+        self.spesies = spesies
+    
+    def bersuara(self):
+        print("Bunyi hewan")
+    
+    def info(self):
+        return f"{self.nama} ({self.spesies})"
+
+class Kucing(Animal):  # Child class
+    def __init__(self, nama, ras):
+        # Memanggil constructor parent class
+        super().__init__(nama, "Kucing")
+        self.ras = ras
+    
+    # Override method parent
+    def bersuara(self):
+        print("Meong!")
+    
+    # Method tambahan
+    def mendengkur(self):
+        print("Purrr...")
+
+# Penggunaan
+kucing1 = Kucing("Kitty", "Persia")
+print(kucing1.info())  # Kitty (Kucing)
+kucing1.bersuara()     # Meong!
+kucing1.mendengkur()   # Purrr...</code></pre>
+                            <p>Konsep Penting:</p>
+                            <ul>
+                                <li>Parent/Child classes - hubungan hierarki</li>
+                                <li>super() - akses parent class</li>
+                                <li>Method overriding - mengubah perilaku method parent</li>
+                                <li>Code reuse - menghindari duplikasi</li>
+                            </ul>
+
+                            <h5>Encapsulation</h5>
+                            <p>Penjelasan: Encapsulation menyembunyikan detail implementasi dan hanya mengekspos apa yang diperlukan.</p>
+                            <pre><code>class BankAccount:
+    def __init__(self, pemilik, saldo_awal=0):
+        self.pemilik = pemilik
+        self.__saldo = saldo_awal  # Private attribute
+    
+    # Getter method
+    def get_saldo(self):
+        return self.__saldo
+    
+    # Setter method dengan validasi
+    def set_saldo(self, jumlah):
+        if jumlah >= 0:
+            self.__saldo = jumlah
+        else:
+            print("Saldo tidak boleh negatif")
+    
+    # Public method
+    def deposit(self, jumlah):
+        if jumlah > 0:
+            self.__saldo += jumlah
+            print(f"Deposit berhasil. Saldo: {self.__saldo}")
+        else:
+            print("Jumlah deposit harus positif")
+    
+    def withdraw(self, jumlah):
+        if 0 < jumlah <= self.__saldo:
+            self.__saldo -= jumlah
+            print(f"Penarikan berhasil. Saldo: {self.__saldo}")
+        else:
+            print("Jumlah tidak valid atau saldo tidak cukup")
+
+# Penggunaan
+akun = BankAccount("Alice", 1000)
+akun.deposit(500)      # Deposit berhasil. Saldo: 1500
+akun.withdraw(200)     # Penarikan berhasil. Saldo: 1300
+
+# Tidak bisa akses langsung private attribute
+# print(akun.__saldo)  # ❌ Error
+print(akun.get_saldo())  # ✅ 1300</code></pre>
+                            <p>Konsep Penting:</p>
+                            <ul>
+                                <li>Private attributes (__attr) tidak bisa diakses langsung dari luar</li>
+                                <li>Public methods interface untuk berinteraksi dengan objek</li>
+                                <li>Data protection mencegah modifikasi tidak sah</li>
+                                <li>Controlled access melalui getter/setter</li>
+                            </ul>
+
+                            <h5>Polymorphism</h5>
+                            <p>Penjelasan: Polymorphism memungkinkan objek berbeda merespon method yang sama dengan cara berbeda.</p>
+                            <pre><code>class Kucing:
+    def suara(self):
+        return "Meong!"
+
+class Anjing:
+    def suara(self):
+        return "Guk guk!"
+
+class Bebek:
+    def suara(self):
+        return "Kwek kwek!"
+
+# Fungsi yang menerima berbagai objek
+def panggil_hewan(hewan):
+    print(hewan.suara())
+
+# Polymorphism in action
+hewan1 = Kucing()
+hewan2 = Anjing() 
+hewan3 = Bebek()
+
+panggil_hewan(hewan1)  # Meong!
+panggil_hewan(hewan2)  # Guk guk!
+panggil_hewan(hewan3)  # Kwek kwek!
+
+# Built-in polymorphism
+print(len("Hello"))     # 5 - string
+print(len([1, 2, 3]))   # 3 - list
+print(len({"a": 1}))    # 1 - dictionary</code></pre>
+                            <p>Konsep Penting:</p>
+                            <ul>
+                                <li>Same interface, different implementation - interface sama, implementasi berbeda</li>
+                                <li>Method overriding - subclass mengubah method parent</li>
+                                <li>Duck typing - "Jika berjalan seperti bebek, bersuara seperti bebek, maka itu bebek"</li>
+                                <li>Flexibility - code yang bekerja dengan berbagai tipe</li>
+                            </ul>
+                        </div>
+
+                        <div class="materi-item">
+                            <h4>Struktur Data Lanjutan</h4>
+                            <h5>Stack & Queue</h5>
+                            <p>Penjelasan: Stack (LIFO) dan Queue (FIFO) adalah struktur data linear dengan pola akses tertentu.</p>
+                            <pre><code>from collections import deque
+
+# Stack (Last In First Out) - seperti tumpukan piring
+stack = []
+stack.append(1)  # Push → [1]
+stack.append(2)  # Push → [1, 2]  
+stack.append(3)  # Push → [1, 2, 3]
+print(stack.pop())  # Pop → 3 (yang terakhir masuk)
+print(stack.pop())  # Pop → 2
+
+# Queue (First In First Out) - seperti antrian
+queue = deque()
+queue.append(1)     # Enqueue → deque([1])
+queue.append(2)     # Enqueue → deque([1, 2])
+queue.append(3)     # Enqueue → deque([1, 2, 3])
+print(queue.popleft())  # Dequeue → 1 (yang pertama masuk)
+print(queue.popleft())  # Dequeue → 2
+
+# Use cases:
+# Stack: undo/redo, function calls, browser history
+# Queue: task scheduling, print queues, message queues</code></pre>
+                            <p>Konsep Penting:</p>
+                            <ul>
+                                <li>LIFO - Last In First Out (Stack)</li>
+                                <li>FIFO - First In First Out (Queue)</li>
+                                <li>deque - double-ended queue, efisien untuk stack dan queue</li>
+                                <li>Use case specific - pilih berdasarkan kebutuhan</li>
+                            </ul>
+
+                            <h5>File Handling</h5>
+                            <p>Penjelasan: Python menyediakan cara mudah untuk membaca, menulis, dan memanipulasi file.</p>
+                            <pre><code># Membaca file
 try:
-    with open('data.txt', 'r', encoding='utf-8') as file:
-        content = file.read()
-        print("File content:", content)
+    with open("data.txt", "r", encoding="utf-8") as file:
+        # Baca seluruh konten
+        konten = file.read()
+        print(konten)
+        
+        # Kembali ke awal file
+        file.seek(0)
+        
+        # Baca per baris
+        for baris in file:
+            print(baris.strip())
+            
 except FileNotFoundError:
     print("File tidak ditemukan!")
-except IOError:
-    print("Error membaca file!")
 
 # Menulis file
-with open('output.txt', 'w') as file:
+with open("output.txt", "w") as file:
     file.write("Baris pertama\n")
     file.write("Baris kedua\n")
 
-# Menambahkan ke file (append mode)
-with open('log.txt', 'a') as file:
-    import datetime
-    timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    file.write(f"[{timestamp}] Aksi pengguna tercatat\n")
+# Menambahkan ke file
+with open("output.txt", "a") as file:
+    file.write("Baris ketiga (ditambahkan)\n")
 
-# Reading line by line (efisien untuk file besar)
-with open('big_file.txt', 'r') as file:
-    for line_number, line in enumerate(file, 1):
-        print(f"Line {line_number}: {line.strip()}")</code></pre>
-                        </div>
-                        <div class="materi-item">
-                            <h4>Comprehensive Error Handling</h4>
-                            <pre><code># Multi-exception handling
-def safe_divide(a, b):
-    try:
-        result = a / b
-    except ZeroDivisionError:
-        return "Error: Pembagian dengan nol!"
-    except TypeError:
-        return "Error: Input harus angka!"
-    except Exception as e:
-        return f"Error tak terduga: {e}"
-    else:
-        return f"Hasil: {result}"
-    finally:
-        print("Blok finally selalu dijalankan")
+# File biner (gambar, dll)
+with open("image.jpg", "rb") as file:
+    data_biner = file.read()</code></pre>
+                            <p>Konsep Penting:</p>
+                            <ul>
+                                <li>with statement - automatically closes file</li>
+                                <li>Modes - "r" (read), "w" (write), "a" (append), "b" (binary)</li>
+                                <li>Encoding - penting untuk file teks non-ASCII</li>
+                                <li>Exception handling - handle file not found, permission errors</li>
+                            </ul>
 
-print(safe_divide(10, 2))   # Hasil: 5.0
-print(safe_divide(10, 0))   # Error: Pembagian dengan nol!
-print(safe_divide(10, 'a')) # Error: Input harus angka!
+                            <h5>Exception Handling</h5>
+                            <p>Penjelasan: Exception handling memungkinkan program menangani error dengan elegan tanpa crash.</p>
+                            <pre><code>try:
+    # Kode yang mungkin menyebabkan error
+    angka = int(input("Masukkan angka: "))
+    hasil = 10 / angka
+    file = open("data.txt", "r")
+    konten = file.read()
 
-# Custom exceptions
-class NilaiTerlaluTinggiError(Exception):
-    def __init__(self, nilai, maksimum):
-        self.nilai = nilai
-        self.maksimum = maksimum
-        super().__init__(f"Nilai {nilai} melebihi batas maksimum {maksimum}")
+except ValueError:
+    # Tangani error konversi
+    print("Error: Input harus angka!")
+    
+except ZeroDivisionError:
+    # Tangani pembagian dengan nol
+    print("Error: Tidak bisa dibagi dengan nol!")
+    
+except FileNotFoundError as e:
+    # Tangani file tidak ditemukan
+    print(f"Error: {e}")
+    
+except Exception as e:
+    # Tangani semua error lainnya
+    print(f"Error tak terduga: {e}")
+    
+else:
+    # Dieksekusi jika tidak ada exception
+    print("Operasi berhasil!")
+    file.close()
+    
+finally:
+    # Selalu dieksekusi, ada exception atau tidak
+    print("Block selesai dijalankan")
 
-def validasi_nilai(nilai):
-    if nilai > 100:
-        raise NilaiTerlaluTinggiError(nilai, 100)
-    return "Nilai valid"
+# Raising custom exceptions
+def validasi_usia(usia):
+    if usia < 0 or usia > 150:
+        raise ValueError("Usia harus antara 0 dan 150")
+    return True
 
 try:
-    print(validasi_nilai(150))
-except NilaiTerlaluTinggiError as e:
-    print(f"Error: {e}")</code></pre>
+    validasi_usia(200)
+except ValueError as e:
+    print(f"Error validasi: {e}")</code></pre>
+                            <p>Konsep Penting:</p>
+                            <ul>
+                                <li>Try-except - tangkap dan handle exceptions</li>
+                                <li>Specific exceptions - tangani exception spesifik</li>
+                                <li>Else - kode yang berjalan jika tidak ada exception</li>
+                                <li>Finally - kode yang selalu berjalan</li>
+                                <li>Raise - lempar exception manual</li>
+                            </ul>
+
+                            <h5>String Formatting</h5>
+                            <p>Penjelasan: Beberapa cara untuk memformat string dengan variabel.</p>
+                            <pre><code>nama = "Alice"
+usia = 25
+tinggi = 165.5
+
+# 1. f-strings (Python 3.6+) - Recommended!
+print(f"Nama: {nama}, Usia: {usia}, Tinggi: {tinggi:.1f}cm")
+
+# 2. .format() method
+print("Nama: {}, Usia: {}, Tinggi: {:.1f}cm".format(nama, usia, tinggi))
+print("Nama: {0}, Usia: {1}, Tinggi: {2:.1f}cm".format(nama, usia, tinggi))
+print("Nama: {n}, Usia: {u}".format(n=nama, u=usia))
+
+# 3. % formatting (old style)
+print("Nama: %s, Usia: %d, Tinggi: %.1fcm" % (nama, usia, tinggi))
+
+# Advanced formatting
+angka = 1234567.8912
+print(f"{angka:,}")        # 1,234,567.8912
+print(f"{angka:.2f}")      # 1234567.89
+print(f"{angka:.2e}")      # 1.23e+06
+
+persen = 0.456
+print(f"{persen:.1%}")     # 45.6%
+
+# Alignment
+text = "Python"
+print(f"{text:<10}")       # Python    (kiri)
+print(f"{text:>10}")       #     Python (kanan)
+print(f"{text:^10}")       #   Python  (tengah)</code></pre>
+                            <p>Konsep Penting:</p>
+                            <ul>
+                                <li>f-strings - paling modern dan mudah dibaca</li>
+                                <li>.format() - fleksibel, good for complex formatting</li>
+                                <li>% formatting - old style, masih digunakan</li>
+                                <li>Format specifiers - kontrol tampilan angka, alignment</li>
+                            </ul>
+
+                            <h5>Iterators & Generators</h5>
+                            <p>Penjelasan: Iterator dan generator memberikan cara efisien untuk bekerja dengan sequence data.</p>
+                            <pre><code># Iterator - objek dengan metode __iter__ dan __next__
+angka_list = [1, 2, 3]
+iterator = iter(angka_list)
+print(next(iterator))  # 1
+print(next(iterator))  # 2
+print(next(iterator))  # 3
+# print(next(iterator))  # ❌ StopIteration error
+
+# Custom iterator
+class HitungMundur:
+    def __init__(self, start):
+        self.current = start
+        self.start = start
+    
+    def __iter__(self):
+        return self
+    
+    def __next__(self):
+        if self.current < 0:
+            raise StopIteration
+        else:
+            self.current -= 1
+            return self.current + 1
+
+for i in HitungMundur(5):
+    print(i)  # 5, 4, 3, 2, 1, 0
+
+# Generator function - menggunakan yield
+def hitung_hingga(n):
+    """Generator yang menghasilkan angka 1 sampai n"""
+    i = 1
+    while i <= n:
+        yield i  # Pause dan return nilai
+        i += 1
+
+# Penggunaan generator
+for angka in hitung_hingga(5):
+    print(angka)  # 1, 2, 3, 4, 5
+
+# Generator expression
+kuadrat_gen = (x**2 for x in range(5))
+for sq in kuadrat_gen:
+    print(sq)  # 0, 1, 4, 9, 16</code></pre>
+                            <p>Konsep Penting:</p>
+                            <ul>
+                                <li>Iterator protocol - iter() dan next() methods</li>
+                                <li>Generator functions - menggunakan yield instead of return</li>
+                                <li>Lazy evaluation - nilai dihasilkan saat dibutuhkan</li>
+                                <li>Memory efficient - baik untuk data besar</li>
+                            </ul>
                         </div>
+
                         <div class="materi-item">
-                            <h4>Advanced Comprehensions dan Generators</h4>
-                            <pre><code># List comprehensions dengan kondisi kompleks
-numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+                            <h4>💼 Tips Profesional Python</h4>
+                            <h5>1. Penamaan yang Bermakna</h5>
+                            <p>Penjelasan: Nama yang baik membuat kode mudah dipahami.</p>
+                            <pre><code># ❌ Buruk - tidak jelas artinya
+x = 10
+y = 20
+z = x + y
 
-# Hanya bilangan genap yang kuadratnya > 20
-result = [x**2 for x in numbers if x % 2 == 0 and x**2 > 20]
-print(result)  # [36, 64, 100]
+# ✅ Baik - jelas dan deskriptif
+harga_produk = 10
+pajak = 20
+total_harga = harga_produk + pajak
 
-# Nested list comprehension
-matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
-flattened = [num for row in matrix for num in row]
-print(flattened)  # [1, 2, 3, 4, 5, 6, 7, 8, 9]
+# Konvensi penamaan:
+# - Variables: snake_case (total_harga)
+# - Functions: snake_case (hitung_total)
+# - Classes: PascalCase (BankAccount)
+# - Constants: UPPER_CASE (MAX_SIZE)</code></pre>
 
-# Dictionary comprehension dengan kondisi
-students = {'Alice': 85, 'Bob': 92, 'Charlie': 78, 'Diana': 95}
-top_students = {name: score for name, score in students.items() if score >= 90}
-print(top_students)  # {'Bob': 92, 'Diana': 95}
+                            <h5>2. Virtual Environment</h5>
+                            <p>Penjelasan: Mengisolasi dependencies per project.</p>
+                            <pre><code># Buat virtual environment
+python -m venv myproject_env
 
-# Generator expressions (memory efficient)
-# Gunakan () bukan []
-big_data = (x**2 for x in range(1000000))  # Tidak langsung menghitung semua
-print(next(big_data))  # 0
-print(next(big_data))  # 1
+# Aktifkan
+# Windows:
+myproject_env\Scripts\activate
+# Mac/Linux:
+source myproject_env/bin/activate
 
-# Generator function dengan yield
-def fibonacci_generator(limit):
-    a, b = 0, 1
-    count = 0
-    while count < limit:
-        yield a
-        a, b = b, a + b
-        count += 1
+# Install packages dalam environment
+pip install requests pandas numpy
 
-# Menggunakan generator
-fib_gen = fibonacci_generator(10)
-for num in fib_gen:
-    print(num, end=' ')  # 0 1 1 2 3 5 8 13 21 34</code></pre>
-                        </div>
-                        <div class="materi-item">
-                            <h4>Object-Oriented Programming (OOP) Lanjutan</h4>
-                            <pre><code># Inheritance dan Polymorphism
-class Animal:
-    def __init__(self, name, age):
-        self.name = name
-        self.age = age
+# Simpan dependencies
+pip freeze > requirements.txt
+
+# Install dari requirements.txt
+pip install -r requirements.txt
+
+# Nonaktifkan
+deactivate</code></pre>
+
+                            <h5>3. Testing dengan unittest</h5>
+                            <p>Penjelasan: Testing memastikan kode bekerja dengan benar.</p>
+                            <pre><code>import unittest
+
+# Fungsi yang akan di-test
+def bagi(a, b):
+    if b == 0:
+        raise ValueError("Tidak bisa dibagi dengan nol")
+    return a / b
+
+class TestMatematika(unittest.TestCase):
     
-    def speak(self):
-        raise NotImplementedError("Subclass harus implement method ini")
+    def test_bagi_normal(self):
+        self.assertEqual(bagi(10, 2), 5)
+        self.assertEqual(bagi(9, 3), 3)
     
-    def info(self):
-        return f"{self.name} ({self.age} years)"
+    def test_bagi_dengan_nol(self):
+        with self.assertRaises(ValueError):
+            bagi(10, 0)
+    
+    def test_bagi_angka_negatif(self):
+        self.assertEqual(bagi(-10, 2), -5)
 
-class Dog(Animal):
-    def __init__(self, name, age, breed):
-        super().__init__(name, age)
-        self.breed = breed
-    
-    def speak(self):
-        return "Woof!"
-    
-    def info(self):
-        return f"{super().info()} - Breed: {self.breed}"
+# Menjalankan tests
+if __name__ == '__main__':
+    unittest.main()
 
-class Cat(Animal):
-    def speak(self):
-        return "Meow!"
+# Menjalankan dari command line:
+# python -m unittest test_file.py</code></pre>
+
+                            <h5>4. Dokumentasi yang Baik</h5>
+                            <p>Penjelasan: Dokumentasi membantu orang lain (dan diri sendiri) memahami kode.</p>
+                            <pre><code>def hitung_rata_rata(angka_list, metode='aritmetika', bobot=None):
+    """
+    Menghitung rata-rata dari list angka dengan berbagai metode.
+    
+    Parameters:
+    angka_list (list): List berisi angka-angka untuk dihitung rata-ratanya
+    metode (str): Jenis rata-rata ('aritmetika', 'tertimbang'). Default 'aritmetika'
+    bobot (list, optional): Bobot untuk rata-rata tertimbang. Harus sama panjang dengan angka_list
+    
+    Returns:
+    float: Nilai rata-rata
+    
+    Raises:
+    ValueError: Jika angka_list kosong atau bobot tidak valid
+    
+    Examples:
+    >>> hitung_rata_rata([1, 2, 3, 4, 5])
+    3.0
+    >>> hitung_rata_rata([1, 2, 3], 'tertimbang', [1, 2, 3])
+    2.3333333333333335
+    """
+    if not angka_list:
+        raise ValueError("List angka tidak boleh kosong")
+    
+    if metode == 'aritmetika':
+        return sum(angka_list) / len(angka_list)
+    
+    elif metode == 'tertimbang':
+        if not bobot or len(bobot) != len(angka_list):
+            raise ValueError("Bobot harus disediakan dan sama panjang dengan angka_list")
+        total_tertimbang = sum(a * b for a, b in zip(angka_list, bobot))
+        total_bobot = sum(bobot)
+        return total_tertimbang / total_bobot
+    
+    else:
+        raise ValueError("Metode tidak dikenali")</code></pre>
+
+                            <h5>5. Type Hints (Python 3.5+)</h5>
+                            <p>Penjelasan: Menambahkan informasi tipe untuk kejelasan dan tooling.</p>
+                            <pre><code>from typing import List, Dict, Optional, Union
+
+def proses_data(
+    nama: str,
+    usia: int,
+    skor: List[float],
+    metadata: Optional[Dict[str, Union[str, int]]] = None
+) -> Dict[str, Union[str, float]]:
+    """
+    Memproses data pengguna dan mengembalikan summary.
+    
+    Args:
+        nama: Nama pengguna
+        usia: Usia pengguna dalam tahun
+        skor: List skor pengguna
+        metadata: Informasi tambahan opsional
+    
+    Returns:
+        Dictionary berisi summary data
+    """
+    rata_rata = sum(skor) / len(skor) if skor else 0.0
+    
+    result = {
+        "nama": nama,
+        "usia": usia,
+        "rata_rata_skor": rata_rata
+    }
+    
+    if metadata:
+        result.update(metadata)
+    
+    return result
 
 # Penggunaan
-animals = [Dog("Buddy", 3, "Golden Retriever"), Cat("Whiskers", 2)]
-for animal in animals:
-    print(f"{animal.info()} says: {animal.speak()}")
+data = proses_data(
+    nama="Alice",
+    usia=25,
+    skor=[85.5, 92.0, 78.5],
+    metadata={"kota": "Jakarta", "level": 2}
+)</code></pre>
 
-# Property decorators
-class Circle:
-    def __init__(self, radius):
-        self._radius = radius
-    
-    @property
-    def radius(self):
-        return self._radius
-    
-    @radius.setter
-    def radius(self, value):
-        if value <= 0:
-            raise ValueError("Radius harus positif")
-        self._radius = value
-    
-    @property
-    def area(self):
-        return 3.14159 * self._radius ** 2
+                            <h5>6. Best Practices Lainnya</h5>
+                            <pre><code># ✅ Gunakan context managers untuk resources
+with open('file.txt', 'r') as file:
+    data = file.read()
+# File otomatis tertutup
 
-circle = Circle(5)
-print(f"Radius: {circle.radius}, Area: {circle.area:.2f}")</code></pre>
+# ✅ Gunakan list comprehension untuk transformasi sederhana
+kuadrat = [x**2 for x in range(10) if x % 2 == 0]
+
+# ✅ Handle exceptions dengan spesifik
+try:
+    # kode berisiko
+    pass
+except FileNotFoundError:
+    print("File tidak ditemukan")
+except PermissionError:
+    print("Tidak ada izin akses")
+
+# ✅ Gunakan enumerate untuk index dan value
+for index, value in enumerate(['a', 'b', 'c']):
+    print(f"Index {index}: {value}")
+
+# ✅ Gunakan zip untuk iterasi multiple lists
+names = ['Alice', 'Bob']
+scores = [85, 92]
+for name, score in zip(names, scores):
+    print(f"{name}: {score}")</code></pre>
+                        </div>
+
+                        <div class="materi-item">
+                            <h4>🎯 Kesimpulan dan Next Steps</h4>
+                            <p><strong>Yang Telah Dipelajari:</strong></p>
+                            <ol>
+                                <li>Fundamental - variabel, tipe data, operator, control flow</li>
+                                <li>Functions - modularitas, reuse, organization</li>
+                                <li>Data Structures - list, tuple, set, dict, string operations</li>
+                                <li>OOP - classes, inheritance, encapsulation, polymorphism</li>
+                                <li>Advanced Topics - file I/O, exception handling, generators</li>
+                                <li>Professional Practices - testing, documentation, best practices</li>
+                            </ol>
+                            
+                            <p><strong>Prinsip Pythonic Code:</strong></p>
+                            <ul>
+                                <li>Simple is better than complex - kesederhanaan lebih baik</li>
+                                <li>Readability counts - keterbacaan sangat penting</li>
+                                <li>Explicit is better than implicit - eksplisit lebih baik</li>
+                                <li>Don't repeat yourself (DRY) - jangan ulangi kode</li>
+                            </ul>
                         </div>
                     </div>
 
@@ -1471,4 +2120,4 @@ module.exports = config;</code></pre>
 
     <script src="script.js"></script>
 </body>
-                            </html>
+    </html>
